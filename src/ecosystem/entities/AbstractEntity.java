@@ -11,9 +11,9 @@ public abstract class  AbstractEntity {
         if (position != null)
             this.position = position;
 
-        int index = symbolsValid.indexOf(symbol);
-        if (index != -1)
-            this.symbol = symbol;
+         boolean flag = setSymbol(symbol);
+         if (flag)
+             this.symbol= symbol;
         this.alive = alive;
     }
 
@@ -46,7 +46,6 @@ public abstract class  AbstractEntity {
         return false;
     }
 
-
     public boolean setAlive(boolean alive) {
         if ((this.alive) && (!alive)) {
             this.alive = false;
@@ -57,13 +56,8 @@ public abstract class  AbstractEntity {
 
     @Override
     public String toString() {
-        return "AbstractEntity{" +
-                "position=" + position +
-                ", symbol=" + symbol +
-                ", alive=" + alive +
-                '}';
+        return "ENTITY TYPE:" + symbol +"POSITION:" + position.toString() + " ALIVE STATE:" + alive;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -75,13 +69,3 @@ public abstract class  AbstractEntity {
         return false;
     }
 }
-
-
-
-
-
-
-
-
-
-
