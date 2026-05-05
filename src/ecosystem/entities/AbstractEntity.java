@@ -64,7 +64,7 @@ public abstract class  AbstractEntity {
         if (this == o)
             return true;
         if (o instanceof AbstractEntity other)
-            return this.alive == other.alive && this.position == other.position && this.symbol == other.symbol;
+            return this.alive == other.alive && this.position.equals(other.position) && this.symbol == other.symbol;
 
         return false;
     }

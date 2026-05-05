@@ -65,7 +65,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
 
     @Override
     public String toString(){
-        return this.getPosition() + " Energy: " + this.energy +  " Max Energy: "+ this.maxEnergy + "Alive: " + this.isAlive();
+        return super.toString() + " Energy: " + this.energy;
     }
 
 }
