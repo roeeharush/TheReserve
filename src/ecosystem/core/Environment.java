@@ -10,6 +10,7 @@ public class Environment {
     private AbstractEntity[][] map;
     private int rows;
     private int cols;
+    private int x;
 
     public Environment(int rows , int cols) {
         if (rows < 10)
@@ -60,7 +61,11 @@ public class Environment {
         entities.remove(entity);
         map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
         return true;
+
+
     }
+
+
 
 
 
