@@ -10,7 +10,6 @@ public class Environment {
     private final AbstractEntity[][] map;
     private final int rows;
     private final int cols;
-    private int x;
 
     public Environment(int rows , int cols) {
         if (rows < 10)
