@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Environment {
     private final List<AbstractEntity> entities;
-    private AbstractEntity[][] map;
-    private int rows;
-    private int cols;
+    private final AbstractEntity[][] map;
+    private final int rows;
+    private final int cols;
     private int x;
 
     public Environment(int rows , int cols) {
