@@ -21,7 +21,7 @@ public abstract class  AbstractEntity {
         return symbol;
     }
 
-    protected Position getPosition() {
+    public Position getPosition() {
         return position;
     }
 
