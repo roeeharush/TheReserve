@@ -20,8 +20,7 @@ public abstract class  AbstractEntity {
     public char getSymbol() {
         return symbol;
     }
-
-    protected Position getPosition() {
+      public Position getPosition() {
         return position;
     }
 
