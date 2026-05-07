@@ -42,11 +42,12 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
 
     @Override
     public boolean act(Environment env){
+        if(!this.isAlive())
+            return false;
         this.age++;
         this.energy -= 2;
-        if(this.getEnergy() <= 0){
+        if(this.getEnergy() <= 0)
             this.setAlive(false);
-        }
         return true;
     }
 
