@@ -17,6 +17,8 @@ public abstract class  AbstractEntity {
         this.alive = alive;
     }
 
+
+
     public char getSymbol() {
         return symbol;
     }
@@ -28,10 +30,10 @@ public abstract class  AbstractEntity {
         return alive;
     }
 
-    protected boolean setPosition(Position position) {
+    public boolean setPosition(Position position) {
         if (position == null)
             return false;
-        this.position = position;
+        this.position = new Position(position.getRow(),position.getCol());
         return true;
     }
 

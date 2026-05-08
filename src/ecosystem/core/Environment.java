@@ -64,7 +64,6 @@ public class Environment {
 
     }
 
-
      public List<AbstractEntity> getNearbyEntities(Position pos){
 
          List<AbstractEntity> entitiesNew = new ArrayList<>();

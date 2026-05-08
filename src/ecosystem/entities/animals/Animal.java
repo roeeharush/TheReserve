@@ -1,5 +1,7 @@
 package ecosystem.entities.animals;
 
+import ecosystem.behaviors.FeedingBehavior;
+import ecosystem.behaviors.MovementStrategy;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
@@ -22,6 +24,18 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
 
     }
 
+    public boolean act(Environment env){
+        super.act(env);
+        if (!isAlive()) {
+            return false;
+        }
+        List<AbstractEntity> nearbyEntities = this.sense(env);
+        move(env);
+        this.feedingBehavior.eat(this, nearbyEntities);
+        return true;
+
+    }
+
     public double getNutritionValue(){
         return getEnergy()*0.8;
     }
@@ -34,8 +48,19 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
        return env.getNearbyEntities(this.getPosition());
     }
 
-    public boolean move(Environment env){
+    public boolean move(Environment env) {
+        return this.movementStrategy.move(this, env);
+    }
 
+    public boolean eat(Consumable target){
+        if (target != null) {
+            double newEnergy = Math.min(getEnergy() + target.getNutritionValue(), getMaxEnergy());
+            this.setEnergy( newEnergy);
+            target.onConsumed();
+            return true;
+        }
+        return false;
+    }
     }
 
 
