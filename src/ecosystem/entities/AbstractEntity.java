@@ -8,12 +8,12 @@ public abstract class  AbstractEntity {
     private static final String symbolsValid = "LRDTFXW";
 
     public AbstractEntity(Position position, char symbol, boolean alive) {
-        if (position != null)
-            this.position = position;
+        if (!setPosition(position))
+            this.position = new Position(0,0);
 
-         boolean flag = setSymbol(symbol);
-         if (flag)
-             this.symbol= symbol;
+         if(!setSymbol(symbol))
+             this.symbol = 'N'; // none
+
         this.alive = alive;
     }
 
@@ -55,7 +55,7 @@ public abstract class  AbstractEntity {
 
     @Override
     public String toString() {
-        return "ENTITY TYPE:" + symbol +"POSITION:" + position.toString() + " ALIVE STATE:" + alive;
+        return "Entity type: " + getSymbol() +" Position:" + getPosition().toString() + "Amount of energy: " + " 0.0 " + " Alive state " + isAlive();
     }
 
     @Override
@@ -64,7 +64,6 @@ public abstract class  AbstractEntity {
             return true;
         if (o instanceof AbstractEntity other)
             return this.alive == other.alive && this.position.equals(other.position) && this.symbol == other.symbol;
-
         return false;
     }
 }

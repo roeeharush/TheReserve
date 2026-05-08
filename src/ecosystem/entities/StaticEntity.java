@@ -3,7 +3,7 @@ package ecosystem.entities;
 import ecosystem.core.Position;
 
 // לא ממשים act
-public class StaticEntity extends AbstractEntity{
+public abstract class StaticEntity extends AbstractEntity{
 
     public StaticEntity(Position position, char symbol, boolean alive) {
         super(position, symbol, alive);
