@@ -55,7 +55,7 @@ public abstract class  AbstractEntity {
 
     @Override
     public String toString() {
-        return "ENTITY TYPE:" + symbol +"POSITION:" + position.toString() + " ALIVE STATE:" + alive;
+        return "Entity type: " + getSymbol() +" Position:" + getPosition().toString() + "Amount of energy: " + " 0.0 " + " Alive state " + isAlive();
     }
 
     @Override
