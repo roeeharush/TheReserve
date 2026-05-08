@@ -65,6 +65,18 @@ public class Environment {
     }
 
 
+     public List<AbstractEntity> getNearbyEntities(Position pos){
+
+         List<AbstractEntity> entitiesNew = new ArrayList<>();
+         for ( AbstractEntity e :entities  ) {
+             int distance = e.getPosition().distanceTo(pos);
+             if(distance>0 && distance <=2)
+                 entitiesNew.add(e);
+         }
+         return entitiesNew;
+     }
+
+
 
 
 
