@@ -38,16 +38,16 @@ public class Environment {
     }
 
     public boolean isPositionFree (Position pos){
-        if ((pos.getCol() >= 0 && pos.getCol() < this.cols) && (pos.getRow() >= 0 && pos.getRow() < this.rows))
-            return map[pos.getRow()][pos.getCol()] == null && map[pos.getRow()][pos.getCol()].getSymbol() != 'X';
+        if (pos.getCol() < 0 || pos.getCol() >= this.cols || pos.getRow() < 0 || pos.getRow() >= this.rows)
+            return false;
 
-        return true;
+        return map[pos.getRow()][pos.getCol()] == null;
         }
 
     public boolean addEntity(AbstractEntity entity) {
-        if (entity == null || !isPositionFree(entity.getPosition())) {
+        if (entity == null || !isPositionFree(entity.getPosition()))
             return false;
-        }
+
         entities.add(entity);
         map[entity.getPosition().getRow()][entity.getPosition().getCol()] = entity;
         return true;
@@ -69,7 +69,7 @@ public class Environment {
          List<AbstractEntity> entitiesNew = new ArrayList<>();
          for ( AbstractEntity e :entities  ) {
              int distance = e.getPosition().distanceTo(pos);
-             if(distance>0 && distance <=2)
+             if(distance > 0 && distance <= 2)
                  entitiesNew.add(e);
          }
          return entitiesNew;
