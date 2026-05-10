@@ -12,6 +12,16 @@ public class Lion extends Animal {
         super(position, 'L', true, 100, 100, FB,MS);
     }
 
+    @Override
+    public String toString(){
+        return this.toString();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        return super.equals(o);
+    }
+
 
 }
 

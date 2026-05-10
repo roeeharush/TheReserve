@@ -9,23 +9,18 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
     private double energy;
     private int age = 0;
 
-
-
-
     public LivingEntity(Position position, char symbol, boolean alive,double energy, double maxEnergy) {
         super(position, symbol, alive);
-        this.age = 0;
         if(!setMaxEnergy(maxEnergy)){
-            this.maxEnergy = 100.0;
+            this.maxEnergy = 1000.0;
         }
-
         if(!setEnergy(energy)){
             this.energy = this.maxEnergy;
         }
     }
 
     public boolean setMaxEnergy(double maxEnergy){
-        if(maxEnergy > 0){
+        if(maxEnergy >0 && maxEnergy >= this.energy){
             this.maxEnergy = maxEnergy;
             return true;
         }
@@ -72,9 +67,9 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
     public boolean equals(Object o){
         if(this == o)
             return true;
+        if(!super.equals(o))
+            return false;
         if(o instanceof LivingEntity other){
-            if(!super.equals(o))
-                return false;
         return this.age == other.age
                 && Double.compare(this.energy, other.energy)==0
                 && Double.compare(this.maxEnergy,other.maxEnergy)==0;

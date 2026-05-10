@@ -10,4 +10,16 @@ public class Deer extends Animal {
         super(position, 'D', true, 70, 70,FB ,MS);
 
     }
+
+    @Override
+    public String toString(){
+        return this.toString();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        return super.equals(o);
+    }
+
+
 }

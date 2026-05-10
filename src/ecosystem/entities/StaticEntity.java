@@ -16,6 +16,8 @@ public abstract class StaticEntity extends AbstractEntity{
 
     @Override
     public boolean equals(Object o) {
+        if(this == o)
+            return true;
         if (!super.equals(o))
             return false;
         return o instanceof StaticEntity;

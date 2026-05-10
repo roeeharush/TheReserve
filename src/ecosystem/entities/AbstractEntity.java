@@ -17,8 +17,6 @@ public abstract class  AbstractEntity {
         this.alive = alive;
     }
 
-
-
     public char getSymbol() {
         return symbol;
     }
@@ -38,7 +36,6 @@ public abstract class  AbstractEntity {
     }
 
     protected boolean setSymbol(char symbol) {
-
         int index = symbolsValid.indexOf(symbol);
         if (index != -1) {
             this.symbol = symbol;
@@ -57,7 +54,7 @@ public abstract class  AbstractEntity {
 
     @Override
     public String toString() {
-        return "Entity type: " + getSymbol() +" Position:" + getPosition().toString() + "Amount of energy: " + " 0.0 " + " Alive state " + isAlive();
+        return "Entity type: " + getSymbol() +" Position:" + getPosition().toString()  + " Alive state " + isAlive();
     }
 
     @Override
