@@ -29,8 +29,9 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
             return false;
 
         List<AbstractEntity> nearbyEntities = this.sense(env);
-        move(env);
-        return this.feedingBehavior.eat(this, nearbyEntities);
+        boolean moved = move(env);
+        boolean ate = this.feedingBehavior.eat(this, nearbyEntities);
+        return moved || ate;
 
 
     }

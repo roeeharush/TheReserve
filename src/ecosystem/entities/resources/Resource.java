@@ -12,15 +12,11 @@ public abstract class Resource extends StaticEntity {
 
     @Override
     public boolean equals(Object o){
-        if(this == o)
-            return true;
-        if(o instanceof Resource other)
-            return super.equals(o);
-        return false;
+        return super.equals(o);
     }
 
     @Override
     public String toString(){
-        return "Entity Type: " + getSymbol() + " Position: " + getPosition().toString() +" Amount of Energy: " + "0.0 " + "is exist: " + isAlive();
+        return super.toString();
     }
 }

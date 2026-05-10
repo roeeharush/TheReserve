@@ -1,8 +1,8 @@
 package ecosystem.core;
 import ecosystem.entities.AbstractEntity;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 public class Environment {
@@ -11,7 +11,7 @@ public class Environment {
     private final int rows;
     private final int cols;
 
-    public Environment(int rows , int cols) {
+    public Environment(int rows, int cols) {
         if (rows < 10)
             rows = 10;
         if (cols < 10)
@@ -23,26 +23,26 @@ public class Environment {
         this.entities = new ArrayList<>();
     }
 
-        @Override
-        public boolean equals (Object o){
-            if (this == o)
-                return true;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
 
-            if (o instanceof Environment other) {
-                return this.rows == other.rows
-                        && this.cols == other.cols
-                        && this.entities.equals(other.entities)
-                        && java.util.Arrays.deepEquals(this.map, other.map);
-            }
-            return false;
+        if (o instanceof Environment other) {
+            return this.rows == other.rows
+                    && this.cols == other.cols
+                    && this.entities.equals(other.entities)
+                    && java.util.Arrays.deepEquals(this.map, other.map);
+        }
+        return false;
     }
 
-    public boolean isPositionFree (Position pos){
+    public boolean isPositionFree(Position pos) {
         if (pos.getCol() < 0 || pos.getCol() >= this.cols || pos.getRow() < 0 || pos.getRow() >= this.rows)
             return false;
 
         return map[pos.getRow()][pos.getCol()] == null;
-        }
+    }
 
     public boolean addEntity(AbstractEntity entity) {
         if (entity == null || !isPositionFree(entity.getPosition()))
@@ -64,31 +64,33 @@ public class Environment {
 
     }
 
-     public List<AbstractEntity> getNearbyEntities(Position pos){
+    public List<AbstractEntity> getNearbyEntities(Position pos) {
 
-         List<AbstractEntity> entitiesNew = new ArrayList<>();
-         for ( AbstractEntity e :entities  ) {
-             int distance = e.getPosition().distanceTo(pos);
-             if(distance > 0 && distance <= 2)
-                 entitiesNew.add(e);
-         }
-         return entitiesNew;
-     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        List<AbstractEntity> entitiesNew = new ArrayList<>();
+        for (AbstractEntity e : entities) {
+            int distance = e.getPosition().distanceTo(pos);
+            if (distance > 0 && distance <= 2)
+                entitiesNew.add(e);
+        }
+        return entitiesNew;
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
 
+        for (int i = 0; i < rows; i++) {
+            sb.append("|");
+            for (int j = 0; j < cols; j++) {
+                if (map[i][j] == null) {
+                    sb.append(" ");
+                } else {
+                    sb.append(map[i][j].getSymbol());
+                }
+                sb.append("|");
+            }
+            sb.append("\n");
+
+        }
+        return sb.toString();
+    }
+}

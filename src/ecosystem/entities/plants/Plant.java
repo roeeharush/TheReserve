@@ -12,23 +12,22 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
 
     public Plant(Position position, char symbol, boolean alive, double energy, double maxEnergy, double growthRate, double reproductionChance) {
         super(position, symbol, alive, energy, maxEnergy);
-        if(!setGrowRate(growthRate))
+        if (!setGrowRate(growthRate))
             this.growthRate = 1.0;
-        if(!setReproductionChance(reproductionChance))
+        if (!setReproductionChance(reproductionChance))
             this.reproductionChance = 0.1;
     }
 
-    public boolean setGrowRate(double growthRate){
-        if(growthRate >= 0) {
+    public boolean setGrowRate(double growthRate) {
+        if (growthRate >= 0) {
             this.growthRate = growthRate;
             return true;
         }
         return false;
     }
 
-    public boolean setReproductionChance(double reproductionChance){
-        if(reproductionChance <= 1.0 && reproductionChance >= 0)
-        {
+    public boolean setReproductionChance(double reproductionChance) {
+        if (reproductionChance <= 1.0 && reproductionChance >= 0) {
             this.reproductionChance = reproductionChance;
             return true;
         }
@@ -36,45 +35,54 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
     }
 
     @Override
-    public boolean act(Environment env){
-        if(!super.act(env))
+    public boolean act(Environment env) {
+        boolean action = super.act(env);
+        if (!isAlive())
             return false;
-        setEnergy(getEnergy() + growthRate + 2.0);
-        reproduce(env);
-        return true;
+
+        double updatedEnergy = this.getEnergy() + 2 + this.growthRate;
+        if (updatedEnergy > this.getMaxEnergy())
+            updatedEnergy = this.getMaxEnergy();
+        this.setEnergy(updatedEnergy);
+
+        boolean repr = reproduce(env);
+        return action || repr;
     }
+
     @Override
-    public abstract boolean reproduce(Environment env);
+    public abstract boolean reproduce (Environment env);
 
 
     @Override
-    public double getNutritionValue(){
+    public double getNutritionValue () {
         return this.getEnergy();
 
-    }
-
-    @Override
-    public boolean onConsumed(){
-        return this.setAlive(false);
-    }
-
-    /*
-    @Override
-    public String toString(){
-
-    }
-*/
-    @Override
-    public boolean equals(Object o){
-        if(this == o)
-            return true;
-        if(o instanceof Plant other){
-            if(!super.equals(o))
-                return false;
-            return Double.compare(this.growthRate,other.growthRate) ==0
-                    && Double.compare(this.reproductionChance,other.reproductionChance)==0;
         }
+
+        @Override
+        public boolean onConsumed(){
+            return this.setAlive(false);
+        }
+
+
+    @Override
+    public String toString() {
+       return super.toString();
+    }
+
+
+    @Override
+    public boolean equals (Object o){
+        if (this == o)
+            return true;
+        if (o instanceof Plant other) {
+            if (!super.equals(o))
+                return false;return Double.compare(this.growthRate, other.growthRate) == 0
+                        && Double.compare(this.reproductionChance, other.reproductionChance) == 0;
+            }
         return false;
     }
 
+
 }
+

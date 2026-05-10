@@ -18,8 +18,12 @@ public class Rabbit extends Animal implements Reproducible {
     }
     @Override
     public boolean act(Environment env){
-        super.act(env);
+        if (!isAlive())
+            return false;
 
+        boolean animalAction = super.act(env);
+        boolean reproduced = this.reproduce(env);
+        return animalAction || reproduced;
     }
 
 
