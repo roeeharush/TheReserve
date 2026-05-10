@@ -56,7 +56,7 @@ public class Rabbit extends Animal implements Reproducible {
 
     @Override
     public String toString(){
-        return this.toString();
+        return super.toString();
     }
 
     @Override

@@ -23,6 +23,10 @@ public class Environment {
         this.entities = new ArrayList<>();
     }
 
+    public List<AbstractEntity> getEntities() {
+        return new ArrayList<>(entities);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
