@@ -19,8 +19,7 @@ public class Flower extends Plant {
 
     @Override
     public boolean onConsumed() {
-        this.setAlive(false);
-        return true;
+        return super.onConsumed();
     }
 
 

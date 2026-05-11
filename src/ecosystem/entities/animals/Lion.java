@@ -5,16 +5,15 @@ import ecosystem.core.Position;
 
 
 public class Lion extends Animal {
-    public Lion(Position position) {
-        MovementStrategy MS = new ChaseMovement();
-        FeedingBehavior FB = new CarnivoreBehavior();
+    private static final double MAX_ENERGY = 500;
 
-        super(position, 'L', true, 100, 100, FB,MS);
+    public Lion(Position position) {
+        super(position, 'L', true, 100, MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
     }
 
     @Override
     public String toString(){
-        return this.toString();
+        return super.toString();
     }
 
     @Override

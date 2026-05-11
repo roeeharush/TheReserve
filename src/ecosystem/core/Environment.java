@@ -61,8 +61,8 @@ public class Environment {
         if (entity == null || !entities.contains(entity)) {
             return false;
         }
-        entities.remove(entity);
         map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
+        entities.remove(entity);
         return true;
 
 

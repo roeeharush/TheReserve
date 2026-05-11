@@ -4,10 +4,11 @@ import ecosystem.behaviors.*;
 import ecosystem.core.Position;
 
 public class Deer extends Animal {
+    private static final double MAX_ENERGY = 300;
+
+
     public Deer( Position position) {
-        MovementStrategy MS = new EscapeMovement();
-        FeedingBehavior FB = new HerbivoreBehavior();
-        super(position, 'D', true, 70, 70,FB ,MS);
+        super(position, 'D', true, 70, MAX_ENERGY,new HerbivoreBehavior() , new EscapeMovement());
 
     }
 

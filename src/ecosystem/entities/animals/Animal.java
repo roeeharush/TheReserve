@@ -15,8 +15,9 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
     private  MovementStrategy movementStrategy;
     private final int visionRange = 2;
 
+
     public Animal(Position position, char symbol, boolean alive,
-                  int energy, int maxEnergy, FeedingBehavior feedingBehavior , MovementStrategy movementStrategy){
+                  int energy, double maxEnergy, FeedingBehavior feedingBehavior , MovementStrategy movementStrategy){
         super(position ,symbol, alive,energy,maxEnergy );
         this.feedingBehavior = feedingBehavior;
         this.movementStrategy = movementStrategy;
@@ -64,7 +65,7 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
 
     @Override
     public String toString(){
-        return this.toString();
+        return super.toString();
     }
 
     @Override

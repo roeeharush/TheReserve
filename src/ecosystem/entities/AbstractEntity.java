@@ -45,10 +45,8 @@ public abstract class  AbstractEntity {
     }
 
     public boolean setAlive(boolean alive) {
-        if ((this.alive) && (!alive)) {
-            this.alive = false;
-            return true;
-        }
+        if (!alive)
+            this.alive=alive;
         return false;
     }
 

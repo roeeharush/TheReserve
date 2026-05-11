@@ -9,11 +9,10 @@ import ecosystem.interfaces.Reproducible;
 import java.util.Random;
 
 public class Rabbit extends Animal implements Reproducible {
+    private static final double MAX_ENERGY = 200;
 
-    public Rabbit( Position position) {
-        MovementStrategy MS = new RandomMovement();
-        FeedingBehavior FB = new HerbivoreBehavior();
-        super(position, 'R', true, 50, 50,FB ,MS);
+    public Rabbit( Position position ) {
+        super(position, 'R', true, 50, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
 
     }
     @Override
