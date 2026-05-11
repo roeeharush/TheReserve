@@ -8,7 +8,19 @@ import ecosystem.interfaces.EdibleByHerbivore;
 
 import java.util.List;
 
+/**
+ * מחלקה שמייצגת אסטרטגיה של תנועת בריחה בעולם שלנו
+ * הישות מזהה ישויות מסוימות בסביבה הקרובה שלה ומנסה להתרחק מהן כמה שיותר מהר כדי לשמור על עצמה
+ */
 public class EscapeMovement implements MovementStrategy {
+
+    /**
+     * מבצע את תנועת הבריחה של הישות לפי המיקום של היצורים מסביב
+     * הפונקציה סורקת את הסביבה ואם היא מוצאת מטרה היא מחשבת מיקום חדש שנמצא בכיוון ההפוך ממנה ומנסה לעבור אליו רק אם הוא פנוי במפה
+     * @param entity הישות שמנסה לברוח עכשיו מהאיום
+     * @param env העולם שבו הישות בודקת את הסביבה ומבצעת את התנועה בפועל
+     * @return true אם הישות זיהתה מישהו והצליחה להתרחק למשבצת פנויה false אם לא נמצא מישהו לברוח ממנו או שהדרך הייתה חסומה
+     */
     @Override
     public boolean move(AbstractEntity entity, Environment env) {
         List<AbstractEntity> nearbyEntities = env.getNearbyEntities(entity.getPosition());
