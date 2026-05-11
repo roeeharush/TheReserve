@@ -7,15 +7,15 @@ import ecosystem.entities.animals.Rabbit;
 import java.util.Random;
 
 public class OakTree extends Plant {
-    private static final double initialEnergy = 80.0;
-    private static final double maxEnergy = 120.0;
-    private static final double growRate = 2.0;
-    private static final double reproductionChance = 0.05;
+    private static final double INITINAL_ENERGY = 80.0;
+    private static final double MAX_ENERGY = 120.0;
+    private static final double GROW_RATE = 2.0;
+    private static final double REPRODUCTION_CHANCE = 0.05;
 
 
 
     public OakTree(Position position){
-        super(position,'T',true,initialEnergy,maxEnergy,growRate,reproductionChance);
+        super(position,'T',true,INITINAL_ENERGY,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class OakTree extends Plant {
 
 
         Position position = this.getPosition();
-        if(result <= 0.05){
+        if(result <= REPRODUCTION_CHANCE){
             Position option1 = new Position(position.getRow() - 1, position.getCol());
             Position option2 = new Position(position.getRow() + 1, position.getCol());
             Position option3 = new Position(position.getRow(), position.getCol() - 1);
@@ -34,8 +34,8 @@ public class OakTree extends Plant {
 
             for( Position op : options){
                 if(env.isPositionFree(op)){
-                    OakTree NewoakTree = new OakTree(op);
-                    env.addEntity(NewoakTree);
+                    OakTree newOakTree = new OakTree(op);
+                    env.addEntity(newOakTree);
                     return true;
                 }
             }

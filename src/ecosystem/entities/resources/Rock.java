@@ -3,7 +3,7 @@ import ecosystem.core.Position;
 
 public class Rock extends Resource {
 
-    private boolean blocksMovement = true;
+    private final boolean blocksMovement = true;
 
     public Rock(Position position) {
         super(position, 'X', true);

@@ -12,10 +12,8 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
 
     public Plant(Position position, char symbol, boolean alive, double energy, double maxEnergy, double growthRate, double reproductionChance) {
         super(position, symbol, alive, energy, maxEnergy);
-        if (!setGrowRate(growthRate))
-            this.growthRate = 1.0;
-        if (!setReproductionChance(reproductionChance))
-            this.reproductionChance = 0.1;
+        setGrowRate(growthRate);
+        setReproductionChance(reproductionChance);
     }
 
     public boolean setGrowRate(double growthRate) {
@@ -23,14 +21,16 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
             this.growthRate = growthRate;
             return true;
         }
+        this.growthRate = 1.0;
         return false;
     }
 
     public boolean setReproductionChance(double reproductionChance) {
-        if (reproductionChance <= 1.0 && reproductionChance >= 0) {
+        if (reproductionChance >= 0 && reproductionChance <= 1.0) {
             this.reproductionChance = reproductionChance;
             return true;
         }
+        this.reproductionChance = 0.1;
         return false;
     }
 
@@ -39,7 +39,6 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
         boolean action = super.act(env);
         if (!isAlive())
             return false;
-
         double updatedEnergy = this.getEnergy() + 2 + this.growthRate;
         if (updatedEnergy > this.getMaxEnergy())
             updatedEnergy = this.getMaxEnergy();
@@ -56,7 +55,6 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
     @Override
     public double getNutritionValue () {
         return this.getEnergy();
-
         }
 
         @Override

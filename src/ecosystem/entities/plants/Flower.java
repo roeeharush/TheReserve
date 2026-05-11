@@ -1,18 +1,19 @@
 package ecosystem.entities.plants;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
-import ecosystem.entities.AbstractEntity;
 
 import java.util.Random;
 
 public class Flower extends Plant {
-    private static final double initialEnergy = 10.0;
-    private static final double maxEnergy = 70.0;
-    private static final double growRate = 5.0;
-    private static final double reproductionChance = 0.2;
+    private static final double INITIAL_ENERGY = 10.0;
+    private static final double MAX_ENERGY = 70.0;
+    private static final double GROW_RATE = 5.0;
+    private static final double REPRODUCTION_CHANCE = 0.2;
+    private static final Random rand = new Random();
+
 
     public Flower(Position position) {
-        super(position, 'F', true, initialEnergy, maxEnergy, growRate, reproductionChance);
+        super(position, 'F', true, INITIAL_ENERGY, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
     }
 
 
@@ -25,7 +26,6 @@ public class Flower extends Plant {
 
     @Override
     public boolean reproduce(Environment env) {
-        Random rand = new Random();
         if (rand.nextDouble() <= 0.20) {
             int childrenToCreate = rand.nextInt(3) + 1;
             int createdCount = 0;

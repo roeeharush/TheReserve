@@ -18,7 +18,8 @@ public class SimulationEngine {
     public void Tick(){
         for(AbstractEntity e : environment.getEntities()){
             if(e instanceof Actable)
-                ((Actable) e).act(this.environment);}
+                ((Actable) e).act(this.environment);
+        }
 
         List<AbstractEntity> toRemove = new ArrayList<>();
 

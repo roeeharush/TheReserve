@@ -9,13 +9,13 @@ public class Water extends Resource implements Consumable {
         super(position,'W',true);
     }
 
+    @Override
     public double getNutritionValue(){
         return NUTRITION_VALUE;
     }
 
-    public boolean onConsumed(){
-        return true;
-    }
+    @Override
+    public boolean onConsumed(){return true;}
 
     @Override
     public String toString(){
