@@ -8,23 +8,25 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
     private double maxEnergy;
     private double energy;
     private int age = 0;
+    private static final double DEFAULT_MAX_ENERGY =1000.0;
+
 
     public LivingEntity(Position position, char symbol, boolean alive,double energy, double maxEnergy) {
         super(position, symbol, alive);
-        if(!setMaxEnergy(maxEnergy)){
-            this.maxEnergy = 1000.0;
-        }
-        if(!setEnergy(energy)){
-            this.energy = this.maxEnergy;
-        }
+        setMaxEnergy(maxEnergy);
+        setEnergy(energy);
     }
 
-    public boolean setMaxEnergy(double maxEnergy){
-        if(maxEnergy >0 && maxEnergy >= this.energy){
+    public boolean setMaxEnergy(double maxEnergy) {
+        if (maxEnergy > 0) {
             this.maxEnergy = maxEnergy;
+            if (this.energy >= this.maxEnergy)
+                this.energy = maxEnergy;
             return true;
         }
+        this.maxEnergy = DEFAULT_MAX_ENERGY;
         return false;
+
     }
 
     public boolean setEnergy(double energy){
@@ -32,6 +34,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
             this.energy = energy;
             return true;
         }
+        this.energy = this.maxEnergy;
         return false;
     }
 
