@@ -31,7 +31,7 @@ public class ChaseMovement implements MovementStrategy{
 
                 Position newPos = new Position(myRow, myCol);
                 if (env.isPositionFree(newPos)) {
-                    entity.setPosition(newPos);
+                    env.moveEntity(entity, newPos);
                     return true;
                 }
                 return false;

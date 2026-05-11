@@ -31,7 +31,7 @@ public abstract class  AbstractEntity {
     public boolean setPosition(Position position) {
         if (position == null)
             return false;
-        this.position = new Position(position.getRow(),position.getCol());
+        this.position =   new Position(position.getRow(),position.getCol());
         return true;
     }
 

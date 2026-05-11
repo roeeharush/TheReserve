@@ -24,7 +24,8 @@ public class RandomMovement implements MovementStrategy{
         Position choice = options[index];
 
         if (env.isPositionFree(choice)) {
-            entity.setPosition(choice);
+            System.out.println( "im moving!");
+            env.moveEntity(entity, choice);
             return true;
         }
          return false;

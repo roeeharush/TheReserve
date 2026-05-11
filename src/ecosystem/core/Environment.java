@@ -97,4 +97,15 @@ public class Environment {
         }
         return sb.toString();
     }
+
+    public boolean moveEntity(AbstractEntity entity, Position newPos) {
+        if (!isPositionFree(newPos))
+            return false;
+
+        map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
+        entity.setPosition(newPos);
+        map[newPos.getRow()][newPos.getCol()] = entity;
+
+        return true;
+    }
 }
