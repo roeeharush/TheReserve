@@ -10,10 +10,8 @@ import ecosystem.interfaces.Reproducible;
 /**
  * מחלקה אבסטרקטית שמייצגת את כל הצמחים בעולם שלנו.
  * הצמחים הם יצורים חיים שגדלים (מעלים אנרגיה) ויכולים להתרבות.
- * * מגישים:
- * רועי הרוש - 212766810
- * רננה אזולאי - 2160866066
- */
+ **/
+
 public abstract class Plant extends LivingEntity implements Consumable, Reproducible, EdibleByHerbivore {
     private double growthRate;
     private double reproductionChance;

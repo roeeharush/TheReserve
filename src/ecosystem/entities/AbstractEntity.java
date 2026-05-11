@@ -82,7 +82,7 @@ public abstract class  AbstractEntity {
     /**
      * מעדכן את מצב החיות של הישות
      * @param alive המצב החדש שרוצים לקבוע
-     * @return false לפי המימוש הנוכחי בקוד
+     * @return false
      */
     public boolean setAlive(boolean alive){
         if (!alive)
