@@ -1,4 +1,5 @@
 package ecosystem.core;
+import ecosystem.GUI.WorldObserver;
 import ecosystem.entities.AbstractEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,19 @@ import java.util.List;
  * מחלקה שמנהלת את כל העולם והמפה שלנו
  * היא האחראית לדעת איפה כל יצור נמצא ולדאוג שהכל יעבוד לפי הכללים של המערכת
  */
-public class Environment {
+public class Environment  {
     private final List<AbstractEntity> entities;
     private final AbstractEntity[][] map;
     private final int rows;
     private final int cols;
+    private final List<WorldObserver> observers = new ArrayList<>();
+
+    public int getRows() { return rows; }
+    public int getCols() { return cols; }
+
+    public AbstractEntity getEntityAt(int row, int col) {
+        return map[row][col];
+    }
 
 
     /**
@@ -89,6 +98,7 @@ public class Environment {
 
         entities.add(entity);
         map[entity.getPosition().getRow()][entity.getPosition().getCol()] = entity;
+        notifyObservers();
         return true;
     }
 
@@ -104,6 +114,7 @@ public class Environment {
         }
         map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
         entities.remove(entity);
+        notifyObservers();
         return true;
 
 
@@ -166,7 +177,24 @@ public class Environment {
         map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
         entity.setPosition(newPos);
         map[newPos.getRow()][newPos.getCol()] = entity;
+        notifyObservers();
 
         return true;
     }
+
+    public void addObserver(WorldObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers() {
+        for (WorldObserver observer : observers) {
+            observer.onWorldChanged();
+        }
+    }
+
+
+
+
+
+
 }

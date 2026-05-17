@@ -45,4 +45,9 @@ public class Rock extends Resource {
     public boolean equals(Object o){
         return super.equals(o);
     }
+
+    @Override
+    public String getImageName() {
+        return "Rock";
+    }
 }

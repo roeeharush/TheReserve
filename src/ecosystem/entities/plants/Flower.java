@@ -92,5 +92,11 @@ public class Flower extends Plant {
     public String toString() {
         return super.toString();
     }
+
+
+    @Override
+    public String getImageName() {
+        return "Flower";
+    }
 }
 

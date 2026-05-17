@@ -56,4 +56,9 @@ public class Water extends Resource implements Consumable {
         return super.equals(o);
     }
 
+    @Override
+    public String getImageName() {
+        return "Water";
+    }
+
 }

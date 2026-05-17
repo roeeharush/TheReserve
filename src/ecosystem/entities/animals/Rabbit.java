@@ -93,6 +93,10 @@ public class Rabbit extends Animal implements Reproducible {
     public boolean equals(Object o){
         return super.equals(o);
     }
+
+    @Override
+    public String getImageName() { return "Rabbit"; }
+
 }
 
 

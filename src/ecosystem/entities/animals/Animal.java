@@ -18,8 +18,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
     private  MovementStrategy movementStrategy;
     private final int visionRange = 2;
 
-
-
     /**
      * בונה חיה חדשה עם כל הנתונים הבסיסיים וגם מגדיר לה איך היא זזה ומה היא אוכלת
      * @param position המיקום ההתחלתי של החיה במפה
@@ -133,6 +131,8 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
     public boolean equals(Object o){
         return super.equals(o);
     }
+
+
 
     }
 

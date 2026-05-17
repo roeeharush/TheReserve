@@ -114,4 +114,6 @@ public abstract class  AbstractEntity {
             return this.alive == other.alive && this.position.equals(other.position) && this.symbol == other.symbol;
         return false;
     }
+
+    public abstract String getImageName();
 }

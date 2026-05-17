@@ -37,4 +37,5 @@ public abstract class Resource extends StaticEntity {
     public String toString(){
         return super.toString();
     }
+
 }

@@ -41,5 +41,8 @@ public class Lion extends Animal {
         return super.equals(o);
     }
 
+    @Override
+    public String getImageName() { return "Lion"; }
+
 }
 

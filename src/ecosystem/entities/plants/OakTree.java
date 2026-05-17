@@ -80,4 +80,9 @@ public class OakTree extends Plant {
         return super.toString();
     }
 
+    @Override
+    public String getImageName() {
+        return "OakTree";
+    }
+
 }
