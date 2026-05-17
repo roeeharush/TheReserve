@@ -26,10 +26,9 @@ public class MapPanel extends JPanel {
 
         setPreferredSize(new Dimension(
                 environment.getCols() * ImageLoader.CELL_SIZE,
-                environment.getRows() * ImageLoader.CELL_SIZE
-        ));
+                environment.getRows() * ImageLoader.CELL_SIZE));
 
-        setBackground(new Color(34, 139, 34));
+        setBackground(new Color(0, 300, 20));
 
         // טיפול בלחיצה על תא
         addMouseListener(new MouseAdapter() {

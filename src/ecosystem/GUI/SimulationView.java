@@ -1,15 +1,15 @@
 package ecosystem.GUI;
 
 import ecosystem.core.Environment;
-
 import javax.swing.*;
+import java.awt.*;
 
 public class SimulationView extends JFrame implements WorldObserver {
-    private final Environment environment; //
-    private MapPanel mapPanel;             // פאנל המפה
-    private ControlPanel controlPanel;     // כפתורי שליטה
-    private StatsPanel statsPanel;         // סטטיסטיקות
-    private InfoPanel infoPanel;// פרטי ישות נבחרת
+    private final Environment environment;
+    private MapPanel mapPanel;
+    private ControlPanel controlPanel;
+    private StatsPanel statsPanel;
+    private InfoPanel infoPanel;
 
     public SimulationView(Environment environment) {
         super("Nature Reserve Simulation");
@@ -47,33 +47,5 @@ public class SimulationView extends JFrame implements WorldObserver {
     public void onWorldChanged() {
         mapPanel.repaint();
         statsPanel.update();
-    }
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public void onWorldChanged() {
-
     }
 }
