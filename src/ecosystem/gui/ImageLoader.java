@@ -1,6 +1,7 @@
 package ecosystem.gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,18 +9,19 @@ import java.util.Map;
 public class ImageLoader {
     private static final Map<String, ImageIcon> images = new HashMap<>();
 
-    public static boolean loadImage(){
-        boolean flag = true;
-        String [] entities  = { "Lion", "Deer", "Rabbit", "Flower","OakTree", "Water" ,"Rock" , "ground"};
+    public static void loadImage(){
+        String[] entities = {"Lion", "Deer", "Rabbit", "Flower", "OakTree", "Water", "Rock", "ground"};
         for (String e : entities){
-            URL temp = ImageLoader.class.getResource("/Resources/" + e + ".jpeg");
-            if(temp != null )
-                images.put( e, new ImageIcon(temp));
-            else
-                flag = false;
+            try {
+                ImageIcon icon = new ImageIcon("Resources/" + e + ".jpeg");
+                Image scaled = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                images.put(e,new ImageIcon(scaled));
+            } catch (Exception ex) {
+                System.err.println(" error in load image  " + e);
+            }
         }
-        return flag;
     }
+
 
     public static ImageIcon getImage(String name){
         return images.get(name);

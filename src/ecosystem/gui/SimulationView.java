@@ -18,6 +18,7 @@ public class SimulationView extends JFrame  {
     public SimulationView(Environment environment){
         super("The Reserve Simulation");
         this.environment = environment;
+        setLayout(new BorderLayout());
         initComponents();
         layoutComponents();
         pack();
@@ -42,6 +43,10 @@ public class SimulationView extends JFrame  {
         southPanel.add(controlPanel, BorderLayout.EAST);
         add(southPanel, BorderLayout.SOUTH);
 
+    }
+
+    public ControlPanel getControlPanel() {
+        return controlPanel;
     }
 
 }

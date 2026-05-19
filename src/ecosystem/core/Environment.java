@@ -186,7 +186,7 @@ public class Environment  {
         observers.add(observer);
     }
 
-    private void notifyObservers() {
+    public void notifyObservers() {
         for (WorldObserver observer : observers) {
             observer.onWorldChanged();
         }
