@@ -24,6 +24,10 @@ public class OakTree extends Plant {
         super(position,'T',true,INITINAL_ENERGY,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
 
+    public OakTree(Position position , double energy ){
+        super(position,'T',true ,energy ,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
+    }
+
     /**
      * מנגנון הרבייה של עץ האלון
      * יש סיכוי של חמישה אחוז לייצר עץ חדש בכל תור

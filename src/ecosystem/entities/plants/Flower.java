@@ -25,6 +25,10 @@ public class Flower extends Plant {
         super(position, 'F', true, INITIAL_ENERGY, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
     }
 
+    public Flower(Position position , double energy) {
+        super(position, 'F', true, energy, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
+    }
+
     /**
      * מה קורה כשיצור אחר אוכל את הפרח
      * המתודה מעדכנת שהפרח מת על ידי קריאה לפעולה של מחלקת האם

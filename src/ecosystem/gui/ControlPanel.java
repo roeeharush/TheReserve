@@ -15,7 +15,6 @@ import java.awt.*;
         public ControlPanel() {
             setLayout(new FlowLayout( ));
             setBackground(new Color(225, 225, 225));
-
             initButtons();
         }
 

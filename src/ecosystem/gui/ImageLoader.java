@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImageLoader {ֿ
+public class ImageLoader {
     private static final Map<String, ImageIcon> images = new HashMap<>();
 
     public static boolean loadImage(){

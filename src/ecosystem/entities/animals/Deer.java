@@ -23,6 +23,11 @@ public class Deer extends Animal {
 
     }
 
+    public Deer( Position position , double energy) {
+        super(position, 'D', true, energy, MAX_ENERGY,new HerbivoreBehavior() , new EscapeMovement());
+
+    }
+
     /**
      * מחזיר מחרוזת טקסט עם כל הפרטים של הצבי להדפסה
      * @return תיאור של הצבי המיקום שלו והאנרגיה שנשארה לו

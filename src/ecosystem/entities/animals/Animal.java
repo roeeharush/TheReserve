@@ -29,7 +29,7 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @param movementStrategy האסטרטגיה שקובעת איך החיה זזה במרחב
      */
     public Animal(Position position, char symbol, boolean alive,
-                  int energy, double maxEnergy, FeedingBehavior feedingBehavior , MovementStrategy movementStrategy){
+                  double energy, double maxEnergy, FeedingBehavior feedingBehavior , MovementStrategy movementStrategy){
         super(position ,symbol, alive,energy,maxEnergy );
         this.feedingBehavior = feedingBehavior;
         this.movementStrategy = movementStrategy;

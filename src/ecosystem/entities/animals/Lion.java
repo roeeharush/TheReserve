@@ -17,8 +17,12 @@ public class Lion extends Animal {
      * הוא גם קובע שהאריה הוא טורף שרודף אחרי הישויות שהוא רוצה לאכול
      * @param position המיקום שבו האריה מתחיל את המשחק במפה
      */
-    public Lion(Position position) {
+    public Lion(Position position ) {
         super(position, 'L', true, 100, MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
+    }
+
+    public Lion(Position position ,double energy) {
+        super(position, 'L', true, energy , MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
     }
 
     /**

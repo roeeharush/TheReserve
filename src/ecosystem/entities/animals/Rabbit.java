@@ -26,6 +26,11 @@ public class Rabbit extends Animal implements Reproducible {
 
     }
 
+    public Rabbit( Position position , double energy ) {
+        super(position, 'R', true, energy, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
+
+    }
+
     /**
      * הפעולה שהארנב עושה בכל תור של הסימולציה
      * הארנב מבצע את כל הפעולות הרגילות של חיה ואז מנסה להתרבות וליצור ארנב חדש

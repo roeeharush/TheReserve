@@ -7,15 +7,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InfoPanel extends JPanel {
-    private final Environment environment;
     private JLabel name;
     private JLabel position;
     private JLabel aliveState;
     private JLabel energy;
     private JLabel maxEnergy;
 
-    public InfoPanel(Environment environment){
-        this.environment = environment;
+    public InfoPanel(){
         setLayout(new GridLayout(0,1));
         setBackground(new Color(225,225,225));
         initLabels();
