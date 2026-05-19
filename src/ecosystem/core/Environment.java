@@ -1,5 +1,5 @@
 package ecosystem.core;
-import ecosystem.GUI.WorldObserver;
+import ecosystem.gui.WorldObserver;
 import ecosystem.entities.AbstractEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -191,10 +191,4 @@ public class Environment  {
             observer.onWorldChanged();
         }
     }
-
-
-
-
-
-
 }

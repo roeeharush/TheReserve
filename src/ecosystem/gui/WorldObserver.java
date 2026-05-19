@@ -1,4 +1,4 @@
-package ecosystem.GUI;
+package ecosystem.gui;
 
 public interface WorldObserver {
     void onWorldChanged();

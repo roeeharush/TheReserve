@@ -1,4 +1,4 @@
-package ecosystem.GUI;
+package ecosystem.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ import java.awt.*;
 
         public ControlPanel() {
             setLayout(new FlowLayout( ));
-            setBackground(new Color(50, 50, 50));
+            setBackground(new Color(225, 225, 225));
 
             initButtons();
         }
@@ -34,7 +34,6 @@ import java.awt.*;
             add(addEntityButton);
         }
 
-        // Getters לכפתורים — ה-Controller ישתמש בהם
         public JButton getTickButton(){
             return tickButton;
         }

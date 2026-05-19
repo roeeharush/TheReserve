@@ -1,6 +1,5 @@
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
-import ecosystem.core.SimulationEngine;
 import ecosystem.entities.animals.Deer;
 import ecosystem.entities.animals.Lion;
 import ecosystem.entities.animals.Rabbit;
@@ -8,14 +7,14 @@ import ecosystem.entities.plants.Flower;
 import ecosystem.entities.plants.OakTree;
 import ecosystem.entities.resources.Rock;
 import ecosystem.entities.resources.Water;
-import ecosystem.GUI.ImageLoader;        // ← חדש
-import ecosystem.GUI.SimulationView;     // ← חדש
+import ecosystem.gui.ImageLoader;        // ← חדש
+import ecosystem.gui.SimulationView;     // ← חדש
 
 public class Main {
     public static void main(String[] args) {
 
         // טוענים את התמונות פעם אחת
-        ImageLoader.loadAll(); // ← חדש
+        ImageLoader.loadImage(); // ← חדש
 
         int rows = 10;
         int cols = 10;
