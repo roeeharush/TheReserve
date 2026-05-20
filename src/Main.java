@@ -17,6 +17,7 @@ public class Main {
 
         ImageLoader.loadImage();
 
+
         Environment env = new Environment(10, 10);
 
 

@@ -19,6 +19,7 @@ public class SimulationView extends JFrame  {
         super("The Reserve Simulation");
         this.environment = environment;
         setLayout(new BorderLayout());
+        setResizable(false);
         initComponents();
         layoutComponents();
         pack();
@@ -36,7 +37,8 @@ public class SimulationView extends JFrame  {
     }
 
     private void layoutComponents() {
-        add(mapPanel, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(mapPanel);
+        add(scrollPane, BorderLayout.CENTER);
         add(infoPanel,BorderLayout.EAST);
         JPanel southPanel = new JPanel(new BorderLayout());
         southPanel.add(statsPanel, BorderLayout.WEST);
