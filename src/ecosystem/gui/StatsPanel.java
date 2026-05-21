@@ -57,13 +57,11 @@ public class StatsPanel extends JPanel implements WorldObserver {
         int rabbit = 0;
         int flower = 0;
         int oaktree = 0;
-        int rock = 0;
-        int water = 0 ;
         double energy =0;
 
         for(AbstractEntity entity : environment.getEntities()){
-            if(entity instanceof LivingEntity) {
-                 energy += ((LivingEntity) entity).getEnergy();
+            if(entity instanceof LivingEntity living) {
+                 energy += living.getEnergy();
             }
             if(entity instanceof Lion)
                 lions++;
@@ -75,11 +73,6 @@ public class StatsPanel extends JPanel implements WorldObserver {
                 flower++;
             if(entity instanceof OakTree)
                 oaktree++;
-            if(entity instanceof Rock)
-                rock++;
-            if(entity instanceof Water)
-                water++;
-
         }
 
         ticks++;
@@ -88,7 +81,7 @@ public class StatsPanel extends JPanel implements WorldObserver {
         rabbitCount.setText(" rabbit:" + rabbit);
         flowerCount.setText("flower:" + flower);
         oakTreeCount.setText(" oaktree" + oaktree);
-        tickCount.setText("⏱:" + ticks);
+        tickCount.setText("⏱:" + environment.getTicks());
         totalEnergy.setText("⚡:" + energy);
     }
 

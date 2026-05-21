@@ -1,8 +1,6 @@
 package ecosystem.gui;
-
 import ecosystem.core.Environment;
 import ecosystem.core.SimulationEngine;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

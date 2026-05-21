@@ -15,6 +15,7 @@ public class Environment  {
     private final int rows;
     private final int cols;
     private final List<WorldObserver> observers = new ArrayList<>();
+    private int ticks = 0;
 
     public int getRows() { return rows; }
     public int getCols() { return cols; }
@@ -190,5 +191,13 @@ public class Environment  {
         for (WorldObserver observer : observers) {
             observer.onWorldChanged();
         }
+    }
+
+    public void nextTick() {
+        this.ticks++;
+    }
+
+    public int getTicks(){
+        return this.ticks;
     }
 }

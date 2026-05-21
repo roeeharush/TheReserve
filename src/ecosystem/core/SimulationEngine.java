@@ -61,6 +61,7 @@ public class SimulationEngine {
 
         System.out.println("The map of the World ");
         System.out.println( environment.toString());
+        environment.nextTick();
         environment.notifyObservers();
 
 
