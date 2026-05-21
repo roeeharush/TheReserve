@@ -47,6 +47,7 @@ public class SimulationController {
         controlPanel.getRunButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Run נלחץ!");
                 timer.start();
             }
         });
@@ -62,8 +63,9 @@ public class SimulationController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 timer.stop();
+                SimulationView newView = new SimulationView(environment);
+                new SimulationController(newView, newView.getControlPanel(), environment, engine);
                 simulationView.dispose();
-                new SimulationView(environment);
 
 
             }

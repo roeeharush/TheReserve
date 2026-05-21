@@ -22,7 +22,14 @@ public class MapPanel extends JPanel implements WorldObserver  {
         this.rows = environment.getRows();
         this.cols = environment.getCols();
         this.infoPanel = infoPanel;
-        setLayout(new GridLayout(rows,cols));
+        setLayout(new GridLayout(rows, cols));
+
+
+        int size = 64;
+        setPreferredSize(new Dimension(cols * size, rows * size));
+        setMaximumSize(new Dimension(cols * size, rows * size));
+        setMinimumSize(new Dimension(cols * size, rows * size));
+
         buildGrid();
         environment.addObserver(this);
     }
@@ -31,6 +38,9 @@ public class MapPanel extends JPanel implements WorldObserver  {
         for (int i=0 ; i< rows ; i++) {
             for (int j = 0; j < cols; j++) {
                 JLabel cell = new JLabel();
+                cell.setPreferredSize(new Dimension(64, 64));
+                cell.setMinimumSize(new Dimension(64, 64));
+                cell.setMaximumSize(new Dimension(64, 64));
                 AbstractEntity entity = environment.getEntityAt(i, j);
                 if (entity != null) {
                     String name = entity.getClass().getSimpleName();
