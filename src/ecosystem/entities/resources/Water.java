@@ -56,6 +56,10 @@ public class Water extends Resource implements Consumable {
         return super.equals(o);
     }
 
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
     @Override
     public String getImageName() {
         return "Water";

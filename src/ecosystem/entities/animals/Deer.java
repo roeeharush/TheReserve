@@ -19,7 +19,6 @@ public class Deer extends Animal {
      */
     public Deer( Position position) {
         super(position, 'D', true, 70, MAX_ENERGY,new HerbivoreBehavior() , new EscapeMovement());
-
     }
 
     public Deer( Position position , double energy) {
@@ -46,6 +45,11 @@ public class Deer extends Animal {
         return super.equals(o);
     }
 
+
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
     @Override
     public String getImageName() { return "Deer"; }
 

@@ -1,8 +1,6 @@
 package ecosystem.entities.animals;
-
 import ecosystem.behaviors.*;
 import ecosystem.core.Position;
-
 
 /**
  * מחלקה שמייצגת אריה בעולם האקולוגי שלנו
@@ -45,6 +43,10 @@ public class Lion extends Animal {
         return super.equals(o);
     }
 
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
     @Override
     public String getImageName() { return "Lion"; }
 

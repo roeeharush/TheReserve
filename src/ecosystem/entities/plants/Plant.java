@@ -130,16 +130,12 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
     public boolean equals (Object o){
         if (this == o)
             return true;
-        if (o instanceof Plant other) {
+        if (o instanceof Plant other){
             if (!super.equals(o))
                 return false;return Double.compare(this.growthRate, other.growthRate) == 0
                         && Double.compare(this.reproductionChance, other.reproductionChance) == 0;
             }
         return false;
     }
-
-
-
-
 }
 
