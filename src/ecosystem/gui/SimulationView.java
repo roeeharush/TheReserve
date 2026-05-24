@@ -39,12 +39,15 @@ public class SimulationView extends JFrame  {
     private void layoutComponents() {
         JScrollPane scrollPane = new JScrollPane(mapPanel);
         add(scrollPane, BorderLayout.CENTER);
-        add(infoPanel,BorderLayout.EAST);
-        JPanel southPanel = new JPanel(new BorderLayout());
-        southPanel.add(statsPanel, BorderLayout.WEST);
-        southPanel.add(controlPanel, BorderLayout.EAST);
-        add(southPanel, BorderLayout.SOUTH);
 
+        JPanel eastPanel = new JPanel(new BorderLayout());
+        JLabel logo = new JLabel(ImageLoader.getImage("logo"));
+        eastPanel.add(logo, BorderLayout.NORTH);
+        eastPanel.add(infoPanel, BorderLayout.CENTER);
+        eastPanel.add(statsPanel, BorderLayout.SOUTH);
+        add(eastPanel, BorderLayout.EAST);
+
+        add(controlPanel, BorderLayout.SOUTH);
     }
 
     public ControlPanel getControlPanel() {

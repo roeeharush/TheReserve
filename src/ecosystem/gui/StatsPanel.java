@@ -26,6 +26,7 @@ public class StatsPanel extends JPanel implements WorldObserver {
     public StatsPanel(Environment environment) {
         this.environment = environment;
         setLayout(new GridLayout(0, 1));
+        setBorder(BorderFactory.createTitledBorder("Statistics"));
         setBackground(new Color(225, 225, 225));
         initLabels();
         environment.addObserver(this);
@@ -76,11 +77,11 @@ public class StatsPanel extends JPanel implements WorldObserver {
         }
 
         ticks++;
-        lionCount.setText("lion:" + lions);
-        deerCount.setText("deer:" + deers);
-        rabbitCount.setText(" rabbit:" + rabbit);
-        flowerCount.setText("flower:" + flower);
-        oakTreeCount.setText(" oaktree" + oaktree);
+        lionCount.setText("LION:" + lions);
+        deerCount.setText("DEER:" + deers);
+        rabbitCount.setText("RABBIT:" + rabbit);
+        flowerCount.setText("FLOWER:" + flower);
+        oakTreeCount.setText("OAKTREE:" + oaktree);
         tickCount.setText("⏱:" + environment.getTicks());
         totalEnergy.setText("⚡:" + energy);
     }

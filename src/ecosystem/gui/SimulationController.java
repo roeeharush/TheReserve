@@ -63,6 +63,7 @@ public class SimulationController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 timer.stop();
+                environment.reset();
                 SimulationView newView = new SimulationView(environment);
                 new SimulationController(newView, newView.getControlPanel(), environment, engine);
                 simulationView.dispose();

@@ -200,4 +200,12 @@ public class Environment  {
     public int getTicks(){
         return this.ticks;
     }
+
+    public void reset() {
+        entities.clear();
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                map[i][j] = null;
+        notifyObservers();
+    }
 }

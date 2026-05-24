@@ -18,6 +18,14 @@ public class ImageLoader {
                 System.err.println(" error in load image  " + e);
             }
         }
+
+        try {
+            ImageIcon logo = new ImageIcon("Resources/Logo.png");
+            Image scaled = logo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            images.put("logo", new ImageIcon(scaled));
+        } catch (Exception ex) {
+            System.err.println("error loading logo");
+        }
     }
 
 

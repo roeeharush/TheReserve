@@ -14,8 +14,10 @@ public class InfoPanel extends JPanel {
     private JLabel maxEnergy;
 
     public InfoPanel(){
-        setLayout(new GridLayout(0,1));
+        setLayout(new GridLayout(0,1 ,0 ,2));
+        setBorder(BorderFactory.createTitledBorder("Entity Info"));
         setBackground(new Color(225,225,225));
+        setPreferredSize(new Dimension(150, 0));
         initLabels();
 
     }
