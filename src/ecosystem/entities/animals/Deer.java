@@ -34,7 +34,7 @@ public class Deer extends Animal {
      */
     @Override
     public String toString(){
-        return this.toString();
+        return super.toString();
     }
 
     /**
