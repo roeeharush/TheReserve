@@ -1,5 +1,4 @@
 package ecosystem.gui;
-
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
@@ -10,7 +9,6 @@ import ecosystem.entities.plants.Flower;
 import ecosystem.entities.plants.OakTree;
 import ecosystem.entities.resources.Rock;
 import ecosystem.entities.resources.Water;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -97,6 +95,10 @@ public class AddEntity extends JDialog {
             double energy = 0;
             if(!energyInput.getText().isEmpty())
                 energy = Double.parseDouble(energyInput.getText());
+            if (row < 0 || row >= environment.getRows() || col < 0 || col >= environment.getCols()) {
+                JOptionPane.showMessageDialog(this, "Row or col is out of bounds");
+                return;
+            }
             Position pos = new Position(row, col);
             AbstractEntity entity = null;
 
@@ -110,12 +112,14 @@ public class AddEntity extends JDialog {
                 case "Rock" -> entity = new Rock(pos);
             }
 
-            environment.addEntity(entity);
+            if (!environment.addEntity(entity)) {
+                JOptionPane.showMessageDialog(this, "Position is already taken");
+                return;
+            }
             dispose();
 
-
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Enter Number Only");
+            JOptionPane.showMessageDialog(this, "Enter number only");
         }
     }
 }
