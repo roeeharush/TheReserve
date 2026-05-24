@@ -1,3 +1,6 @@
+/*  Renana Azulay 216086066
+    Roee Harush 212766810
+ */
 
 import ecosystem.gui.ImageLoader;
 import ecosystem.gui.SplashScreen;
@@ -7,6 +10,5 @@ public class Main {
 
         ImageLoader.loadImage();
         new SplashScreen();
-
     }
 }
