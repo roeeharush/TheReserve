@@ -26,7 +26,17 @@ public class ImageLoader {
         } catch (Exception ex) {
             System.err.println("Error loading logo");
         }
+
+        try {
+            ImageIcon splash = new ImageIcon("Resources/start.png");
+            Image scaled = splash.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
+            images.put("start", new ImageIcon(scaled));
+        } catch (Exception ex) {
+            System.err.println("error loading splash");
+        }
     }
+
+
 
 
     public static ImageIcon getImage(String name){

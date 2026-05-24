@@ -1,5 +1,8 @@
 package ecosystem.gui;
 
+import ecosystem.core.Environment;
+import ecosystem.core.SimulationEngine;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,12 +12,15 @@ public class start extends JDialog {
     private JTextField rowInput;
     private JTextField colInput;
 
-    public start(){
-        super((JFrame) null, "The Reserve", true);
+    public start(JFrame parent){
+        super(parent,"The Reserve", true);
         setLayout(new BorderLayout());
         initComponents();
         pack();
+        pack();
+        setSize(300, 200);
         setResizable(false);
+        setLocationRelativeTo(parent);
         setVisible(true);
 
     }
@@ -27,7 +33,13 @@ public class start extends JDialog {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int rows = getRows();
+                int cols = getCols();
                 dispose();
+                Environment env = new Environment(rows, cols);
+                SimulationEngine engine = new SimulationEngine(env);
+                SimulationView view = new SimulationView(env);
+                new SimulationController(view, view.getControlPanel(), env, engine);
             }
         });
         add(startButton, BorderLayout.SOUTH);
