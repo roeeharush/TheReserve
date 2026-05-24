@@ -22,9 +22,9 @@ public class ImageLoader {
         try {
             ImageIcon logo = new ImageIcon("Resources/Logo.png");
             Image scaled = logo.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            images.put("logo", new ImageIcon(scaled));
+            images.put("Logo", new ImageIcon(scaled));
         } catch (Exception ex) {
-            System.err.println("error loading logo");
+            System.err.println("Error loading logo");
         }
     }
 
