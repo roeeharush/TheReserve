@@ -7,10 +7,14 @@ import ecosystem.entities.animals.Lion;
 import ecosystem.entities.animals.Rabbit;
 import ecosystem.entities.plants.Flower;
 import ecosystem.entities.plants.OakTree;
-import ecosystem.entities.resources.Rock;
-import ecosystem.entities.resources.Water;
 import javax.swing.*;
 import java.awt.*;
+
+
+/**
+ * מחלקה שמייצגת פאנל תצוגה גרפי עבור הסטטיסטיקה של העולם בזמן אמת
+ * הפאנל עוקב אחר השינויים בסביבה ומציג את כמויות החיות והצמחים את מספר התורות שעברו ואת סך כל האנרגיה הקיימת במערכת
+ */
 
 public class StatsPanel extends JPanel implements WorldObserver {
     private final Environment environment;
@@ -21,7 +25,13 @@ public class StatsPanel extends JPanel implements WorldObserver {
     private JLabel oakTreeCount;
     private JLabel tickCount;
     private JLabel totalEnergy;
-    private int ticks = 0;
+
+
+    /**
+     * בונה פאנל סטטיסטיקה חדש ומחבר אותו לעולם
+     * הבנאי קובע את פריסת התוויות בטור אחד מעצב מסגרת כותרת מתאימה מגדיר צבע רקע אפור בהיר ומאזן את הפאנל כמאזין לשינויים בעולם
+     * @param environment סביבת העולם שממנה נאספים הנתונים הסטטיסטיים של הישויות
+     */
 
     public StatsPanel(Environment environment) {
         this.environment = environment;
@@ -32,6 +42,11 @@ public class StatsPanel extends JPanel implements WorldObserver {
         environment.addObserver(this);
 
     }
+
+    /**
+     * מייצרת את כל תוויות הטקסט הריקות של פאנל הסטטיסטיקה ומכניסה אותן לתצוגה
+     * התוויות המאותחלות מיועדות להצגת מוני האוכלוסייה של האריות הצבאים הארנבים הפרחים והאלונים וכן להצגת מוני התורות וסך האנרגיה
+     */
 
     private void initLabels() {
         lionCount = new JLabel();
@@ -50,6 +65,10 @@ public class StatsPanel extends JPanel implements WorldObserver {
         add(totalEnergy);
     }
 
+    /**
+     * מתודת עדכון שמופעלת אוטומטית בכל פעם שחל שינוי בעולם האקולוגי
+     * המתודה סורקת את כל הישויות הקיימות במפה סופרת את כמויות היצורים מכל סוג ומחשבת את סך האנרגיה של כל הישויות החיות ולאחר מכן מעדכנת את תוויות הטקסט שמוצגות למשתמש
+     */
 
     @Override
     public void onWorldChanged() {
@@ -76,7 +95,7 @@ public class StatsPanel extends JPanel implements WorldObserver {
                 oaktree++;
         }
 
-        ticks++;
+
         lionCount.setText("LION:" + lions);
         deerCount.setText("DEER:" + deers);
         rabbitCount.setText("RABBIT:" + rabbit);

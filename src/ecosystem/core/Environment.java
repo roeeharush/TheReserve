@@ -183,9 +183,21 @@ public class Environment  {
         return true;
     }
 
+
+    /**
+     * מוסיפה מאזין חדש לרשימת המאזינים של העולם
+     * המאזין יקבל התראה אוטומטית בכל פעם שיש שינוי במפה כמו תנועה אכילה או הוספת ישות
+     * @param observer הרכיב הגרפי שרוצה להאזין לשינויים בעולם
+     */
+
     public void addObserver(WorldObserver observer) {
         observers.add(observer);
     }
+
+    /**
+     * מעדכנת את כל המאזינים הרשומים שמשהו בעולם השתנה
+     * המתודה עוברת על רשימת המאזינים ומפעילה אצלם את פעולת רענון התצוגה
+     */
 
     public void notifyObservers() {
         for (WorldObserver observer : observers) {
@@ -193,13 +205,27 @@ public class Environment  {
         }
     }
 
+    /**
+     * מקדמת את מונה פעימות הזמן של הסימולציה בצעד אחד קדימה
+     */
+
     public void nextTick() {
         this.ticks++;
     }
 
+    /**
+     * מחזירה את מספר פעימות הזמן שעברו מתחילת הריצה של הסימולציה
+     * @return מספר הטיקים הנוכחי של המערכת
+     */
+
     public int getTicks(){
         return this.ticks;
     }
+
+    /**
+     * מאתחלת את העולם ומנקה את כל הישויות שנמצאות בו
+     * המתודה מרוקנת את רשימת היצורים מוחקת את כולם מהמפה הגרפית ומעדכנת את כל המאזינים כדי שיראו מסך נקי
+     */
 
     public void reset() {
         entities.clear();

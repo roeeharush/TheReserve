@@ -14,6 +14,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * חלון דיאלוג קופץ שמאפשר למשתמש להוסיף ישות חדשה לעולם דרך הממשק הגרפי
+ * החלון מציג תיבות טקסט להזנת מיקום ואנרגיה ותפריט בחירה של סוג הישות
+ */
+
 public class AddEntity extends JDialog {
     private final Environment environment;
     private final String [] entitiesNames = {"Lion", "Deer", "Rabbit", "Flower", "OakTree", "Water", "Rock"};
@@ -21,6 +26,14 @@ public class AddEntity extends JDialog {
     private JTextField rowInput;
     private JTextField colInput;
     private JTextField energyInput;
+
+
+    /**
+     * בונה ומציג את חלון הדיאלוג להוספת ישות חדשה
+     * הבנאי מאתחל את כל הרכיבים הגרפיים קובע את המיקום של החלון יחסית לחלון הראשי ומציג אותו למשתמש
+     * @param parent חלון האב הגרפי שממנו נפתח הדיאלוג הנוכחי
+     * @param environment סביבת העולם שאליה נוסיף את הישות החדשה
+     */
 
     public AddEntity(JFrame parent, Environment environment) {
         super(parent, "Add Entity", true);
@@ -34,12 +47,23 @@ public class AddEntity extends JDialog {
 
     }
 
+    /**
+     * מאתחלת את הרכיבים של החלון ומסדרת אותם במסך
+     * הפונקציה מחלקת את החלון לאזורים ומכניסה את שדות הקלט במרכז ואת כפתורי הפעולה בתחתית
+     */
+
     public void initComponents(){
         add(new JLabel(" "), BorderLayout.NORTH);
         add(createFieldsPanel(), BorderLayout.CENTER);
         add(createButtonsPanel(), BorderLayout.SOUTH);
 
     }
+
+    /**
+     * מייצרת פאנל שמכיל את כל שדות הקלט של החלון
+     * השדות כוללים בחירה של סוג הישות ותיבות טקסט להזנת שורה עמודה וכמות אנרגיה
+     * @return פאנל מעוצב עם כל שדות הקלט הנדרשים
+     */
 
     private JPanel createFieldsPanel() {
         JPanel fieldPanel = new JPanel(new GridLayout(4,2));
@@ -62,6 +86,12 @@ public class AddEntity extends JDialog {
         return fieldPanel;
     }
 
+
+    /**
+     * מייצרת פאנל שמכיל את כפתורי האישור והביטול בתחתית החלון
+     * הפונקציה מחברת לכל כפתור את פעולת הלוגיקה המתאימה לו בעת לחיצה
+     * @return פאנל שמכיל את הכפתורים אישור וביטול
+     */
 
     private JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(new FlowLayout());
@@ -86,6 +116,12 @@ public class AddEntity extends JDialog {
         buttonsPanel.add(cancelButton);
         return buttonsPanel;
     }
+
+
+    /**
+     * מנהלת את תהליך אישור הקלט והוספת הישות לעולם
+     * הפונקציה קוראת את הנתונים שהמשתמש הקליד בודקת תקינות של מספרים וגבולות מפה מייצרת את הישות המתאימה ומכניסה אותה לעולם אם המשבצת פנויה
+     */
 
     private void onConfirm() {
         try {

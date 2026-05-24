@@ -5,6 +5,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * מחלקת הבקר שמקשרת בין רכיבי הממשק הגרפי ללוגיקה של הסימולציה
+ * הבקר מאזין ללחיצות על הכפתורים בפאנל השליטה ומפעיל את מנוע הסימולציה או משנה את מצב העולם בהתאם
+ */
+
 public class SimulationController {
     private Environment environment;
     private ControlPanel controlPanel;
@@ -12,6 +18,14 @@ public class SimulationController {
     private SimulationEngine engine;
     private Timer timer;
 
+    /**
+     * בונה בקר סימולציה חדש ומחבר את כל הרכיבים יחד
+     * הבנאי מאתחל את השעון הפנימי שמריץ את התורות באופן אוטומטי ומפעיל את חיבור המאזינים לכפתורים
+     * @param view חלון התצוגה הראשי של הסימולציה
+     * @param controlPanel פאנל כפתורי השליטה
+     * @param environment סביבת העולם והמפה של המערכת
+     * @param engine מנוע הסימולציה שאחראי על קידום הזמן וניהול הישויות
+     */
 
     public SimulationController(SimulationView view, ControlPanel controlPanel, Environment environment, SimulationEngine engine) {
         this.environment = environment;
@@ -28,6 +42,11 @@ public class SimulationController {
 
          connectingButtons();
     }
+
+    /**
+     * מחברת מאזיני פעולה לכל כפתורי השליטה בממשק הגרפי
+     * המתודה מגדירה מה קורה בכל לחיצה הרצת פעימה בודדת פתיחת חלון הוספת ישות הפעלת ריצה אוטומטית עצירת השעון או אתחול מלא של כל חלונות התצוגה מחדש
+     */
 
     public void connectingButtons(){
         controlPanel.getTickButton().addActionListener(new ActionListener() {

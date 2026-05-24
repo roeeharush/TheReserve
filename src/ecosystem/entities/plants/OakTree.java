@@ -84,6 +84,10 @@ public class OakTree extends Plant {
         return super.toString();
     }
 
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
     @Override
     public String getImageName() {
         return "OakTree";

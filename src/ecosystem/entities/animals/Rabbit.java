@@ -23,12 +23,10 @@ public class Rabbit extends Animal implements Reproducible {
      */
     public Rabbit( Position position ) {
         super(position, 'R', true, 50, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
-
     }
 
     public Rabbit( Position position , double energy ) {
         super(position, 'R', true, energy, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
-
     }
 
     /**
@@ -99,9 +97,12 @@ public class Rabbit extends Animal implements Reproducible {
         return super.equals(o);
     }
 
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
     @Override
     public String getImageName() { return "Rabbit"; }
-
 }
 
 

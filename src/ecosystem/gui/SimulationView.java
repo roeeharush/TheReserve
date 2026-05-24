@@ -1,10 +1,13 @@
 package ecosystem.gui;
-
-
 import ecosystem.core.Environment;
 
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * חלון התצוגה הראשי של סימולציית שמורת הטבע
+ * המחלקה יורשת מחלון גרפי ומאחדת בתוכה את כל הפאנלים השונים כולל המפה הגרפית לוח הבקרה פאנל הסטטיסטיקה ופאנל המידע הצדדי
+ */
 
 public class SimulationView extends JFrame  {
     private final Environment environment;
@@ -14,6 +17,11 @@ public class SimulationView extends JFrame  {
     private InfoPanel infoPanel;
 
 
+    /**
+     * בונה ומציג את חלון הסימולציה הראשי
+     * הבנאי קובע את כותרת החלון מגדיר פריסה מרכזית מונע שינוי גודל מאתחל ומסדר את כל רכיבי הממשק ומציג את החלון במרכז המסך
+     * @param environment סביבת העולם שממנה הרכיבים השונים שואבים את הנתונים שלהם
+     */
 
     public SimulationView(Environment environment){
         super("The Reserve Simulation");
@@ -28,6 +36,10 @@ public class SimulationView extends JFrame  {
         setVisible(true);
     }
 
+    /**
+     * מאתחלת את כל פאנלי המשנה של המערכת הגרפית
+     * המתודה מייצרת מופעים חדשים של לוח הבקרה פאנל המידע פאנל הסטטיסטיקה ולוח המפה ומקשרת ביניהם
+     */
 
     private void initComponents() {
         controlPanel = new ControlPanel();
@@ -35,6 +47,11 @@ public class SimulationView extends JFrame  {
         statsPanel =  new StatsPanel( environment);
         mapPanel = new MapPanel(environment , infoPanel);
     }
+
+    /**
+     * קובעת את המיקום והסידור של כל הפאנלים בתוך החלון הראשי
+     * המתודה שמה את המפה הנגללת במרכז המסך מארגנת בצד ימין את הלוגו פאנל המידע ופאנל הסטטיסטיקה זה תחת זה וממקמת את כפתורי השליטה בתחתית החלון
+     */
 
     private void layoutComponents() {
         JScrollPane scrollPane = new JScrollPane(mapPanel);
@@ -49,6 +66,12 @@ public class SimulationView extends JFrame  {
 
         add(controlPanel, BorderLayout.SOUTH);
     }
+
+    /**
+     * מחזיר את פאנל כפתורי השליטה של החלון
+     * מתודה זו מאפשרת לבקר החיצוני לגשת לכפתורים ולהצמיד להם מאזיני לחיצה
+     * @return פאנל השליטה והבקרה של הסימולציה
+     */
 
     public ControlPanel getControlPanel() {
         return controlPanel;

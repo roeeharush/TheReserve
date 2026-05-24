@@ -8,6 +8,11 @@ import java.awt.event.MouseEvent;
 
 import static ecosystem.gui.ImageLoader.getImage;
 
+/**
+ * מחלקה שמייצגת את לוח התצוגה הגרפי של המפה בסימולציה
+ * הפאנל מציג רשת משבצות של העולם ומעדכן את עצמו באופן אוטומטי בכל פעם שחל שינוי בסביבה האקולוגית
+ */
+
 public class MapPanel extends JPanel implements WorldObserver  {
     private final Environment environment;
     private final int rows;
@@ -15,6 +20,13 @@ public class MapPanel extends JPanel implements WorldObserver  {
     private final InfoPanel infoPanel;
     private JLabel selectedCell = null;
 
+
+    /**
+     * בונה לוח מפה חדש ומאשר את הגדלים שלו
+     * הבנאי קובע את פריסת הרשת לפי שורות ועמודות העולם מחשב את ממדי המסך הנדרשים בפיקסלים בונה את הלוח הראשי ומחבר את המפה כמאזין לשינויים בעולם
+     * @param environment סביבת העולם שממנה קוראים את נתוני הישויות והמפה
+     * @param infoPanel פאנל המידע הצדדי שאותו נעדכן כאשר המשתמש לוחץ על משבצת
+     */
     public MapPanel(Environment environment, InfoPanel infoPanel){
         this.environment = environment;
         this.rows = environment.getRows();
@@ -31,6 +43,11 @@ public class MapPanel extends JPanel implements WorldObserver  {
         buildGrid();
         environment.addObserver(this);
     }
+
+    /**
+     * מייצרת ומאכלסת את רשת המשבצות הגרפית של המפה
+     * המתודה עוברת בלולאה על כל המשבצות במפה מתאימה לכל משבצת את האייקון המתאים של הישות או של האדמה ומצמידה מאזין לחיצה המאפשר לסמן משבצת בצהוב ולהציג את נתוניה בפאנל המידע
+     */
 
     private void buildGrid() {
         for (int i=0 ; i< rows ; i++) {
@@ -64,6 +81,11 @@ public class MapPanel extends JPanel implements WorldObserver  {
             }
         }
     }
+
+    /**
+     * מתודת עדכון שמופעלת באופן אוטומטי כאשר העולם משתנה
+     * המתודה מאפסת את הבחירה הנוכחית מנקה את כל הרכיבים הגרפיים הישנים בונה את הרשת מחדש ומבצעת ריענון מלא של התצוגה על המסך
+     */
 
     @Override
     public void onWorldChanged() {
