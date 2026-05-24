@@ -1,12 +1,10 @@
 package ecosystem.gui;
 import ecosystem.core.Environment;
 import ecosystem.entities.AbstractEntity;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 
 import static ecosystem.gui.ImageLoader.getImage;
 

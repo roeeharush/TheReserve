@@ -18,13 +18,14 @@ import java.awt.event.ActionListener;
 
 public class AddEntity extends JDialog {
     private Environment environment;
+    private String [] entitiesNames = {"Lion", "Deer", "Rabbit", "Flower", "OakTree", "Water", "Rock"};
     private JComboBox<String> typeEntity;
     private JTextField rowInput;
     private JTextField colInput;
     private JTextField energyInput;
 
     public AddEntity(JFrame parent, Environment environment) {
-        super(parent, "ADD ENTITY!:", true);
+        super(parent, "Add Entity!:", true);
         this.environment = environment;
         setLayout(new BorderLayout());
         initComponents();
@@ -35,7 +36,7 @@ public class AddEntity extends JDialog {
     }
 
     public void initComponents(){
-        add(new JLabel("ADD ENTITI:) "), BorderLayout.NORTH);
+        add(new JLabel("Add Entity :) "), BorderLayout.NORTH);
         add(createFieldsPanel(), BorderLayout.CENTER);
         add(createButtonsPanel(), BorderLayout.SOUTH);
 
@@ -43,26 +44,19 @@ public class AddEntity extends JDialog {
 
     private JPanel createFieldsPanel() {
         JPanel fieldPanel = new JPanel(new GridLayout(4,2));
-        fieldPanel.add(new JLabel("TYPE:"));
-        typeEntity = new JComboBox<>();
-        typeEntity.addItem("Lion");
-        typeEntity.addItem("Deer");
-        typeEntity.addItem("Rabbit");
-        typeEntity.addItem("Flower");
-        typeEntity.addItem("OakTree");
-        typeEntity.addItem("Water");
-        typeEntity.addItem("Rock");
+        fieldPanel.add(new JLabel("Type:"));
+        typeEntity = new JComboBox<>(entitiesNames);
         fieldPanel.add(typeEntity);
 
-        fieldPanel.add(new JLabel("ROW NUMBER:"));
+        fieldPanel.add(new JLabel("Row Number:"));
         rowInput = new JTextField();
         fieldPanel.add(rowInput);
 
-        fieldPanel.add(new JLabel("COL NUMBER:"));
+        fieldPanel.add(new JLabel("Col Number:"));
         colInput = new JTextField();
         fieldPanel.add(colInput);
 
-        fieldPanel.add(new JLabel("ENERGY:"));
+        fieldPanel.add(new JLabel("Energy:"));
         energyInput = new JTextField();
         fieldPanel.add(energyInput);
 
@@ -99,8 +93,9 @@ public class AddEntity extends JDialog {
             String type = (String) typeEntity.getSelectedItem();
             int row = Integer.parseInt(rowInput.getText());
             int col = Integer.parseInt(colInput.getText());
-            double energy = Double.parseDouble(energyInput.getText());
-
+            double energy = 0;
+            if(!energyInput.getText().isEmpty())
+                energy = Double.parseDouble(energyInput.getText());
             Position pos = new Position(row, col);
             AbstractEntity entity = null;
 
@@ -117,9 +112,9 @@ public class AddEntity extends JDialog {
             environment.addEntity(entity);
             dispose();
 
+
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "enter number only !!");
+            JOptionPane.showMessageDialog(this, "Enter Number Only");
         }
     }
-
 }
