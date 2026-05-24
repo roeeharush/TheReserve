@@ -15,8 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddEntity extends JDialog {
-    private Environment environment;
-    private String [] entitiesNames = {"Lion", "Deer", "Rabbit", "Flower", "OakTree", "Water", "Rock"};
+    private final Environment environment;
+    private final String [] entitiesNames = {"Lion", "Deer", "Rabbit", "Flower", "OakTree", "Water", "Rock"};
     private JComboBox<String> typeEntity;
     private JTextField rowInput;
     private JTextField colInput;
