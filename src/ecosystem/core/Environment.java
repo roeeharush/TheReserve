@@ -229,6 +229,7 @@ public class Environment  {
 
     public void reset() {
         entities.clear();
+        ticks = 0;
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 map[i][j] = null;

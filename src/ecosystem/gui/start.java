@@ -26,7 +26,6 @@ public class start extends JDialog {
         setLayout(new BorderLayout());
         initComponents();
         pack();
-        pack();
         setSize(300, 200);
         setResizable(false);
         setLocationRelativeTo(parent);
@@ -48,13 +47,17 @@ public class start extends JDialog {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int rows = getRows();
-                int cols = getCols();
-                dispose();
-                Environment env = new Environment(rows, cols);
-                SimulationEngine engine = new SimulationEngine(env);
-                SimulationView view = new SimulationView(env);
-                new SimulationController(view, view.getControlPanel(), env, engine);
+                try {
+                    int rows = getRows();
+                    int cols = getCols();
+                    dispose();
+                    Environment env = new Environment(rows, cols);
+                    SimulationEngine engine = new SimulationEngine(env);
+                    SimulationView view = new SimulationView(env);
+                    new SimulationController(view, view.getControlPanel(), env, engine);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(start.this, "Enter numbers only");
+                }
             }
         });
         add(startButton, BorderLayout.SOUTH);
