@@ -25,18 +25,19 @@ public class AddEntity extends JDialog {
     private JTextField energyInput;
 
     public AddEntity(JFrame parent, Environment environment) {
-        super(parent, "Add Entity!:", true);
+        super(parent, "Add Entity", true);
         this.environment = environment;
         setLayout(new BorderLayout());
         initComponents();
         pack();
+        setResizable(false);
         setLocationRelativeTo(parent);
         setVisible(true);
 
     }
 
     public void initComponents(){
-        add(new JLabel("Add Entity :) "), BorderLayout.NORTH);
+        add(new JLabel(" "), BorderLayout.NORTH);
         add(createFieldsPanel(), BorderLayout.CENTER);
         add(createButtonsPanel(), BorderLayout.SOUTH);
 
@@ -44,19 +45,19 @@ public class AddEntity extends JDialog {
 
     private JPanel createFieldsPanel() {
         JPanel fieldPanel = new JPanel(new GridLayout(4,2));
-        fieldPanel.add(new JLabel("Type:"));
+        fieldPanel.add(new JLabel("  Type:"));
         typeEntity = new JComboBox<>(entitiesNames);
         fieldPanel.add(typeEntity);
 
-        fieldPanel.add(new JLabel("Row Number:"));
+        fieldPanel.add(new JLabel("  Row Number:"));
         rowInput = new JTextField();
         fieldPanel.add(rowInput);
 
-        fieldPanel.add(new JLabel("Col Number:"));
+        fieldPanel.add(new JLabel("  Col Number:"));
         colInput = new JTextField();
         fieldPanel.add(colInput);
 
-        fieldPanel.add(new JLabel("Energy:"));
+        fieldPanel.add(new JLabel("  Energy:"));
         energyInput = new JTextField();
         fieldPanel.add(energyInput);
 
