@@ -1,17 +1,26 @@
 package ecosystem.gui;
-
 import ecosystem.core.Environment;
 import ecosystem.core.SimulationEngine;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * חלון דיאלוג קופץ המשמש כמסך הפתיחה והגדרת המערכת של הסימולציה
+ * החלון מאפשר למשתמש לקבוע את ממדי המפה ויוצר את כל רכיבי הליבה והתצוגה הנדרשים להפעלת המשחק
+ */
 public class start extends JDialog {
     private JTextField rowInput;
     private JTextField colInput;
 
+
+    /**
+     * בונה ומציג את חלון הפתיחה של הסימולציה
+     * הבנאי קובע את פריסת הרכיבים מאתחל את שדות הקלט מגדיר גודל קבוע לחלון ומציג אותו במרכז המסך
+     * @param parent חלון האב הגרפי שממנו נפתח דיאלוג הפתיחה
+     */
     public start(JFrame parent){
         super(parent,"The Reserve", true);
         setLayout(new BorderLayout());
@@ -24,6 +33,12 @@ public class start extends JDialog {
         setVisible(true);
 
     }
+
+
+    /**
+     * מאתחלת את רכיבי חלון הפתיחה ומגדירה את פעולת כפתור ההתחלה
+     * בעת לחיצה על כפתור הסטארט הפונקציה קוראת את גודל המפה מהשדות סוגרת את חלון הפתיחה ומאתחלת את העולם המנוע והבקר הראשי של הסימולציה
+     */
 
     private void initComponents() {
         add(new JLabel("Set size of the map  "), BorderLayout.NORTH);
@@ -46,6 +61,11 @@ public class start extends JDialog {
     }
 
 
+    /**
+     * מייצרת פאנל המכיל את שדות הזנת המידע עבור ממדי המפה
+     * הפאנל מסדר ברשת תיבות טקסט ותוויות להזנת מספר השורות ומספר העמודות הרצויים
+     * @return פאנל המכיל את שדות הקלט של שורות ועמודות
+     */
     private JPanel createFieldsPanel() {
         JPanel fieldPanel = new JPanel(new GridLayout(2,2));
         fieldPanel.add(new JLabel("  Row:"));
@@ -59,18 +79,20 @@ public class start extends JDialog {
         return fieldPanel;
     }
 
+    /**
+     * קוראת את הטקסט משדה קלט השורות וממירה אותו למספר שלם
+     * @return מספר השורות שהמשתמש הזן עבור המפה
+     */
     public int getRows() {
         return Integer.parseInt(rowInput.getText());
     }
 
+
+    /**
+     * קוראת את הטקסט משדה קלט העמודות וממירה אותו למספר שלם
+     * @return מספר העמודות שהמשתמש הזן עבור המפה
+     */
     public int getCols() {
         return Integer.parseInt(colInput.getText());
     }
-
-
-
-
-
-
-
 }
