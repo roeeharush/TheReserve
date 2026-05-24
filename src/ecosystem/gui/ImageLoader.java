@@ -1,8 +1,6 @@
 package ecosystem.gui;
-
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 

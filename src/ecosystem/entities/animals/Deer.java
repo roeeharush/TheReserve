@@ -1,5 +1,4 @@
 package ecosystem.entities.animals;
-
 import ecosystem.behaviors.*;
 import ecosystem.core.Position;
 
