@@ -2,6 +2,7 @@ package ecosystem.entities.animals;
 
 import ecosystem.behaviors.FeedingBehavior;
 import ecosystem.behaviors.MovementStrategy;
+import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
@@ -91,7 +92,10 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @return true אם החיה הצליחה לעבור למקום חדש במפה
      */
     public boolean move(Environment env) {
-        return this.movementStrategy.move(this, env);
+        WorldCommand cmd = movementStrategy.buildMoveCommand(this, env);
+        if (cmd != null) return cmd.execute(env);
+        return false;
+
     }
 
 

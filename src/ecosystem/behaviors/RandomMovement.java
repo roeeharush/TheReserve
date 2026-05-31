@@ -1,5 +1,7 @@
 package ecosystem.behaviors;
 
+import ecosystem.commands.MoveCommand;
+import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
@@ -15,15 +17,8 @@ public class RandomMovement implements MovementStrategy{
     private Random rd = new Random();
 
 
-    /**
-     * מבצע את התנועה של הישות בצורה רנדומלית לפי הלוגיקה בקוד
-     * הפונקציה מגדירה ארבעה כיוונים אפשריים סביב הישות בוחרת אחד מהם באקראי ומנסה להזיז את הישות לשם רק אם המקום פנוי במפה
-     * @param entity הישות שרוצה לזוז עכשיו במפה
-     * @param env העולם שבו בודקים אם המשבצת פנויה ומבצעים את התזוזה בפועל
-     * @return true אם התנועה הצליחה והישות עברה למקום החדש false אם המקום שבחרנו היה תפוס
-     */
     @Override
-    public boolean move(AbstractEntity entity, Environment env) {
+    public WorldCommand buildMoveCommand(AbstractEntity entity, Environment env) {
         Position position = entity.getPosition();
 
         Position option1 = new Position(position.getRow() - 1, position.getCol());
@@ -37,10 +32,12 @@ public class RandomMovement implements MovementStrategy{
         Position choice = options[index];
 
         if (env.isPositionFree(choice)) {
-            env.moveEntity(entity, choice);
-            return true;
+            return new MoveCommand(entity, choice);
         }
-         return false;
+        return null;
+
+
+
     }
 
 }
