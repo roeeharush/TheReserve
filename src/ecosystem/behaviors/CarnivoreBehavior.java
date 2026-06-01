@@ -1,5 +1,7 @@
 package ecosystem.behaviors;
 
+import ecosystem.commands.AttackCommand;
+import ecosystem.commands.WorldCommand;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.animals.Animal;
 import ecosystem.interfaces.Consumable;
@@ -14,7 +16,6 @@ import java.util.List;
  */
 public class CarnivoreBehavior implements FeedingBehavior{
 
-
     /**
      * מפעיל את מנגנון האכילה של הטורף
      * הפונקציה סורקת את רשימת היצורים הקרובים ומחפשת מטרה שמתאימה לתפריט של טורפים ואם היא מוצאת כזו היא גורמת לטורף לאכול אותה
@@ -22,12 +23,13 @@ public class CarnivoreBehavior implements FeedingBehavior{
      * @param nearby רשימת היצורים שנמצאים בטווח הראייה של הטורף מסביב
      * @return true אם הטורף מצא טרף מתאים ואכל אותו בהצלחה false אם לא נמצא שום דבר בשרי בסביבה
      */
+
     @Override
-    public boolean eat(Animal eater, List<AbstractEntity> nearby) {
-        for (AbstractEntity e : nearby){
+    public WorldCommand buildEatCommand(Animal eater, List<AbstractEntity> nearby) {
+        for (AbstractEntity e : nearby) {
             if (e instanceof EdibleByCarnivore)
-                return eater.eat((Consumable)e);
+                return new AttackCommand(eater, (Consumable) e);
         }
-        return false;
+        return null;
     }
 }

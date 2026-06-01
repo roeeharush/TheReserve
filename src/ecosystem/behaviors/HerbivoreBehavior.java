@@ -1,5 +1,7 @@
 package ecosystem.behaviors;
 
+import ecosystem.commands.AttackCommand;
+import ecosystem.commands.WorldCommand;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.animals.Animal;
 import ecosystem.interfaces.Consumable;
@@ -20,13 +22,13 @@ public class HerbivoreBehavior implements FeedingBehavior{
      * @param nearby רשימה של כל היצורים שנמצאים קרוב לחיה בסביבה
      * @return true אם החיה מצאה משהו מתאים ואכלה אותו false אם לא היה שום דבר צמחוני בסביבה
      */
+
     @Override
-    public boolean eat(Animal eater, List<AbstractEntity> nearby) {
+    public WorldCommand buildEatCommand(Animal eater, List<AbstractEntity> nearby) {
         for (AbstractEntity e : nearby){
             if (e instanceof EdibleByHerbivore)
-                return eater.eat((Consumable)e);
+                return new AttackCommand(eater, (Consumable) e);
         }
-        return false;
+        return null;
     }
-
 }

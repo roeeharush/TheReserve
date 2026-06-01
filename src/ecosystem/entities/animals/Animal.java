@@ -93,7 +93,8 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      */
     public boolean move(Environment env) {
         WorldCommand cmd = movementStrategy.buildMoveCommand(this, env);
-        if (cmd != null) return cmd.execute(env);
+        if (cmd != null)
+            return
         return false;
 
     }
