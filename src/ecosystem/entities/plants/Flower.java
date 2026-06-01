@@ -1,7 +1,11 @@
 package ecosystem.entities.plants;
+import ecosystem.commands.ReproduceCommand;
+import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
+import ecosystem.entities.animals.Rabbit;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -48,29 +52,7 @@ public class Flower extends Plant {
      */
     @Override
     public boolean reproduce(Environment env) {
-        if (rand.nextDouble() <= 0.20) {
-            int childrenToCreate = rand.nextInt(3) + 1;
-            int createdCount = 0;
-            Position myPos = this.getPosition();
-
-            for (int i = -2; i <= 2; i++) {
-                for (int j = -2; j <= 2; j++) {
-                    Position p = new Position(myPos.getRow() + i, myPos.getCol() + j);
-
-                    int dist = myPos.distanceTo(p);
-                    if (dist > 0 && dist <= 2 && env.isPositionFree(p)) {
-                        Flower flower = new Flower(p);
-                        env.addEntity(flower);
-                        createdCount++;
-
-                        if (createdCount == childrenToCreate)
-                            return true;
-                    }
-                }
-            }
-            return createdCount > 0;
-        }
-        return false;
+      return false;
     }
 
     /**
@@ -105,5 +87,35 @@ public class Flower extends Plant {
     public String getImageName() {
         return "Flower";
     }
+
+    @Override
+    public List<WorldCommand> collectCommands(Environment env) {
+        List<WorldCommand> commands = super.collectCommands(env);
+        if (rand.nextDouble() <= 0.20) {
+            int childrenToCreate = rand.nextInt(3) + 1;
+            int createdCount = 0;
+            Position myPos = this.getPosition();
+
+            for (int i = -2; i <= 2; i++) {
+                for (int j = -2; j <= 2; j++) {
+                    Position p = new Position(myPos.getRow() + i, myPos.getCol() + j);
+
+                    int dist = myPos.distanceTo(p);
+                    if (dist > 0 && dist <= 2 && env.isPositionFree(p)) {
+                        commands.add(new ReproduceCommand(new Flower(p)));
+                        createdCount++;
+
+                        if (createdCount == childrenToCreate)
+                            return commands;
+                    }
+                }
+            }
+        }
+        return commands;
+    }
+
+
+
+
 }
 

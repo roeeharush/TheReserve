@@ -1,11 +1,14 @@
 package ecosystem.entities.animals;
 
 import ecosystem.behaviors.*;
+import ecosystem.commands.ReproduceCommand;
+import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.interfaces.Consumable;
 import ecosystem.interfaces.Reproducible;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -54,27 +57,7 @@ public class Rabbit extends Animal implements Reproducible {
      */
     @Override
     public boolean reproduce(Environment env) {
-        Random rand = new Random();
-        double chance = rand.nextDouble();
-
-        Position position = this.getPosition();
-        if(this.getEnergy()> 30 && chance <= 0.3){
-            Position option1 = new Position(position.getRow() - 1, position.getCol());
-            Position option2 = new Position(position.getRow() + 1, position.getCol());
-            Position option3 = new Position(position.getRow(), position.getCol() - 1);
-            Position option4 = new Position(position.getRow(), position.getCol() + 1);
-            Position[] options = {option1, option2, option3, option4};
-
-            for( Position op : options){
-                if (env.isPositionFree(op)){
-                    Rabbit newRabbit = new Rabbit(op);
-                    env.addEntity(newRabbit);
-                    return true;
-                }
-            }
-        }
         return false;
-
     }
 
     /**
@@ -103,6 +86,37 @@ public class Rabbit extends Animal implements Reproducible {
      */
     @Override
     public String getImageName() { return "Rabbit"; }
+
+    @Override
+    public List<WorldCommand> collectCommands(Environment env) {
+        List<WorldCommand> commands = super.collectCommands(env);
+        Random rand = new Random();
+        double chance = rand.nextDouble();
+
+        Position position = this.getPosition();
+        if(this.getEnergy()> 30 && chance <= 0.3){
+            Position option1 = new Position(position.getRow() - 1, position.getCol());
+            Position option2 = new Position(position.getRow() + 1, position.getCol());
+            Position option3 = new Position(position.getRow(), position.getCol() - 1);
+            Position option4 = new Position(position.getRow(), position.getCol() + 1);
+            Position[] options = {option1, option2, option3, option4};
+
+            for( Position op : options){
+                if (env.isPositionFree(op)){
+                    commands.add(new ReproduceCommand(new Rabbit(op)));
+                    break;
+
+                }
+            }
+        }
+        return commands;
+
+    }
+
+
+
+
+
 }
 
 

@@ -1,7 +1,11 @@
 package ecosystem.entities.plants;
 
+import ecosystem.commands.ReproduceCommand;
+import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
+
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -92,5 +96,32 @@ public class OakTree extends Plant {
     public String getImageName() {
         return "OakTree";
     }
+
+    @Override
+    public List<WorldCommand> collectCommands(Environment env) {
+        List<WorldCommand> commands = super.collectCommands(env);
+        Random chance = new Random();
+        double result = chance.nextDouble();
+
+
+        Position position = this.getPosition();
+        if(result <= REPRODUCTION_CHANCE){
+            Position option1 = new Position(position.getRow() - 1, position.getCol());
+            Position option2 = new Position(position.getRow() + 1, position.getCol());
+            Position option3 = new Position(position.getRow(), position.getCol() - 1);
+            Position option4 = new Position(position.getRow(), position.getCol() + 1);
+            Position[] options = {option1, option2, option3, option4};
+
+            for( Position op : options){
+                if(env.isPositionFree(op)){
+                    commands.add(new ReproduceCommand(new OakTree (op)));
+                    return commands;
+                }
+            }
+        }
+
+        return commands;
+    }
+
 
 }

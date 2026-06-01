@@ -1,5 +1,4 @@
 package ecosystem.entities.animals;
-
 import ecosystem.behaviors.FeedingBehavior;
 import ecosystem.behaviors.MovementStrategy;
 import ecosystem.commands.WorldCommand;
@@ -143,8 +142,10 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
         return super.equals(o);
     }
 
-
-
+    @Override
+    public boolean move(Environment env) {
+        return false;
+    }
     }
 
 

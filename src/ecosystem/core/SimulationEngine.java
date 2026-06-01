@@ -1,11 +1,13 @@
 package ecosystem.core;
 
+import ecosystem.commands.WorldCommand;
 import ecosystem.entities.AbstractEntity;
-import ecosystem.entities.animals.Animal;
-import ecosystem.entities.plants.Plant;
 import ecosystem.interfaces.Actable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.logging.Logger;
 
 
 /**
@@ -13,57 +15,91 @@ import java.util.List;
  * המנוע הזה הוא המוח שעובר על כל הישויות מעדכן אותן ומנקה את אלה שמתו מהמפה
  */
 public class SimulationEngine {
-    private Environment environment;
-
+    private final Environment environment;
+    private final BlockingQueue<WorldCommand> commandQueue = new LinkedBlockingQueue<>();
+    private final List<EntityThread> threads = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(SimulationEngine.class.getName());
 
     /**
      * בונה מנוע סימולציה חדש ומחבר אותו לסביבת העולם שנוצרה
+     *
      * @param environment העולם שבו המנוע הולך לעבוד ולנהל את היצורים
      */
-    public SimulationEngine(Environment environment){
+    public SimulationEngine(Environment environment) {
         this.environment = environment;
     }
+
+    public void startAllThreads() {
+        for (AbstractEntity e : environment.getEntities()) {
+            if (e instanceof Actable) {
+                logger.info("Thread start: " + e.getClass().getSimpleName());
+                EntityThread t = new EntityThread((Actable) e, environment, commandQueue);
+                threads.add(t);
+                t.start();
+            }
+        }
+    }
+
+    public void stopAllThreads() {
+        for (EntityThread t : threads) {
+            t.stopThread();
+        }
+        threads.clear();
+        commandQueue.clear();
+    }
+
 
     /**
      * מבצע פעימה אחת של זמן בתוך המערכת
      * המנוע מפעיל את כל היצורים שיודעים לפעול מוריד מהמפה את אלה שנגמר להם הכוח ומדפיס סטטיסטיקה על כמה חיות וצמחים נשארו בחיים בסוף התור
      */
-    public void Tick(){
-        for(AbstractEntity e : environment.getEntities()){
-            if(e instanceof Actable)
+    public void Tick() {
+
+        for (AbstractEntity e : environment.getEntities()) {
+            if (e instanceof Actable)
                 ((Actable) e).act(this.environment);
         }
 
-        List<AbstractEntity> toRemove = new ArrayList<>();
+        List<WorldCommand> group = new ArrayList<>();
+        commandQueue.drainTo(group);
+        for (WorldCommand cmd : group) {
+            boolean success = cmd.execute(environment);
+            if (success) {
+                logger.info("Has done " + cmd.getClass().getSimpleName());
+            }
+        }
 
+        List<AbstractEntity> toRemove = new ArrayList<>();
         for (AbstractEntity e : environment.getEntities()) {
             if (!e.isAlive())
                 toRemove.add(e);
         }
         for (AbstractEntity e : toRemove) {
             environment.removeEntity(e);
+            logger.info("Removed: " + e.getClass().getSimpleName() + " In Position " + e.getPosition());
         }
+        logger.info("Tick " + environment.getTicks() + " Finished ");
 
-        int aliveCount = 0;
-        int animalCount = 0;
-        int plantCount = 0;
 
         for (AbstractEntity e : environment.getEntities()) {
-            if (e.isAlive()) aliveCount++;
-            if (e instanceof Animal) animalCount++;
-            if (e instanceof Plant) plantCount++;
+            if (e instanceof Actable) {
+                boolean hasThread = false;
+                for (EntityThread t : threads) {
+                    if (t.getEntity() == e) {
+                        hasThread = true;
+                        break;
+                    }
+                }
+                if (!hasThread) {
+                    EntityThread t = new EntityThread(
+                            (Actable) e, environment, commandQueue);
+                    threads.add(t);
+                    t.start();
+                }
+            }
         }
-
-        System.out.println("Alive entities: " + aliveCount);
-        System.out.println("Animals: " + animalCount);
-        System.out.println("Plants: " + plantCount);
-
-
-        System.out.println("The map of the World ");
-        System.out.println( environment.toString());
         environment.nextTick();
         environment.notifyObservers();
-
-
- }
+    }
 }
+

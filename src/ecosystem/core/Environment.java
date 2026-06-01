@@ -48,7 +48,7 @@ public class Environment  {
      * מחזירה העתק של רשימת כל היצורים והחפצים שנמצאים כרגע בתוך העולם
      * @return רשימה של כל הישויות הקיימות
      */
-    public List<AbstractEntity> getEntities() {
+    public synchronized List<AbstractEntity> getEntities() {
         return new ArrayList<>(entities);
     }
 
@@ -86,14 +86,13 @@ public class Environment  {
         return map[pos.getRow()][pos.getCol()] == null;
     }
 
-
     /**
      * מנסה להכניס יצור חדש לתוך העולם
      * הפעולה בודקת שהמקום פנוי ומעדכנת גם את הרשימה וגם את המפה הגרפית
      * @param entity היצור שרוצים להוסיף
      * @return true אם ההוספה הצליחה והמקום היה פנוי
      */
-    public boolean addEntity(AbstractEntity entity) {
+    public synchronized boolean addEntity(AbstractEntity entity) {
         if (entity == null || !isPositionFree(entity.getPosition()))
             return false;
 
@@ -109,7 +108,7 @@ public class Environment  {
      * @param entity היצור שצריך למחוק
      * @return true אם היצור נמצא ונמחק בהצלחה
      */
-    public boolean removeEntity(AbstractEntity entity) {
+    public synchronized boolean removeEntity(AbstractEntity entity) {
         if (entity == null || !entities.contains(entity)) {
             return false;
         }
@@ -128,7 +127,7 @@ public class Environment  {
      * @param pos המיקום שסביבו מחפשים
      * @return רשימה של כל היצורים שנמצאים בטווח הקרוב
      */
-    public List<AbstractEntity> getNearbyEntities(Position pos) {
+    public synchronized List<AbstractEntity> getNearbyEntities(Position pos) {
 
         List<AbstractEntity> entitiesNew = new ArrayList<>();
         for (AbstractEntity e : entities) {
@@ -171,7 +170,7 @@ public class Environment  {
      * @param newPos המיקום החדש שאליו הוא הולך
      * @return true אם התנועה הצליחה והמקום החדש היה פנוי
      */
-    public boolean moveEntity(AbstractEntity entity, Position newPos) {
+    public synchronized boolean moveEntity(AbstractEntity entity, Position newPos) {
         if (!isPositionFree(newPos))
             return false;
 

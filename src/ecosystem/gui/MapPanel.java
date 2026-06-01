@@ -89,10 +89,15 @@ public class MapPanel extends JPanel implements WorldObserver  {
 
     @Override
     public void onWorldChanged() {
-        selectedCell = null;
-        removeAll();
-        buildGrid();
-        revalidate();
-        repaint();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                selectedCell = null;
+                removeAll();
+                buildGrid();
+                revalidate();
+                repaint();
+            }
+        });
     }
 }
