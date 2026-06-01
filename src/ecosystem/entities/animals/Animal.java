@@ -8,6 +8,8 @@ import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.LivingEntity;
 import ecosystem.interfaces.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,17 +46,28 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @return true אם החיה הצליחה לזוז או לאכול משהו באותו תור
      */
     public boolean act(Environment env){
-        super.act(env);
-        if (!isAlive())
-            return false;
-
-        List<AbstractEntity> nearbyEntities = this.sense(env);
-        boolean moved = move(env);
-        boolean ate = this.feedingBehavior.eat(this, nearbyEntities);
-        return moved || ate;
-
-
+        return super.act(env);
     }
+
+
+    public List<WorldCommand> collectCommands(Environment env){
+        List<WorldCommand> commands = new ArrayList<>();
+        if (!isAlive())
+            return commands;
+
+        WorldCommand move = movementStrategy.buildMoveCommand(this, env);
+        if (move != null)
+            commands.add(move);
+
+        WorldCommand eat = feedingBehavior.buildEatCommand(this, sense(env));
+        if (eat != null)
+            commands.add(eat);
+
+        return commands;
+    }
+
+
+
 
     /**
      * מחזיר כמה אנרגיה חיה אחרת תקבל אם היא תאכל את החיה הזאת
@@ -91,13 +104,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @param env העולם שבו החיה מנסה למצוא לאן לזוז
      * @return true אם החיה הצליחה לעבור למקום חדש במפה
      */
-    public boolean move(Environment env) {
-        WorldCommand cmd = movementStrategy.buildMoveCommand(this, env);
-        if (cmd != null)
-            return
-        return false;
-
-    }
 
 
     /**

@@ -1,12 +1,10 @@
 package ecosystem.behaviors;
-
 import ecosystem.commands.AttackCommand;
 import ecosystem.commands.WorldCommand;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.animals.Animal;
 import ecosystem.interfaces.Consumable;
 import ecosystem.interfaces.EdibleByHerbivore;
-
 import java.util.List;
 
 /**
