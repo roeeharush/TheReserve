@@ -1,7 +1,6 @@
 package ecosystem.core;
 import java.util.List;
 import ecosystem.commands.WorldCommand;
-import ecosystem.entities.animals.Animal;
 import ecosystem.interfaces.Actable;
 
 import java.util.Random;
@@ -15,8 +14,7 @@ public class EntityThread extends Thread{
     private final Random random = new Random();
     private final AtomicBoolean running = new AtomicBoolean(true);
 
-    public EntityThread(Actable entity, Environment environment,
-                        BlockingQueue<WorldCommand> commandQueue) {
+    public EntityThread(Actable entity, Environment environment,BlockingQueue<WorldCommand> commandQueue) {
         this.entity = entity;
         this.environment = environment;
         this.commandQueue = commandQueue;

@@ -1,7 +1,6 @@
 package ecosystem.commands;
 
 import ecosystem.core.Environment;
-import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
 import java.util.logging.Logger;
 
