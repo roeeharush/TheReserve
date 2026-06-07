@@ -19,6 +19,13 @@ public class Lion extends Animal {
         super(position, 'L', true, 100, MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
     }
 
+
+    /**
+     * בונה אריה חדש במיקום מוגדר וקובע לו רמת אנרגיה התחלתית מותאמת אישית
+     * בנאי זה משמש בעיקר בעת יצירת צאצאים חדשים במערכת ומגדיר את אסטרטגיות המרדף והתזונה הטורפת של החיה
+     * @param position המיקום שבו האריה החדש ייוולד על גבי המפה
+     * @param energy כמות האנרגיה ההתחלתית שאיתה האריה מתחיל את חייו
+     */
     public Lion(Position position ,double energy) {
         super(position, 'L', true, energy , MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
     }

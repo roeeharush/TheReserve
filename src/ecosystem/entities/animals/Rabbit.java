@@ -28,6 +28,13 @@ public class Rabbit extends Animal implements Reproducible {
         super(position, 'R', true, 50, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
     }
 
+
+    /**
+     * בונה ארנב חדש במיקום מוגדר וקובע לו רמת אנרגיה התחלתית מותאמת אישית
+     * בנאי זה משמש בעיקר בעת יצירת צאצאים חדשים במערכת ומגדיר את אסטרטגיות התנועה האקראית והתזונה הצמחונית של החיה
+     * @param position המיקום שבו הארנב החדש ייוולד על גבי המפה
+     * @param energy כמות האנרגיה ההתחלתית שאיתה הארנב מתחיל את חייו
+     */
     public Rabbit( Position position , double energy ) {
         super(position, 'R', true, energy, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
     }
@@ -86,6 +93,15 @@ public class Rabbit extends Animal implements Reproducible {
      */
     @Override
     public String getImageName() { return "Rabbit"; }
+
+
+
+    /**
+     * אוספת את כל פקודות הפעולה של הארנב כולל פקודות תנועה תזונה ובקשות רבייה ומיומנויות
+     * המתודה קוראת לפעולת איסוף הפקודות הבסיסית של חיה ובנוסף בוחנת תנאי רבייה על בסיס רמת האנרגיה הנוכחית של הארנב וחישוב סיכויים אקראי ואם התנאים מתאימים היא מאתרת משבצת שכנה פנויה ומייצרת פקודת רבייה ייעודית המוזרקת לתור המשותף
+     * @param env סביבת העולם המשמשת לקבלת החלטות ובדיקת זמינות משבצות שכנות עבור הצאצאים החדשים
+     * @return רשימה המכילה את כל פקודות הפעולה והרבייה שהארנב מבקש לבצע בתור הנוכחי
+     */
 
     @Override
     public List<WorldCommand> collectCommands(Environment env) {

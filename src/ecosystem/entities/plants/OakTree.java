@@ -28,6 +28,14 @@ public class OakTree extends Plant {
         super(position,'T',true,INITINAL_ENERGY,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
 
+
+    /**
+     * בונה עץ אלון חדש במיקום מוגדר וקובע לו רמת אנרגיה התחלתית מותאמת אישית
+     * בנאי זה משמש בעיקר בעת יצירת צאצאים חדשים במערכת ושומר על ערכי הגדילה וסיכויי הרבייה הקבועים של האילן
+     * @param position המיקום שבו עץ האלון החדש ייוולד על גבי המפה
+     * @param energy כמות האנרגיה ההתחלתית שאיתה העץ מתחיל את חייו
+     */
+
     public OakTree(Position position , double energy ){
         super(position,'T',true ,energy ,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
@@ -96,6 +104,14 @@ public class OakTree extends Plant {
     public String getImageName() {
         return "OakTree";
     }
+
+
+    /**
+     * אוספת את כל פקודות הפעולה ובקשות הרבייה של עץ האלון עבור מנוע הסימולציה המקבילי
+     * המתודה מפעילה את מנגנון איסוף הפקודות הבסיסי ובנוסף מחשבת את סיכויי הפצת הזרעים של העץ ואם התנאים מתאימים היא מאתרת משבצת שכנה פנויה ומייצרת פקודת רבייה ייעודית המוזרקת לתור המשותף
+     * @param env סביבת העולם המשמשת לבדיקת זמינות משבצות שכנות עבור העצים החדשים
+     * @return רשימה המכילה את פקודות הרבייה שהעץ מבקש לבצע בתור הנוכחי
+     */
 
     @Override
     public List<WorldCommand> collectCommands(Environment env) {

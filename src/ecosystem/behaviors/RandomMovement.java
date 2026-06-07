@@ -17,6 +17,13 @@ public class RandomMovement implements MovementStrategy{
     private Random rd = new Random();
 
 
+    /**
+     * בונה פקודת תנועה אקראית עבור הישות על בסיס מצב העולם הנוכחי
+     * המתודה מגדירה את ארבעת כיווני התנועה האפשריים שלוש שורות ועמודות סביב הישות בוחרת כיוון אחד באקראי ואם המיקום פנוי היא מייצרת ומחזירה פקודת תנועה חדשה המתאימה לתור הפעולות
+     * @param entity הישות שרוצה לבצע את התנועה האקראית
+     * @param env סביבת העולם שבה נבדקת זמינות המשבצת הנבחרת
+     * @return פקודת תנועה מוכנה לביצוע בתור הפעולות או null אם המיקום שנבחר אינו פנוי
+     */
     @Override
     public WorldCommand buildMoveCommand(AbstractEntity entity, Environment env) {
         Position position = entity.getPosition();

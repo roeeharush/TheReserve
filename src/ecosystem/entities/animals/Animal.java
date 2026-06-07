@@ -49,6 +49,13 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
     }
 
 
+    /**
+     * אוספת ומייצרת את כל פקודות הפעולה של החיה על בסיס מצב העולם וחושיה
+     * המתודה בודקת אם החיה בחיים ומפעילה את אסטרטגיות התנועה והתזונה כדי לבנות פקודות מתאימות ומחזירה רשימה של פקודות המיועדות להזרקה לתוך תור הפעולות החסום של המנוע
+     * @param env סביבת העולם המשמשת לקבלת החלטות ובדיקת זמינות משבצות
+     * @return רשימה המכילה את פקודות התנועה והאכילה שהחיה מבקשת לבצע בתור הנוכחי
+     */
+
     public List<WorldCommand> collectCommands(Environment env){
         List<WorldCommand> commands = new ArrayList<>();
         if (!isAlive())
@@ -142,6 +149,13 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
         return super.equals(o);
     }
 
+
+    /**
+     * מבצעת את פעולת התנועה הפיזית של החיה על גבי המפה
+     * מתודה זו ממומשת כברירת מחדל המחזירה ערך שלילי מאחר והתנועה בארכיטקטורה החדשה מנוהלת ומבוצעת באמצעות פקודות חיצוניות הנשלחות לתור המרכזי
+     * @param env סביבת העולם שבה מתבצע ניסיון התנועה
+     * @return false כסימן לכך שהתנועה הישירה אינה מופעלת מהחיה עצמה
+     */
     @Override
     public boolean move(Environment env) {
         return false;

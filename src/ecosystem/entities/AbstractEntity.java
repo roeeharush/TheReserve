@@ -115,5 +115,7 @@ public abstract class  AbstractEntity {
         return false;
     }
 
+
+
     public abstract String getImageName();
 }

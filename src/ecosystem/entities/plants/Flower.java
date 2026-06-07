@@ -29,6 +29,14 @@ public class Flower extends Plant {
         super(position, 'F', true, INITIAL_ENERGY, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
     }
 
+
+    /**
+     * בונה פרח חדש במיקום מוגדר וקובע לו רמת אנרגיה התחלתית מותאמת אישית
+     * בנאי זה משמש בעיקר בעת יצירת צאצאים חדשים במערכת ושומר על ערכי קצב הגדילה הגבוהים וסיכויי הפריצה הקבועים של הפרח
+     * @param position המיקום שבו הפרח החדש ייוולד על גבי המפה
+     * @param energy כמות האנרגיה ההתחלתית שאיתה הפרח מתחיל את חייו
+     */
+
     public Flower(Position position , double energy) {
         super(position, 'F', true, energy, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
     }
@@ -88,6 +96,14 @@ public class Flower extends Plant {
         return "Flower";
     }
 
+
+    /**
+     * אוספת את כל פקודות הפעולה ובקשות הרבייה המרובות של הפרח עבור מנוע הסימולציה המקבילי
+     * המתודה מפעילה את מנגנון איסוף הפקודות הבסיסי ובנוסף מחשבת סיכויי התפשטות של עשרים אחוזים ואם התנאים מתאימים היא מגרילה כמות צאצאים מבוקשת סורקת משבצות פנויות ברדיוס מנהטן של עד שני צעדים ומייצרת פקודות רבייה ייעודיות המוזרקות לתור המשותף
+     * @param env סביבת העולם המשמשת לבדיקת זמינות משבצות פנויות עבור הפרחים החדשים
+     * @return רשימה המכילה את כל פקודות הרבייה שהפרח מבקש לבצע בתור הנוכחי
+     */
+
     @Override
     public List<WorldCommand> collectCommands(Environment env) {
         List<WorldCommand> commands = super.collectCommands(env);
@@ -113,9 +129,6 @@ public class Flower extends Plant {
         }
         return commands;
     }
-
-
-
 
 }
 
