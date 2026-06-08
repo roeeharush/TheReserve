@@ -66,9 +66,10 @@ public class SimulationController {
         controlPanel.getRunButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                engine.startAllThreads();
-                timer.start();
-
+                if (!timer.isRunning()) {
+                    engine.startAllThreads();
+                    timer.start();
+                }
             }
         });
 

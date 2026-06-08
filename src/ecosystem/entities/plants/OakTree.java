@@ -40,7 +40,7 @@ public class OakTree extends Plant {
         super(position,'T',true ,energy ,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
 
-    /**
+    /**ז
      * מנגנון הרבייה של עץ האלון
      * יש סיכוי של חמישה אחוז לייצר עץ חדש בכל תור
      * העץ מחפש מקום פנוי באחד מארבעת הכיוונים הצמודים אליו במרחק של צעד אחד ויוצר שם עץ חדש
@@ -49,26 +49,6 @@ public class OakTree extends Plant {
      */
     @Override
     public boolean reproduce(Environment env){
-        Random chance = new Random();
-        double result = chance.nextDouble();
-
-
-        Position position = this.getPosition();
-        if(result <= REPRODUCTION_CHANCE){
-            Position option1 = new Position(position.getRow() - 1, position.getCol());
-            Position option2 = new Position(position.getRow() + 1, position.getCol());
-            Position option3 = new Position(position.getRow(), position.getCol() - 1);
-            Position option4 = new Position(position.getRow(), position.getCol() + 1);
-            Position[] options = {option1, option2, option3, option4};
-
-            for( Position op : options){
-                if(env.isPositionFree(op)){
-                    OakTree newOakTree = new OakTree(op);
-                    env.addEntity(newOakTree);
-                    return true;
-                }
-            }
-        }
         return false;
     }
 

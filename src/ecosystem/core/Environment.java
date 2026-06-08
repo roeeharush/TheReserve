@@ -226,7 +226,7 @@ public class Environment  {
      * המתודה מרוקנת את רשימת היצורים מאפסת את מונה הטיקים ומוחקת את כל האובייקטים מהמטריצה הדו ממדית תוך שליחת התראת רענון לממשק המשתמש
      */
 
-    public void reset() {
+    public synchronized void reset() {
         entities.clear();
         ticks = 0;
         for (int i = 0; i < rows; i++)
