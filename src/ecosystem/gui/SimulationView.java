@@ -43,8 +43,7 @@ public class SimulationView extends JFrame  {
 
     private void initComponents() {
         controlPanel = new ControlPanel();
-        infoPanel = new InfoPanel();
-        statsPanel =  new StatsPanel( environment);
+        infoPanel = new InfoPanel(environment);        statsPanel =  new StatsPanel( environment);
         mapPanel = new MapPanel(environment , infoPanel);
     }
 

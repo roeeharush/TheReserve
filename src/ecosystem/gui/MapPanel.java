@@ -58,7 +58,7 @@ public class MapPanel extends JPanel implements WorldObserver  {
                 cell.setMaximumSize(new Dimension(64, 64));
                 AbstractEntity entity = environment.getEntityAt(i, j);
                 if (entity != null) {
-                    String name = entity.getClass().getSimpleName();
+                    String name = entity.getImageName();
                     cell.setIcon(getImage(name));
                     cell.setToolTipText(entity.toString());
                 }
