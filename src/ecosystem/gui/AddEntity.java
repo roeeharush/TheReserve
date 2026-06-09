@@ -9,6 +9,8 @@ import ecosystem.entities.plants.Flower;
 import ecosystem.entities.plants.OakTree;
 import ecosystem.entities.resources.Rock;
 import ecosystem.entities.resources.Water;
+import ecosystem.factory.EntityFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -136,17 +138,7 @@ public class AddEntity extends JDialog {
                 return;
             }
             Position pos = new Position(row, col);
-            AbstractEntity entity = null;
-
-            switch (type) {
-                case "Lion" -> entity = new Lion(pos, energy);
-                case "Deer" -> entity = new Deer(pos, energy);
-                case "Rabbit" -> entity = new Rabbit(pos, energy);
-                case "Flower" -> entity = new Flower(pos, energy);
-                case "OakTree" -> entity = new OakTree(pos, energy);
-                case "Water" -> entity = new Water(pos);
-                case "Rock" -> entity = new Rock(pos);
-            }
+            AbstractEntity entity = EntityFactory.createEntity(type, pos, energy);
 
             if (!environment.addEntity(entity)) {
                 JOptionPane.showMessageDialog(this, "Position is already taken");

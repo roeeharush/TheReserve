@@ -234,4 +234,16 @@ public class Environment  {
                 map[i][j] = null;
         notifyObservers();
     }
+
+
+
+    public boolean isAtCorner(Position p) {
+        int maxRow = getRows() - 1;
+        int maxCol = getCols() - 1;
+
+        return (p.getRow() == 0 && p.getCol() == 0) ||
+                (p.getRow() == 0 && p.getCol() == maxCol) ||
+                (p.getRow() == maxRow && p.getCol() == 0) ||
+                (p.getRow() == maxRow && p.getCol() == maxCol);
+    }
 }

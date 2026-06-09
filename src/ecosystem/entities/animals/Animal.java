@@ -7,6 +7,7 @@ import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.LivingEntity;
 import ecosystem.interfaces.*;
+import ecosystem.states.SleepingState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,9 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
         if (!isAlive())
             return commands;
 
+        if (!canMove())
+            return commands;
+
         WorldCommand move = movementStrategy.buildMoveCommand(this, env);
         if (move != null)
             commands.add(move);
@@ -71,6 +75,8 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
 
         return commands;
     }
+
+
 
 
 

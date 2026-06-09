@@ -2,6 +2,8 @@ package ecosystem.entities;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.interfaces.Actable;
+import ecosystem.states.EntityState;
+import ecosystem.states.HungryState;
 
 
 /**
@@ -14,6 +16,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
     private double energy;
     private int age = 0;
     private static final double DEFAULT_MAX_ENERGY =1000.0;
+    private EntityState currentState = new HungryState();
 
 
     /**
@@ -55,10 +58,16 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
     public boolean setEnergy(double energy){
         if(energy >= 0 && energy <= maxEnergy){
             this.energy = energy;
+            if (this.energy <= 0)
+                this.setAlive(false);
             return true;
         }
         this.energy = this.maxEnergy;
         return false;
+    }
+
+    public void setState(EntityState state) {
+        this.currentState = state;
     }
 
     /**
@@ -72,9 +81,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         if(!this.isAlive())
             return false;
         this.age++;
-        this.energy -= 2.0;
-        if(this.getEnergy() <= 0.0)
-            this.setAlive(false);
+        currentState.doAction(this, env);
         return true;
     }
 
@@ -133,5 +140,10 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         }
         return false;
     }
+
+    public boolean canMove() {
+        return currentState.canMove();
+    }
+
 }
 
