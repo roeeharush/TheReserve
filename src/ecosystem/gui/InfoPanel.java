@@ -65,8 +65,10 @@ public class InfoPanel extends JPanel {
     }
 
     /**
-     * מגדירה את הלוגיקה שתתבצע בעת לחיצה על כפתורי האפקטים
+     * מגדירה את הלוגיקה שתתבצע בעת לחיצה על כפתורי האפקטים של הדקורטורים בממשק
+     * בעת לחיצה על כפתור רעל או האצה המתודה בודקת האם נבחרה ישות חיה ואם כן היא עוטפת אותה בדקורטור המתאים ומעדכנת את מודל העולם בהחלפת הישות המקורית במעטפת החדשה שלה
      */
+
     private void setupActionListeners() {
         applyPoisonButton.addActionListener(e -> {
             if (selectedEntity instanceof LivingEntity living) {
@@ -92,7 +94,9 @@ public class InfoPanel extends JPanel {
     }
 
     /**
-     * מעדכנת את הפאנל להציג את הנתונים של הישות שנבחרה במפה
+     * מעדכנת את הפאנל להציג את הנתונים של הישות שנבחרה במפה ומנהלת את נראות כפתורי האפקטים
+     * אם לא נבחרה ישות הפאנל מציג שמדובר באדמה ומסתיר את הכפתורים ואם נבחרה ישות היא מציגה את פרטיה ומדליקה את כפתורי הרעל וההאצה רק במידה ומדובר ביצור חי או בישות שכבר מעוטרת באפקט
+     * @param entity הישות שרוצים להציג את המידע שלה על המסך
      */
     public void showEntity(AbstractEntity entity) {
         this.selectedEntity = entity;
@@ -125,7 +129,10 @@ public class InfoPanel extends JPanel {
 
     /**
      * שולפת את הנתונים המעודכנים מתוך הישות ומזריקה אותם לתוך רכיבי הטקסט הגרפיים
+     * המתודה מציגה מיקום ומצב חיות ומבצעת בדיקה פולימורפית האם מדובר בישות חיה או בדקורטור שעוטף ישות חיה כדי לשלוף ולהציג את רמות האנרגיה הנוכחיות והמקסימליות בצורה נכונה
+     * @param entity הישות שממנה שולפים את הנתונים לעדכון הפאנל
      */
+
     private void setGetters(AbstractEntity entity){
         position.setText("Position: " + entity.getPosition());
         aliveState.setText("Alive State: " + entity.isAlive());
@@ -144,6 +151,12 @@ public class InfoPanel extends JPanel {
             maxEnergy.setVisible(false);
         }
     }
+
+    /**
+     * קובעת את מצב הנראות של כפתורי החלת האפקטים בפאנל בבת אחת
+     * המתודה מדליקה או מכבה את כפתורי הרעל וההאצה בהתאם לכך האם הישות שנבחרה על ידי המשתמש היא ישות שניתן להחיל עליה אפקטים דינמיים
+     * @param visible true כדי להציג את כפתורי האפקטים או false כדי להסתיר אותם מהמסך
+     */
 
     private void setButtonsVisibility(boolean visible) {
         applyPoisonButton.setVisible(visible);

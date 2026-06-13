@@ -66,16 +66,23 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         return false;
     }
 
+    /**
+     * מעדכנת ומחליפה את מצב ההתנהגות הנוכחי של הישות החיה במכונת המצבים
+     * מתודה זו מאפשרת למצבים השונים להעביר את הישות מצב בצורה דינמית ועיוורת במהלך פעימות הסימולציה
+     * @param state אובייקט המצב החדש שאליו הישות החיה עוברת כעת
+     */
+
     public void setState(EntityState state) {
         this.currentState = state;
     }
 
     /**
      * הפעולה שהישות עושה בכל תור של המערכת
-     * הישות מזדקנת בשנה אחת ומאבדת שתי יחידות אנרגיה ואם נגמר הכוח היא מתה
-     * @param env הסביבה שבה הישות פועלת
-     * @return true אם הישות חיה והצליחה לבצע את הפעולות false אם היא כבר מתה
+     * הישות מזדקנת בשנה אחת ומאצילה את ביצוע התנהגותה האקולוגית למצב הפנימי הנוכחי שלה מבלי לדעת מהו המצב הספציפי או הלוגיקה הפנימית המופעלת בו
+     * @param env הסביבה שבה הישות פועלת ומבצעת את החלטותיה
+     * @return true אם הישות חיה והצליחה להפעיל את מצב ההתנהגות שלה או false אם היא כבר מתה
      */
+
     @Override
     public boolean act(Environment env){
         if(!this.isAlive())
@@ -141,9 +148,15 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         return false;
     }
 
+
+    /**
+     * בודקת האם הישות החיה רשאית לבצע תנועה על גבי המפה בתור הנוכחי בהתאם למצבה הפנימי
+     * המתודה פונה למצב הנוכחי ומאפשרת למנוע הסימולציה או לישות עצמה לקבל החלטה פולימורפית מבלי לבצע בדיקות סוג קשיחות
+     * @return true אם המצב הנוכחי מאפשר לישות לנוע או false אם המצב מונע תנועה כגון במצב שינה
+     */
+
     public boolean canMove() {
         return currentState.canMove();
     }
-
 }
 
