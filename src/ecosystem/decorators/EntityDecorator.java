@@ -3,16 +3,21 @@ package ecosystem.decorators;
 import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.entities.AbstractEntity;
+import ecosystem.entities.LivingEntity;
 import ecosystem.interfaces.Actable;
 
 import java.util.List;
 
-public class EntityDecorator extends AbstractEntity implements Actable {
+public abstract class EntityDecorator extends AbstractEntity implements Actable {
     protected final Actable decoratedEntity;
     protected int duration = 10;
 
     public EntityDecorator(Actable decoratedEntity) {
-        super(((AbstractEntity) decoratedEntity).getPosition(),((AbstractEntity) decoratedEntity).getSymbol(),((AbstractEntity) decoratedEntity).isAlive());
+        super(
+                ((AbstractEntity) decoratedEntity).getPosition(),
+                ((AbstractEntity) decoratedEntity).getSymbol(),
+                ((AbstractEntity) decoratedEntity).isAlive()
+        );
         this.decoratedEntity = decoratedEntity;
     }
 
@@ -22,9 +27,11 @@ public class EntityDecorator extends AbstractEntity implements Actable {
             this.setAlive(false);
             return false;
         }
-        if(!isAlive()) return false;
+        if (!isAlive())
+            return false;
+
         duration--;
-        if(duration <= 0){
+        if (duration <= 0) {
             removeDecoratorAndRestoreOriginal(env);
             return true;
         }
@@ -39,13 +46,21 @@ public class EntityDecorator extends AbstractEntity implements Actable {
     }
 
     @Override
-    public List<WorldCommand> collectCommands(Environment env){
+    public List<WorldCommand> collectCommands(Environment env) {
         return decoratedEntity.collectCommands(env);
     }
 
     @Override
-    public String getImageName(){
+    public String getImageName() {
         return ((AbstractEntity) decoratedEntity).getImageName();
     }
-}
+
+    public Actable getDecoratedEntity() {
+        return decoratedEntity;
+    }
+
+    }
+
+
+
 

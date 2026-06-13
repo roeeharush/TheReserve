@@ -10,7 +10,7 @@ public class SleepingState implements EntityState {
 
     @Override
     public void doAction(LivingEntity e, Environment env) {
-        e.setEnergy(Math.min(e.getMaxEnergy(), e.getEnergy() + 10));
+        e.setEnergy(Math.min(e.getMaxEnergy(), e.getEnergy() + 2));
         remainingTicks--;
 
         if (remainingTicks <= 0) {

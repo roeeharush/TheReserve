@@ -65,6 +65,9 @@ public class MapPanel extends JPanel implements WorldObserver  {
                 else
                     cell.setIcon(getImage("ground"));
 
+                final int row = i;
+                final int col = j;
+
                 cell.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -73,7 +76,7 @@ public class MapPanel extends JPanel implements WorldObserver  {
                         }
                         selectedCell =cell;
                         selectedCell.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
-                        infoPanel.showEntity(entity);
+                        infoPanel.showEntity(environment.getEntityAt(row, col));
                     }
                 });
 

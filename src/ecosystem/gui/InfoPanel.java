@@ -1,12 +1,15 @@
 package ecosystem.gui;
 
+
 import ecosystem.core.Environment;
+import ecosystem.decorators.EntityDecorator;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.LivingEntity;
 import javax.swing.*;
 import java.awt.*;
 import ecosystem.decorators.PoisonedDecorator;
 import ecosystem.decorators.SpeedBoostDecorator;
+
 
 /**
  * מחלקה שמייצגת פאנל צדדי בממשק הגרפי להצגת נתונים על ישות שנבחרה
@@ -65,29 +68,27 @@ public class InfoPanel extends JPanel {
      * מגדירה את הלוגיקה שתתבצע בעת לחיצה על כפתורי האפקטים
      */
     private void setupActionListeners() {
-        // לוגיקת לחיצה על כפתור רעל
         applyPoisonButton.addActionListener(e -> {
             if (selectedEntity instanceof LivingEntity living) {
-                // מעבירים ישירות את ה-living שג'אווה כבר יודעת שהוא חוקי
                 PoisonedDecorator poisoned = new PoisonedDecorator(living);
-
                 environment.removeEntity(selectedEntity);
-                environment.addEntity(poisoned);
+                boolean added = environment.addEntity(poisoned);
+                System.out.println("Added decorator: " + added);
                 showEntity(poisoned);
             }
+
         });
 
-        // לוגיקת לחיצה על כפתור האצה
         applySpeedButton.addActionListener(e -> {
             if (selectedEntity instanceof LivingEntity living) {
-                // מעבירים ישירות את ה-living שג'אווה כבר יודעת שהוא חוקי
                 SpeedBoostDecorator boosted = new SpeedBoostDecorator(living);
-
                 environment.removeEntity(selectedEntity);
                 environment.addEntity(boosted);
                 showEntity(boosted);
             }
+
         });
+
     }
 
     /**
@@ -103,14 +104,13 @@ public class InfoPanel extends JPanel {
             setButtonsVisibility(false);
             return;
         }
+
         name.setText(entity.getClass().getSimpleName());
         setGetters(entity);
-        setButtonsVisibility(entity instanceof LivingEntity);
-    }
 
-    private void setButtonsVisibility(boolean visible) {
-        applyPoisonButton.setVisible(visible);
-        applySpeedButton.setVisible(visible);
+        boolean showButtons = (entity instanceof LivingEntity) || (entity instanceof EntityDecorator);
+        setButtonsVisibility(showButtons);
+
     }
 
     /**
@@ -129,14 +129,24 @@ public class InfoPanel extends JPanel {
     private void setGetters(AbstractEntity entity){
         position.setText("Position: " + entity.getPosition());
         aliveState.setText("Alive State: " + entity.isAlive());
-        if(entity instanceof LivingEntity living){
-            energy.setText("Energy: " + (living.getEnergy()));
-            maxEnergy.setText("Max Energy: " + ((living.getMaxEnergy())));
+
+        if (entity instanceof LivingEntity living) {
+            energy.setText("Energy: " + living.getEnergy());
+            maxEnergy.setText("Max Energy: " + living.getMaxEnergy());
             setLabelVisibility(true);
-        }
-        else {
+        } else if (entity instanceof EntityDecorator decorator &&
+                decorator.getDecoratedEntity() instanceof LivingEntity living) {
+            energy.setText("Energy: " + living.getEnergy());
+            maxEnergy.setText("Max Energy: " + living.getMaxEnergy());
+            setLabelVisibility(true);
+        } else {
             energy.setVisible(false);
             maxEnergy.setVisible(false);
         }
+    }
+
+    private void setButtonsVisibility(boolean visible) {
+        applyPoisonButton.setVisible(visible);
+        applySpeedButton.setVisible(visible);
     }
 }
