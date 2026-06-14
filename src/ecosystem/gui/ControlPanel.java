@@ -14,6 +14,9 @@ import java.awt.*;
         private JButton stopButton;
         private JButton resetButton;
         private JButton addEntityButton;
+        private JButton sendToPortalButton;
+
+
 
 
     /**
@@ -39,12 +42,15 @@ import java.awt.*;
             stopButton = new JButton("Stop");
             resetButton = new JButton("Reset");
             addEntityButton = new JButton("Add Entity");
+            sendToPortalButton = new JButton("spawn");
+
 
             add(tickButton);
             add(runButton);
             add(stopButton);
             add(resetButton);
             add(addEntityButton);
+            add(sendToPortalButton);
         }
 
     /**
@@ -85,8 +91,12 @@ import java.awt.*;
      * @return כפתור הוספת הישות
      */
 
-        public JButton getAddEntityButton() {
+     public JButton getAddEntityButton() {
             return addEntityButton;
         }
+
+     public JButton getSendToPortalButton() {return sendToPortalButton;}
+
+
     }
 

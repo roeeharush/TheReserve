@@ -1,6 +1,8 @@
 package ecosystem.gui;
 import ecosystem.core.Environment;
 import ecosystem.core.SimulationEngine;
+import network.NetworkManager;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,7 @@ public class SimulationController {
     private SimulationView simulationView;
     private SimulationEngine engine;
     private Timer timer;
+    private NetworkManager networkManager;
 
     /**
      * בונה בקר סימולציה חדש ומחבר את כל הרכיבים יחד
@@ -39,8 +42,10 @@ public class SimulationController {
                 engine.Tick();
             }
         });
-
          connectingButtons();
+
+        networkManager = new NetworkManager(8080, environment);
+        networkManager.start();
     }
 
     /**
@@ -78,6 +83,8 @@ public class SimulationController {
             public void actionPerformed(ActionEvent e) {
                 engine.stopAllThreads();
                 timer.stop();
+                networkManager.stop();
+
             }
         });
 
@@ -86,14 +93,25 @@ public class SimulationController {
             public void actionPerformed(ActionEvent e) {
                 timer.stop();
                 engine.stopAllThreads();
+                networkManager.stop();
                 environment.reset();
                 SimulationView newView = new SimulationView(environment);
                 new SimulationController(newView, newView.getControlPanel(), environment, engine);
                 simulationView.dispose();
 
-
             }
         });
+
+        controlPanel.getSendToPortalButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NetworkPortal();
+            }
+        });
+
+
+
+
 
     }
 }
