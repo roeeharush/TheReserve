@@ -15,8 +15,10 @@ public class Position {
      * @param col מספר העמודה במפה
      */
     public Position(int row, int col) {
-        this.row = row;
-        this.col = col;
+        if (!setRow(row))
+            this.row = 0;
+        if (!setCol(col))
+            this.col = 0;
     }
 
 
