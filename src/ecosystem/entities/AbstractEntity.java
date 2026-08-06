@@ -41,7 +41,7 @@ public abstract class  AbstractEntity {
      * @return אובייקט מיקום עם שורה ועמודה
      */
       public Position getPosition() {
-        return position;
+        return new Position(this.position.getRow(),this.position.getCol());
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class  AbstractEntity {
     public boolean setPosition(Position position) {
         if (position == null)
             return false;
-        this.position =   new Position(position.getRow(),position.getCol());
+        this.position = new Position(position.getRow(),position.getCol());
         return true;
     }
 
@@ -85,9 +85,10 @@ public abstract class  AbstractEntity {
      * @return false
      */
     public boolean setAlive(boolean alive){
-        if (!alive)
-            this.alive= false;
-        return false;
+        if (!this.alive && alive)
+            return false;
+        this.alive = alive;
+        return true;
     }
 
     /**
