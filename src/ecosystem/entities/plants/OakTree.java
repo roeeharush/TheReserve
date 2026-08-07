@@ -13,10 +13,11 @@ import java.util.Random;
  * עץ אלון הוא צמח עם הרבה אנרגיה שגדל לאט ומחזיק מעמד הרבה זמן
  */
 public class OakTree extends Plant {
-    private static final double INITINAL_ENERGY = 80.0;
+    private static final double INITIAL_ENERGY = 80.0;
     private static final double MAX_ENERGY = 120.0;
     private static final double GROW_RATE = 2.0;
     private static final double REPRODUCTION_CHANCE = 0.05;
+    private static final Random rand = new Random();
 
 
     /**
@@ -25,7 +26,7 @@ public class OakTree extends Plant {
      * @param position המקום שבו העץ נשתל על המפה
      */
     public OakTree(Position position){
-        super(position,'T',true,INITINAL_ENERGY,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
+        super(position,'T',true,INITIAL_ENERGY,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
 
 
@@ -50,6 +51,36 @@ public class OakTree extends Plant {
     @Override
     public boolean reproduce(Environment env){
         return false;
+    }
+
+
+    /**
+     * אוספת את כל פקודות הפעולה ובקשות הרבייה של עץ האלון עבור מנוע הסימולציה המקבילי
+     * המתודה מפעילה את מנגנון איסוף הפקודות הבסיסי ובנוסף מחשבת את סיכויי הפצת הזרעים של העץ ואם התנאים מתאימים היא מאתרת משבצת שכנה פנויה ומייצרת פקודת רבייה ייעודית המוזרקת לתור המשותף
+     * @param env סביבת העולם המשמשת לבדיקת זמינות משבצות שכנות עבור העצים החדשים
+     * @return רשימה המכילה את פקודות הרבייה שהעץ מבקש לבצע בתור הנוכחי
+     */
+
+    @Override
+    public List<WorldCommand> collectCommands(Environment env) {
+        List<WorldCommand> commands = super.collectCommands(env);
+
+        if(rand.nextDouble() <= REPRODUCTION_CHANCE){
+            Position position = this.getPosition();
+            Position option1 = new Position(position.getRow() - 1, position.getCol());
+            Position option2 = new Position(position.getRow() + 1, position.getCol());
+            Position option3 = new Position(position.getRow(), position.getCol() - 1);
+            Position option4 = new Position(position.getRow(), position.getCol() + 1);
+            Position[] options = {option1, option2, option3, option4};
+
+            for( Position op : options){
+                if(env.isPositionFree(op)){
+                    commands.add(new ReproduceCommand(new OakTree (op)));
+                    return commands;
+                }
+            }
+        }
+        return commands;
     }
 
 
@@ -83,40 +114,6 @@ public class OakTree extends Plant {
     @Override
     public String getImageName() {
         return "OakTree";
-    }
-
-
-    /**
-     * אוספת את כל פקודות הפעולה ובקשות הרבייה של עץ האלון עבור מנוע הסימולציה המקבילי
-     * המתודה מפעילה את מנגנון איסוף הפקודות הבסיסי ובנוסף מחשבת את סיכויי הפצת הזרעים של העץ ואם התנאים מתאימים היא מאתרת משבצת שכנה פנויה ומייצרת פקודת רבייה ייעודית המוזרקת לתור המשותף
-     * @param env סביבת העולם המשמשת לבדיקת זמינות משבצות שכנות עבור העצים החדשים
-     * @return רשימה המכילה את פקודות הרבייה שהעץ מבקש לבצע בתור הנוכחי
-     */
-
-    @Override
-    public List<WorldCommand> collectCommands(Environment env) {
-        List<WorldCommand> commands = super.collectCommands(env);
-        Random chance = new Random();
-        double result = chance.nextDouble();
-
-
-        Position position = this.getPosition();
-        if(result <= REPRODUCTION_CHANCE){
-            Position option1 = new Position(position.getRow() - 1, position.getCol());
-            Position option2 = new Position(position.getRow() + 1, position.getCol());
-            Position option3 = new Position(position.getRow(), position.getCol() - 1);
-            Position option4 = new Position(position.getRow(), position.getCol() + 1);
-            Position[] options = {option1, option2, option3, option4};
-
-            for( Position op : options){
-                if(env.isPositionFree(op)){
-                    commands.add(new ReproduceCommand(new OakTree (op)));
-                    return commands;
-                }
-            }
-        }
-
-        return commands;
     }
 
 
