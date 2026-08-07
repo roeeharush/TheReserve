@@ -3,7 +3,6 @@ import ecosystem.commands.ReproduceCommand;
 import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
-import ecosystem.entities.animals.Rabbit;
 
 import java.util.List;
 import java.util.Random;
@@ -63,39 +62,6 @@ public class Flower extends Plant {
       return false;
     }
 
-    /**
-     * בודק אם אובייקט אחר הוא פרח שזהה לפרח הזה
-     * הבדיקה מוודאת שמדובר באותו סוג של יצור עם אותם נתונים
-     * @param o האובייקט שרוצים להשוות אליו
-     * @return true אם הפרחים זהים לחלוטין false אחרת
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Flower))
-            return false;
-        return super.equals(o);
-    }
-
-    /**
-     * הופך את כל הנתונים של הפרח לטקסט שאפשר להציג
-     * @return מחרוזת שמכילה את הסוג המיקום והאנרגיה של הפרח
-     */
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    /**
-     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
-     * @return מחרוזת הטקסט המייצגת את שם החיה
-     */
-    @Override
-    public String getImageName() {
-        return "Flower";
-    }
-
 
     /**
      * אוספת את כל פקודות הפעולה ובקשות הרבייה המרובות של הפרח עבור מנוע הסימולציה המקבילי
@@ -128,6 +94,40 @@ public class Flower extends Plant {
             }
         }
         return commands;
+    }
+
+
+    /**
+     * בודק אם אובייקט אחר הוא פרח שזהה לפרח הזה
+     * הבדיקה מוודאת שמדובר באותו סוג של יצור עם אותם נתונים
+     * @param o האובייקט שרוצים להשוות אליו
+     * @return true אם הפרחים זהים לחלוטין false אחרת
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Flower))
+            return false;
+        return super.equals(o);
+    }
+
+    /**
+     * הופך את כל הנתונים של הפרח לטקסט שאפשר להציג
+     * @return מחרוזת שמכילה את הסוג המיקום והאנרגיה של הפרח
+     */
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
+    @Override
+    public String getImageName() {
+        return "Flower";
     }
 
 }
