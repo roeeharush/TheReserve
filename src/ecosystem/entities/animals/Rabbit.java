@@ -1,13 +1,13 @@
 package ecosystem.entities.animals;
-
 import ecosystem.behaviors.*;
 import ecosystem.commands.ReproduceCommand;
 import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
-import ecosystem.interfaces.Consumable;
 import ecosystem.interfaces.Reproducible;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +17,7 @@ import java.util.Random;
  */
 public class Rabbit extends Animal implements Reproducible {
     private static final double MAX_ENERGY = 200;
+    private static final Random RANDOM = new Random();
 
     /**
      * בונה ארנב חדש במיקום שנבחר
@@ -106,33 +107,27 @@ public class Rabbit extends Animal implements Reproducible {
     @Override
     public List<WorldCommand> collectCommands(Environment env) {
         List<WorldCommand> commands = super.collectCommands(env);
-        Random rand = new Random();
-        double chance = rand.nextDouble();
+        double chance = RANDOM.nextDouble();
 
         Position position = this.getPosition();
-        if(this.getEnergy()> 30 && chance <= 0.3){
+        if (this.getEnergy() > 30 && chance <= 0.3) {
             Position option1 = new Position(position.getRow() - 1, position.getCol());
             Position option2 = new Position(position.getRow() + 1, position.getCol());
             Position option3 = new Position(position.getRow(), position.getCol() - 1);
             Position option4 = new Position(position.getRow(), position.getCol() + 1);
-            Position[] options = {option1, option2, option3, option4};
 
-            for( Position op : options){
-                if (env.isPositionFree(op)){
+            List<Position> options = new ArrayList<>(List.of(option1, option2, option3, option4));
+            Collections.shuffle(options, RANDOM);
+
+            for (Position op : options) {
+                if (env.isPositionFree(op)) {
                     commands.add(new ReproduceCommand(new Rabbit(op)));
                     break;
-
                 }
             }
         }
         return commands;
-
     }
-
-
-
-
-
 }
 
 
