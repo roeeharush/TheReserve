@@ -56,7 +56,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
      * @return true אם האנרגיה בטווח התקין בין אפס למקסימום false אם חרגנו מהטווח
      */
     public boolean setEnergy(double energy){
-        if(energy >= 0 && energy <= maxEnergy){
+        if (energy >= 0 && energy <= maxEnergy){
             this.energy = energy;
             if (this.energy <= 0)
                 this.setAlive(false);
@@ -73,7 +73,8 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
      */
 
     public void setState(EntityState state) {
-        this.currentState = state;
+        if (state != null)
+            this.currentState = state;
     }
 
     /**
@@ -88,7 +89,8 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         if(!this.isAlive())
             return false;
         this.age++;
-        currentState.doAction(this, env);
+        if (currentState != null)
+            currentState.doAction(this, env);
         return true;
     }
 
@@ -156,7 +158,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
      */
 
     public boolean canMove() {
-        return currentState.canMove();
+        return currentState != null && currentState.canMove();
     }
 }
 
