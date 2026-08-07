@@ -77,10 +77,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
     }
 
 
-
-
-
-
     /**
      * מחזיר כמה אנרגיה חיה אחרת תקבל אם היא תאכל את החיה הזאת
      * הערך הוא $0.8$ מהאנרגיה הנוכחית שיש לחיה באותו רגע
@@ -109,13 +105,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
     public List<AbstractEntity> sense(Environment env) {
        return env.getNearbyEntities(this.getPosition());
     }
-
-
-    /**
-     * מבצע את התנועה של החיה לפי הדרך שנקבעה לה מראש
-     * @param env העולם שבו החיה מנסה למצוא לאן לזוז
-     * @return true אם החיה הצליחה לעבור למקום חדש במפה
-     */
 
 
     /**
@@ -167,14 +156,3 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
         return false;
     }
     }
-
-
-
-
-
-
-
-
-
-
-
