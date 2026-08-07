@@ -44,7 +44,6 @@ public class EscapeMovement implements MovementStrategy {
                 if (env.isPositionFree(newPos)) {
                     return new MoveCommand(entity, newPos);
                 }
-                return null;
             }
         }
         return null;
