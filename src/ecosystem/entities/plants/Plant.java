@@ -76,7 +76,9 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
             updatedEnergy = this.getMaxEnergy();
         this.setEnergy(updatedEnergy);
 
-        boolean repr = reproduce(env);
+        boolean repr = false;
+        if (Math.random() <= this.reproductionChance)
+            repr = reproduce(env);
         return action || repr;
     }
 
