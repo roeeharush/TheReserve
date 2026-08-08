@@ -5,6 +5,8 @@ import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -71,7 +73,9 @@ public class OakTree extends Plant {
             Position option2 = new Position(position.getRow() + 1, position.getCol());
             Position option3 = new Position(position.getRow(), position.getCol() - 1);
             Position option4 = new Position(position.getRow(), position.getCol() + 1);
-            Position[] options = {option1, option2, option3, option4};
+            List<Position> options = new ArrayList<>(List.of(option1, option2, option3, option4));
+            Collections.shuffle(options, rand);
+
 
             for( Position op : options){
                 if(env.isPositionFree(op)){
