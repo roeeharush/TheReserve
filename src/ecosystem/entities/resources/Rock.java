@@ -6,7 +6,6 @@ import ecosystem.core.Position;
  * האבן היא משאב סטטי שחוסם תנועה של ישויות אחרות במפה
  */
 public class Rock extends Resource {
-    private final boolean blocksMovement = true;
 
     /**
      * בונה אבן חדשה במיקום שביקשנו
@@ -15,15 +14,6 @@ public class Rock extends Resource {
      */
     public Rock(Position position) {
         super(position, 'X', true);
-    }
-
-
-    /**
-     * מחזיר אם המכשול הזה חוסם מעבר של חיות
-     * @return true כי אבנים תמיד חוסמות תנועה לפי חוקי הסימולציה
-     */
-    public boolean getBlocksMovement() {
-        return blocksMovement;
     }
 
 
