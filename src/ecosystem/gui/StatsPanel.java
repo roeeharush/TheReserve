@@ -40,7 +40,6 @@ public class StatsPanel extends JPanel implements WorldObserver {
         setBackground(new Color(225, 225, 225));
         initLabels();
         environment.addObserver(this);
-
     }
 
     /**
@@ -80,21 +79,20 @@ public class StatsPanel extends JPanel implements WorldObserver {
         double energy =0;
 
         for(AbstractEntity entity : environment.getEntities()){
-            if(entity instanceof LivingEntity living) {
+            if(entity instanceof LivingEntity living)
                  energy += living.getEnergy();
-            }
+
             if(entity instanceof Lion)
                 lions++;
-            if(entity instanceof Deer)
+            else if(entity instanceof Deer)
                 deers++;
-            if(entity instanceof Rabbit)
+            else if(entity instanceof Rabbit)
                 rabbit++;
-            if(entity instanceof Flower)
+            else if(entity instanceof Flower)
                 flower++;
-            if(entity instanceof OakTree)
+            else if(entity instanceof OakTree)
                 oaktree++;
         }
-
 
         lionCount.setText("LION:" + lions);
         deerCount.setText("DEER:" + deers);
@@ -104,6 +102,4 @@ public class StatsPanel extends JPanel implements WorldObserver {
         tickCount.setText("⏱:" + environment.getTicks());
         totalEnergy.setText("⚡:" + energy);
     }
-
-
 }
