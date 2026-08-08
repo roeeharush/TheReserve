@@ -1,6 +1,5 @@
 package ecosystem.gui;
 import ecosystem.core.Environment;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -43,7 +42,8 @@ public class SimulationView extends JFrame  {
 
     private void initComponents() {
         controlPanel = new ControlPanel();
-        infoPanel = new InfoPanel(environment);        statsPanel =  new StatsPanel( environment);
+        infoPanel = new InfoPanel(environment);
+        statsPanel =  new StatsPanel( environment);
         mapPanel = new MapPanel(environment , infoPanel);
     }
 
@@ -75,5 +75,4 @@ public class SimulationView extends JFrame  {
     public ControlPanel getControlPanel() {
         return controlPanel;
     }
-
 }
