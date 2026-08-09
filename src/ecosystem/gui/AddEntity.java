@@ -2,15 +2,7 @@ package ecosystem.gui;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
-import ecosystem.entities.animals.Deer;
-import ecosystem.entities.animals.Lion;
-import ecosystem.entities.animals.Rabbit;
-import ecosystem.entities.plants.Flower;
-import ecosystem.entities.plants.OakTree;
-import ecosystem.entities.resources.Rock;
-import ecosystem.entities.resources.Water;
 import ecosystem.factory.EntityFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -128,6 +120,10 @@ public class AddEntity extends JDialog {
     private void onConfirm() {
         try {
             String type = (String) typeEntity.getSelectedItem();
+            if (type == null) {
+                JOptionPane.showMessageDialog(this, "Please select an entity type");
+                return;
+            }
             int row = Integer.parseInt(rowInput.getText());
             int col = Integer.parseInt(colInput.getText());
             double energy = 0;
