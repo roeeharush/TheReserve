@@ -36,9 +36,9 @@ public class SimulationEngine {
 
     public void startAllThreads() {
         for (AbstractEntity e : environment.getEntities()) {
-            if (e instanceof Actable) {
+            if (e instanceof Actable actable) {
                 logger.info("Thread start: " + e.getClass().getSimpleName());
-                EntityThread t = new EntityThread((Actable) e, environment, commandQueue);
+                EntityThread t = new EntityThread(actable, environment, commandQueue);
                 threads.add(t);
                 t.start();
             }
@@ -66,8 +66,8 @@ public class SimulationEngine {
     public void Tick() {
 
         for (AbstractEntity e : environment.getEntities()) {
-            if (e instanceof Actable)
-                ((Actable) e).act(this.environment);
+            if (e instanceof Actable actable)
+                actable.act(environment);
         }
 
         List<WorldCommand> group = new ArrayList<>();
@@ -92,7 +92,7 @@ public class SimulationEngine {
 
 
         for (AbstractEntity e : environment.getEntities()) {
-            if (e instanceof Actable) {
+            if (e instanceof Actable actable) {
                 boolean hasThread = false;
                 for (EntityThread t : threads) {
                     if (t.getEntity() == e) {
@@ -101,8 +101,7 @@ public class SimulationEngine {
                     }
                 }
                 if (!hasThread) {
-                    EntityThread t = new EntityThread(
-                            (Actable) e, environment, commandQueue);
+                    EntityThread t = new EntityThread(actable, environment, commandQueue);
                     threads.add(t);
                     t.start();
                 }
