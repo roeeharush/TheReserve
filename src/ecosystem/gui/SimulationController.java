@@ -14,12 +14,12 @@ import java.awt.event.ActionListener;
  */
 
 public class SimulationController {
-    private Environment environment;
-    private ControlPanel controlPanel;
-    private SimulationView simulationView;
-    private SimulationEngine engine;
-    private Timer timer;
-    private NetworkManager networkManager;
+    private final Environment environment;
+    private final ControlPanel controlPanel;
+    private final SimulationView simulationView;
+    private final SimulationEngine engine;
+    private final Timer timer;
+    private final NetworkManager networkManager;
 
     /**
      * בונה בקר סימולציה חדש ומחבר את כל הרכיבים יחד
@@ -84,7 +84,6 @@ public class SimulationController {
                 engine.stopAllThreads();
                 timer.stop();
                 networkManager.stop();
-
             }
         });
 
@@ -98,7 +97,6 @@ public class SimulationController {
                 SimulationView newView = new SimulationView(environment);
                 new SimulationController(newView, newView.getControlPanel(), environment, engine);
                 simulationView.dispose();
-
             }
         });
 
@@ -108,10 +106,5 @@ public class SimulationController {
                 new NetworkPortal();
             }
         });
-
-
-
-
-
     }
 }
