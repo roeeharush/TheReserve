@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class EntityDecorator extends AbstractEntity implements Actable {
     protected final Actable decoratedEntity;
-    protected int duration = 10;
+    private int duration = 10;
 
     /**
      * בונה מעטפת אפקט חדשה סביב ישות קיימת ומעתיקה את כל נתוניה הבסיסיים כגון מיקום תו ייצוג ומצב חיות
