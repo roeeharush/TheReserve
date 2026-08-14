@@ -7,10 +7,10 @@ import ecosystem.factory.EntityFactory;
 
 public class SpawnEntityCommand implements NetworkCommand {
     private final Environment environment;
-    private String type;
-    private int row;
-    private int col;
-    private double energy;
+    private final String type;
+    private final int row;
+    private final int col;
+    private final double energy;
 
     public SpawnEntityCommand(String type, int row, int col, double energy ,Environment env) {
         this.type = type;
