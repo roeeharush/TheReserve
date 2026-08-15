@@ -17,13 +17,16 @@ public class NetworkPortal extends JFrame {
     private JTextField rowField;
     private JTextField colField;
     private JComboBox<String> entitySelector;
-    private JButton sendButton;
 
     public NetworkPortal() {
         setTitle("Network Portal");
         setSize(300, 300);
         setLayout(new GridLayout(6, 2, 5, 5));
+        initComponents();
+        setVisible(true);
+    }
 
+    private void initComponents() {
         add(new JLabel("IP Address:"));
         ipField = new JTextField();
         add(ipField);
@@ -45,7 +48,7 @@ public class NetworkPortal extends JFrame {
         add(colField);
 
         add(new JLabel(""));
-        sendButton = new JButton("Send");
+        JButton sendButton = new JButton("Send");
         add(sendButton);
 
         sendButton.addActionListener(new ActionListener() {
@@ -54,9 +57,8 @@ public class NetworkPortal extends JFrame {
                 sendEntity();
             }
         });
-
-        setVisible(true);
     }
+
 
     private void sendEntity() {
         String ip = ipField.getText();
@@ -67,7 +69,7 @@ public class NetworkPortal extends JFrame {
         String message = "SPAWN," + type + "," + energy + "," + row + "," + col;
 
         try {
-            Socket socket = new Socket(ip, 12345);
+            Socket socket = new Socket(ip, 8080);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             out.println(message);
             socket.close();
