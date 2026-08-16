@@ -15,7 +15,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
     private double maxEnergy;
     private double energy;
     private int age = 0;
-    private static final double DEFAULT_MAX_ENERGY =1000.0;
+    private static final double DEFAULT_MAX_ENERGY = 1000.0;
     private EntityState currentState = new HungryState();
 
 
@@ -50,32 +50,39 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
 
     }
 
+
     /**
      * מעדכן את האנרגיה הנוכחית של הישות
      * @param energy כמות האנרגיה החדשה
      * @return true אם האנרגיה בטווח התקין בין אפס למקסימום false אם חרגנו מהטווח
      */
     public boolean setEnergy(double energy){
-        if (energy >= 0 && energy <= maxEnergy){
-            this.energy = energy;
-            if (this.energy <= 0)
-                this.setAlive(false);
-            return true;
+        if (energy < 0) {
+            this.energy = 0;
+            this.setAlive(false);
+            return false;
         }
-        this.energy = this.maxEnergy;
-        return false;
+        if (energy > maxEnergy) {
+            this.energy = maxEnergy;
+            return false;
+        }
+        this.energy = energy;
+        if (this.energy <= 0)
+            this.setAlive(false);
+        return true;
     }
+
 
     /**
      * מעדכנת ומחליפה את מצב ההתנהגות הנוכחי של הישות החיה במכונת המצבים
      * מתודה זו מאפשרת למצבים השונים להעביר את הישות מצב בצורה דינמית ועיוורת במהלך פעימות הסימולציה
      * @param state אובייקט המצב החדש שאליו הישות החיה עוברת כעת
      */
-
     public void setState(EntityState state) {
         if (state != null)
             this.currentState = state;
     }
+
 
     /**
      * הפעולה שהישות עושה בכל תור של המערכת
@@ -83,7 +90,6 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
      * @param env הסביבה שבה הישות פועלת ומבצעת את החלטותיה
      * @return true אם הישות חיה והצליחה להפעיל את מצב ההתנהגות שלה או false אם היא כבר מתה
      */
-
     @Override
     public boolean act(Environment env){
         if(!this.isAlive())
@@ -93,6 +99,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
             currentState.doAction(this, env);
         return true;
     }
+
 
     /**
      * מחזיר את כמות האנרגיה הנוכחית של הישות
@@ -130,6 +137,7 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         return super.toString() + " Energy: " + this.energy;
     }
 
+
     /**
      * בודק אם ישות חיה אחרת זהה לישות הזאת
      * ההשוואה כוללת את כל הנתונים הבסיסיים וגם את הגיל והאנרגיה
@@ -156,7 +164,6 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
      * המתודה פונה למצב הנוכחי ומאפשרת למנוע הסימולציה או לישות עצמה לקבל החלטה פולימורפית מבלי לבצע בדיקות סוג קשיחות
      * @return true אם המצב הנוכחי מאפשר לישות לנוע או false אם המצב מונע תנועה כגון במצב שינה
      */
-
     public boolean canMove() {
         return currentState != null && currentState.canMove();
     }
