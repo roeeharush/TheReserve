@@ -1,5 +1,4 @@
 package ecosystem.entities.resources;
-
 import ecosystem.core.Position;
 import ecosystem.entities.StaticEntity;
 
@@ -18,24 +17,4 @@ public abstract class Resource extends StaticEntity {
     public Resource(Position position, char symbol, boolean alive){
         super(position, symbol, alive);
     }
-
-    /**
-     * בודק אם אובייקט אחר הוא משאב שזהה למשאב הנוכחי
-     * @param o האובייקט שרוצים להשוות אליו
-     * @return true אם מדובר באותה ישות false אחרת
-     */
-    @Override
-    public boolean equals(Object o){
-        return super.equals(o);
-    }
-
-    /**
-     * הופך את פרטי המשאב למחרוזת שאפשר להדפיס
-     * @return תיאור של סוג המשאב והמיקום שלו במפה
-     */
-    @Override
-    public String toString(){
-        return super.toString();
-    }
-
 }

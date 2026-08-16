@@ -1,14 +1,13 @@
 package ecosystem.entities.plants;
-
 import ecosystem.commands.ReproduceCommand;
 import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
 
 /**
  * מחלקה שמייצגת עץ אלון בעולם האקולוגי שלנו
@@ -38,10 +37,10 @@ public class OakTree extends Plant {
      * @param position המיקום שבו עץ האלון החדש ייוולד על גבי המפה
      * @param energy כמות האנרגיה ההתחלתית שאיתה העץ מתחיל את חייו
      */
-
     public OakTree(Position position , double energy ){
         super(position,'T',true ,energy ,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
     }
+
 
     /**ז
      * מנגנון הרבייה של עץ האלון
@@ -62,7 +61,6 @@ public class OakTree extends Plant {
      * @param env סביבת העולם המשמשת לבדיקת זמינות משבצות שכנות עבור העצים החדשים
      * @return רשימה המכילה את פקודות הרבייה שהעץ מבקש לבצע בתור הנוכחי
      */
-
     @Override
     public List<WorldCommand> collectCommands(Environment env) {
         List<WorldCommand> commands = super.collectCommands(env);
@@ -76,7 +74,6 @@ public class OakTree extends Plant {
             List<Position> options = new ArrayList<>(List.of(option1, option2, option3, option4));
             Collections.shuffle(options, rand);
 
-
             for( Position op : options){
                 if(env.isPositionFree(op)){
                     commands.add(new ReproduceCommand(new OakTree (op)));
@@ -89,29 +86,6 @@ public class OakTree extends Plant {
 
 
     /**
-     * בודק אם אובייקט אחר הוא עץ אלון שזהה לעץ הזה
-     * @param o האובייקט שמשווים אליו
-     * @return true אם מדובר באותו עץ עם אותם נתונים
-     */
-    @Override
-    public boolean equals(Object o){
-        if(this == o)
-            return true;
-        if(!(o instanceof OakTree))
-            return false;
-        return super.equals(o);
-    }
-
-    /**
-     * מוציא את הפרטים של העץ למחרוזת טקסט
-     * @return תיאור שכולל את סוג הישות המיקום והאנרגיה שלה
-     */
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    /**
      * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
      * @return מחרוזת הטקסט המייצגת את שם החיה
      */
@@ -119,6 +93,4 @@ public class OakTree extends Plant {
     public String getImageName() {
         return "OakTree";
     }
-
-
 }

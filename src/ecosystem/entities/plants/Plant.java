@@ -16,6 +16,7 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
     private double growthRate;
     private double reproductionChance;
 
+
     /**
      * בונה צמח חדש עם כל הנתונים הבסיסיים
      * @param position איפה הצמח יושב על המפה
@@ -32,6 +33,7 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
         setReproductionChance(reproductionChance);
     }
 
+
     /**
      * מעדכן את קצב הגדילה של הצמח
      * @param growthRate קצב הגדילה החדש חייב להיות חיובי
@@ -46,6 +48,7 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
         return false;
     }
 
+
     /**
      * מעדכן את סיכוי הרבייה של הצמח
      * @param reproductionChance סיכוי בין 0 ל 1
@@ -59,6 +62,7 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
         this.reproductionChance = 0.1;
         return false;
     }
+
 
     /**
      * הפעולה שהצמח עושה בכל תור של הסימולציה.
@@ -111,16 +115,6 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
         public boolean onConsumed(){
             return this.setAlive(false);
         }
-
-
-    /**
-     * הופך את הצמח למחרוזת שאפשר להדפיס
-     * @return תיאור של הצמח המיקום והאנרגיה שלו
-     */
-    @Override
-    public String toString() {
-       return super.toString();
-    }
 
 
     /**

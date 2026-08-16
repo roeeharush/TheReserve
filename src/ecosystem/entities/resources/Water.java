@@ -18,6 +18,7 @@ public class Water extends Resource implements Consumable {
         super(position,'W',true);
     }
 
+
     /**
      * מחזיר את הערך התזונתי של המים
      *מים נותנים מאה יחידות אנרגיה למי ששותה אותם
@@ -28,6 +29,7 @@ public class Water extends Resource implements Consumable {
         return NUTRITION_VALUE;
     }
 
+
     /**
      * מה קורה למים כשישות שותה מהם
      * המים לא נעלמים ופשוט מחזירים שהפעולה עברה
@@ -36,25 +38,6 @@ public class Water extends Resource implements Consumable {
     @Override
     public boolean onConsumed(){return true;}
 
-
-    /**
-     * הופך את פרטי המים למחרוזת שאפשר להדפיס
-     * @return תיאור של המים והמיקום שלהם במפה
-     */
-    @Override
-    public String toString(){
-        return super.toString();
-    }
-
-    /**
-     * בודק אם אובייקט אחר הוא מקור מים שזהה לזה
-     * @param o האובייקט שמשווים אליו
-     * @return true אם מדובר באותם מים עם אותם נתונים
-     */
-    @Override
-    public boolean equals(Object o){
-        return super.equals(o);
-    }
 
     /**
      * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
