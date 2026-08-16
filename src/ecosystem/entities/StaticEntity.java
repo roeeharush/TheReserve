@@ -5,7 +5,7 @@ import ecosystem.core.Position;
  * מחלקה אבסטרקטית שמייצגת את הישויות הסטטיות בעולם שלנו
  * מדובר בדברים כמו סלעים או מים שלא זזים ולא משתנים לאורך זמן
  */
-public abstract class StaticEntity extends AbstractEntity{
+public abstract class StaticEntity extends AbstractEntity {
 
     /**
      * בונה ישות סטטית חדשה במיקום שנבחר עם הסימול המתאים
