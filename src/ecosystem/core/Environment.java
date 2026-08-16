@@ -141,12 +141,16 @@ public class Environment  {
      * @return רשימה של כל היצורים שנמצאים בטווח הקרוב
      */
     public synchronized List<AbstractEntity> getNearbyEntities(Position pos) {
+        return getNearbyEntities(pos, 2);
+    }
+
+    public synchronized List<AbstractEntity> getNearbyEntities(Position pos, int range) {
         if(pos == null) return new ArrayList<>();
         List<AbstractEntity> entitiesNew = new ArrayList<>();
         for (AbstractEntity e : entities) {
             if (e == null || e.getPosition() == null) continue;
             int distance = e.getPosition().distanceTo(pos);
-            if (distance > 0 && distance <= 2)
+            if (distance > 0 && distance <= range)
                 entitiesNew.add(e);
         }
         return entitiesNew;

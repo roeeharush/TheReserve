@@ -7,8 +7,6 @@ import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.LivingEntity;
 import ecosystem.interfaces.*;
-import ecosystem.states.SleepingState;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +15,8 @@ import java.util.List;
  * החיות האלה יודעות לזוז לאכול ולהרגיש את הסביבה שלהן בעזרת אסטרטגיות שונות שנקבעות לכל סוג חיה
  */
 public abstract class Animal extends LivingEntity implements Movable, Eater, Sensory, EdibleByCarnivore , Consumable {
-    private  FeedingBehavior feedingBehavior;
-    private  MovementStrategy movementStrategy;
+    private final FeedingBehavior feedingBehavior;
+    private final MovementStrategy movementStrategy;
     private final int visionRange = 2;
 
     /**
@@ -33,11 +31,11 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      */
     public Animal(Position position, char symbol, boolean alive,
                   double energy, double maxEnergy, FeedingBehavior feedingBehavior , MovementStrategy movementStrategy){
-        super(position ,symbol, alive,energy,maxEnergy );
+        super(position ,symbol, alive,energy,maxEnergy);
         this.feedingBehavior = feedingBehavior;
         this.movementStrategy = movementStrategy;
-
     }
+
 
     /**
      * הפעולה המרכזית שהחיה עושה בכל תור של הסימולציה
@@ -56,7 +54,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @param env סביבת העולם המשמשת לקבלת החלטות ובדיקת זמינות משבצות
      * @return רשימה המכילה את פקודות התנועה והאכילה שהחיה מבקשת לבצע בתור הנוכחי
      */
-
     public List<WorldCommand> collectCommands(Environment env){
         List<WorldCommand> commands = new ArrayList<>();
         if (!isAlive())
@@ -72,7 +69,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
         WorldCommand eat = feedingBehavior.buildEatCommand(this, sense(env));
         if (eat != null)
             commands.add(eat);
-
         return commands;
     }
 
@@ -83,7 +79,7 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @return כמות האנרגיה הזמינה למי שיאכל את החיה
      */
     public double getNutritionValue(){
-        return this.getEnergy()*0.8;
+        return this.getEnergy() * 0.8;
     }
 
 
@@ -103,9 +99,8 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
      * @return רשימה של כל הישויות שנמצאות בטווח הראייה של החיה
      */
     public List<AbstractEntity> sense(Environment env) {
-       return env.getNearbyEntities(this.getPosition());
+        return env.getNearbyEntities(this.getPosition(), visionRange);
     }
-
 
     /**
      * גורם לחיה לנסות לאכול מטרה מסוימת שהיא מצאה
@@ -121,27 +116,6 @@ public abstract class Animal extends LivingEntity implements Movable, Eater, Sen
             return true;
         }
         return false;
-    }
-
-
-    /**
-     * הופך את כל המידע של החיה למחרוזת טקסט שאפשר להציג
-     * @return תיאור שכולל סוג מיקום מצב חיות ואנרגיה
-     */
-    @Override
-    public String toString(){
-        return super.toString();
-    }
-
-
-    /**
-     * בודק אם אובייקט אחר הוא חיה שזהה לחיה הזאת
-     * @param o האובייקט שרוצים להשוות אליו
-     * @return true אם מדובר באותה חיה עם אותם נתונים
-     */
-    @Override
-    public boolean equals(Object o){
-        return super.equals(o);
     }
 
 
