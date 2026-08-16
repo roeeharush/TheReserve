@@ -5,7 +5,6 @@ import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.interfaces.Reproducible;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +16,9 @@ import java.util.Random;
  */
 public class Rabbit extends Animal implements Reproducible {
     private static final double MAX_ENERGY = 200;
+    private static final double DEFAULT_ENERGY = 50;
+    private static final double REPRODUCTION_ENERGY_THRESHOLD = 30;
+    private static final double REPRODUCTION_CHANCE = 0.3;
     private static final Random RANDOM = new Random();
 
     /**
@@ -25,8 +27,8 @@ public class Rabbit extends Animal implements Reproducible {
      * הוא גם קובע שהארנב אוכל עשב וזז בצורה רנדומלית במפה
      * @param position המיקום שבו הארנב מתחיל את המשחק במפה
      */
-    public Rabbit( Position position ) {
-        super(position, 'R', true, 50, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
+    public Rabbit(Position position) {
+        this(position, DEFAULT_ENERGY);
     }
 
 
@@ -36,9 +38,10 @@ public class Rabbit extends Animal implements Reproducible {
      * @param position המיקום שבו הארנב החדש ייוולד על גבי המפה
      * @param energy כמות האנרגיה ההתחלתית שאיתה הארנב מתחיל את חייו
      */
-    public Rabbit( Position position , double energy ) {
-        super(position, 'R', true, energy, MAX_ENERGY,new HerbivoreBehavior() ,new RandomMovement());
+    public Rabbit(Position position, double energy) {
+        super(position, 'R', true, energy, MAX_ENERGY, new HerbivoreBehavior(), new RandomMovement());
     }
+
 
     /**
      * הפעולה שהארנב עושה בכל תור של הסימולציה
@@ -56,6 +59,7 @@ public class Rabbit extends Animal implements Reproducible {
         return animalAction || reproduced;
     }
 
+
     /**
      * מנגנון הרבייה הייחודי של הארנב
      *  אם לארנב יש יותר משלושים אנרגיה יש סיכוי של שלושים אחוז שהוא ייצר ארנב חדש
@@ -68,34 +72,6 @@ public class Rabbit extends Animal implements Reproducible {
         return false;
     }
 
-    /**
-     * מחזיר מחרוזת טקסט עם כל הפרטים של הארנב להדפסה
-     * @return תיאור שכולל סוג מיקום מצב חיות ואנרגיה
-     */
-    @Override
-    public String toString(){
-        return super.toString();
-    }
-
-
-    /**
-     * בודק אם אובייקט אחר הוא ארנב שזהה בדיוק לארנב הזה
-     * @param o האובייקט שרוצים להשוות אליו
-     * @return true אם מדובר באותה ישות עם אותם נתונים
-     */
-    @Override
-    public boolean equals(Object o){
-        return super.equals(o);
-    }
-
-    /**
-     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
-     * @return מחרוזת הטקסט המייצגת את שם החיה
-     */
-    @Override
-    public String getImageName() { return "Rabbit"; }
-
-
 
     /**
      * אוספת את כל פקודות הפעולה של הארנב כולל פקודות תנועה תזונה ובקשות רבייה ומיומנויות
@@ -103,14 +79,13 @@ public class Rabbit extends Animal implements Reproducible {
      * @param env סביבת העולם המשמשת לקבלת החלטות ובדיקת זמינות משבצות שכנות עבור הצאצאים החדשים
      * @return רשימה המכילה את כל פקודות הפעולה והרבייה שהארנב מבקש לבצע בתור הנוכחי
      */
-
     @Override
     public List<WorldCommand> collectCommands(Environment env) {
         List<WorldCommand> commands = super.collectCommands(env);
         double chance = RANDOM.nextDouble();
 
         Position position = this.getPosition();
-        if (this.getEnergy() > 30 && chance <= 0.3) {
+        if (this.getEnergy() > REPRODUCTION_ENERGY_THRESHOLD && chance <= REPRODUCTION_CHANCE) {
             Position option1 = new Position(position.getRow() - 1, position.getCol());
             Position option2 = new Position(position.getRow() + 1, position.getCol());
             Position option3 = new Position(position.getRow(), position.getCol() - 1);
@@ -128,6 +103,14 @@ public class Rabbit extends Animal implements Reproducible {
         }
         return commands;
     }
+
+
+    /**
+     * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
+     * @return מחרוזת הטקסט המייצגת את שם החיה
+     */
+    @Override
+    public String getImageName() { return "Rabbit"; }
 }
 
 
