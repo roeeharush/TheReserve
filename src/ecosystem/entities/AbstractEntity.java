@@ -1,6 +1,8 @@
 package ecosystem.entities;
 import ecosystem.core.Position;
 
+import java.util.logging.Logger;
+
 /**
  * מחלקה אבסטרקטית שהיא הבסיס לכל דבר שקיים בעולם שלנו
  * היא מחזיקה את המידע הכי בסיסי כמו איפה הישות נמצאת איך היא נראית ואם היא חיה
@@ -10,6 +12,7 @@ public abstract class  AbstractEntity {
     private char symbol;
     private boolean alive = true;
     private static final String symbolsValid = "LRDTFXW";
+    private static final Logger logger = Logger.getLogger(AbstractEntity.class.getName());
 
     /**
      * בונה ישות חדשה ובודק שהנתונים שהבאנו תקינים
@@ -19,12 +22,14 @@ public abstract class  AbstractEntity {
      * @param alive מצב החיות ההתחלתי
      */
     public AbstractEntity(Position position, char symbol, boolean alive) {
-        if (!setPosition(position))
+        if (!setPosition(position)) {
+            logger.warning("התקבל מיקום לא תקין (null) - נקבעה ברירת מחדל (0,0)");
             this.position = new Position(0,0);
-
-         if(!setSymbol(symbol))
-             this.symbol = 'N'; // none
-
+        }
+        if (!setSymbol(symbol)) {
+            logger.warning("התקבל תו לא תקין: '" + symbol + "'  נקבעה ברירת מחדל 'N'");
+            this.symbol = 'N';
+        }
         this.alive = alive;
     }
 
@@ -81,8 +86,9 @@ public abstract class  AbstractEntity {
 
     /**
      * מעדכן את מצב החיות של הישות
+     * המתודה מונעת "החייאה" של ישות שכבר מתה ומאפשרת רק מעבר ממצב חי למצב מת או השארה באותו מצב
      * @param alive המצב החדש שרוצים לקבוע
-     * @return false
+     * @return true אם השינוי בוצע בהצלחה, false אם נעשה ניסיון להחיות מחדש ישות שכבר מתה
      */
     public boolean setAlive(boolean alive){
         if (!this.alive && alive)
