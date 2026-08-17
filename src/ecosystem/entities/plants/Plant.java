@@ -5,6 +5,8 @@ import ecosystem.entities.LivingEntity;
 import ecosystem.interfaces.Consumable;
 import ecosystem.interfaces.EdibleByHerbivore;
 import ecosystem.interfaces.Reproducible;
+import ecosystem.states.PlantGrowthState;
+import java.util.logging.Logger;
 
 
 /**
@@ -15,10 +17,13 @@ import ecosystem.interfaces.Reproducible;
 public abstract class Plant extends LivingEntity implements Consumable, Reproducible, EdibleByHerbivore {
     private double growthRate;
     private double reproductionChance;
+    private static final Logger logger = Logger.getLogger(Plant.class.getName());
+
 
 
     /**
      * בונה צמח חדש עם כל הנתונים הבסיסיים
+     * מגדיר לצמח מצב התנהגות ייעודי המנתק אותו ממכונת המצבים של רעב מנוחה ושינה, המיועדת לחיות בלבד
      * @param position איפה הצמח יושב על המפה
      * @param symbol התו שמייצג אותו בהדפסה הגרפית
      * @param alive האם הוא חי כרגע בדרך כלל true
@@ -29,8 +34,12 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
      */
     public Plant(Position position, char symbol, boolean alive, double energy, double maxEnergy, double growthRate, double reproductionChance) {
         super(position, symbol, alive, energy, maxEnergy);
-        setGrowRate(growthRate);
-        setReproductionChance(reproductionChance);
+        setState(new PlantGrowthState());
+        if (!setGrowthRate(growthRate))
+            logger.warning("התקבל קצב גדילה לא תקין: " + growthRate + "  נקבעה ברירת מחדל 1.0");
+
+        if (!setReproductionChance(reproductionChance))
+            logger.warning("התקבל סיכוי רבייה לא תקין: " + reproductionChance + "  נקבעה ברירת מחדל 0.1");
     }
 
 
@@ -39,7 +48,7 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
      * @param growthRate קצב הגדילה החדש חייב להיות חיובי
      * @return true אם הנתון תקין false אם שמנו ערך דיפולטי בגלל קלט רע
      */
-    public boolean setGrowRate(double growthRate) {
+    public boolean setGrowthRate(double growthRate) {
         if (growthRate >= 0) {
             this.growthRate = growthRate;
             return true;
@@ -65,17 +74,17 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
 
 
     /**
-     * הפעולה שהצמח עושה בכל תור של הסימולציה.
-     * הצמח מפצה על איבוד האנרגיה הבסיסי גדל לפי הקצב שלו ומנסה להתרבות.
-     * * @param env העולם שבו הצמח חי.
-     * @return true אם הצמח הצליח לבצע פעולה גדילה או רבייה.
+     * הפעולה שהצמח עושה בכל תור של הסימולציה
+     * הצמח גדל בהתאם לקצב הגדילה שלו ומנסה להתרבות, ואינו כפוף למכונת המצבים של רעב מנוחה ושינה בניגוד לחיות
+     * @param env העולם שבו הצמח חי
+     * @return true אם הצמח הצליח לבצע פעולה גדילה או רבייה
      */
     @Override
     public boolean act(Environment env) {
         boolean action = super.act(env);
         if (!isAlive())
             return false;
-        double updatedEnergy = this.getEnergy() + 2 + this.growthRate;
+        double updatedEnergy = this.getEnergy() + this.growthRate;
         if (updatedEnergy > this.getMaxEnergy())
             updatedEnergy = this.getMaxEnergy();
         this.setEnergy(updatedEnergy);
