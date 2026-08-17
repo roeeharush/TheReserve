@@ -26,8 +26,8 @@ public class OakTree extends Plant {
      * הבנאי מגדיר לעץ את הסימן T ואת כל ערכי האנרגיה והגדילה המיוחדים שלו
      * @param position המקום שבו העץ נשתל על המפה
      */
-    public OakTree(Position position){
-        super(position,'T',true,INITIAL_ENERGY,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
+    public OakTree(Position position) {
+        this(position, INITIAL_ENERGY);
     }
 
 
@@ -37,12 +37,12 @@ public class OakTree extends Plant {
      * @param position המיקום שבו עץ האלון החדש ייוולד על גבי המפה
      * @param energy כמות האנרגיה ההתחלתית שאיתה העץ מתחיל את חייו
      */
-    public OakTree(Position position , double energy ){
-        super(position,'T',true ,energy ,MAX_ENERGY,GROW_RATE,REPRODUCTION_CHANCE);
+    public OakTree(Position position, double energy) {
+        super(position, 'T', true, energy, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
     }
 
 
-    /**ז
+    /**
      * מנגנון הרבייה של עץ האלון
      * יש סיכוי של חמישה אחוז לייצר עץ חדש בכל תור
      * העץ מחפש מקום פנוי באחד מארבעת הכיוונים הצמודים אליו במרחק של צעד אחד ויוצר שם עץ חדש
@@ -82,6 +82,21 @@ public class OakTree extends Plant {
             }
         }
         return commands;
+    }
+
+
+    /**
+     * בודק אם אובייקט אחר הוא עץ אלון שזהה לעץ הזה
+     * @param o האובייקט שמשווים אליו
+     * @return true אם מדובר באותו עץ עם אותם נתונים
+     */
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(!(o instanceof OakTree))
+            return false;
+        return super.equals(o);
     }
 
 
