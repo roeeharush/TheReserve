@@ -1,4 +1,3 @@
-
 package ecosystem.core;
 
 /**
@@ -8,6 +7,7 @@ package ecosystem.core;
 public class Position {
     private int row;
     private int col;
+
 
     /**
      * בונה מיקום חדש לפי השורה והעמודה שקיבלנו
@@ -34,6 +34,7 @@ public class Position {
         }
         return false;
     }
+
 
     /**
      * מעדכן את מספר העמודה ובודק שהערך לא שלילי
@@ -64,29 +65,31 @@ public class Position {
         return false;
     }
 
+
     /**
      * מחזיר את מספר השורה הנוכחי
      * @return מספר השורה
      */
-    public int getRow(){return this.row;};
+    public int getRow(){return this.row;}
+
 
     /**
      * מחזיר את מספר העמודה הנוכחי
      * @return מספר העמודה
      */
-    public int getCol(){return this.col;};
-
+    public int getCol(){return this.col;}
 
 
     /**
      * מחשב את מרחק מנהטן בין המיקום הזה למיקום אחר
      * החישוב מתבצע על ידי חיבור ההפרשים בין השורות והעמודות
      * @param other המיקום השני שרוצים למדוד אליו מרחק
-     * @return המרחק במספר שלם או מינוס אחד אם המיקום השני לא קיים
+     * @return המרחק במספר שלם
+     * @throws IllegalArgumentException אם המיקום השני הוא null
      */
     public int distanceTo(Position other) {
         if (other == null)
-            return -1;
+            throw new IllegalArgumentException("Cannot compute distance to a null position");
         return Math.abs((other.col - this.col)) + Math.abs((other.row - this.row));
     }
 
