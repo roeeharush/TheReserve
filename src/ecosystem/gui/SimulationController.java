@@ -39,7 +39,7 @@ public class SimulationController {
          timer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                engine.Tick();
+                engine.tick();
             }
         });
          connectingButtons();
@@ -57,7 +57,7 @@ public class SimulationController {
         controlPanel.getTickButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                engine.Tick();
+                engine.tick();
             }
         });
 

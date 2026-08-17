@@ -2,10 +2,10 @@ package ecosystem.core;
 import java.util.List;
 import ecosystem.commands.WorldCommand;
 import ecosystem.interfaces.Actable;
-
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 
 /**
  * מחלקה המייצגת תהליכון עצמאי עבור ישות פעילה בסימולציה
@@ -17,6 +17,7 @@ public class EntityThread extends Thread{
     private final BlockingQueue<WorldCommand> commandQueue;
     private final Random random = new Random();
     private final AtomicBoolean running = new AtomicBoolean(true);
+    private static final Logger logger = Logger.getLogger(EntityThread.class.getName());
 
 
     /**
@@ -26,6 +27,7 @@ public class EntityThread extends Thread{
      * @param commandQueue תור הפקודות החסום והמשותף שאליו מוגשות בקשות הפעולה של הישויות
      */
     public EntityThread(Actable entity, Environment environment,BlockingQueue<WorldCommand> commandQueue) {
+        super(entity.getClass().getSimpleName() + "-Thread");
         this.entity = entity;
         this.environment = environment;
         this.commandQueue = commandQueue;
@@ -41,14 +43,14 @@ public class EntityThread extends Thread{
         while (running.get()) {
             try {
                 Thread.sleep(500 + random.nextInt(1000));
-
                 List<WorldCommand> commands = entity.collectCommands(environment);
-                for (WorldCommand cmd : commands) {
+                for (WorldCommand cmd : commands)
                     commandQueue.put(cmd);
-                }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
+            } catch (Exception e) {
+                logger.severe("שגיאה בתהליכון הישות: " + e.getMessage());
             }
         }
     }
@@ -61,17 +63,14 @@ public class EntityThread extends Thread{
     public void stopThread() {
         running.set(false);
         interrupt();
-
     }
+
 
     /**
      * מחזירה את הישות הפעילה המשויכת ומנוהלת על ידי תהליכון זה
      * @return האובייקט של הישות המממשת את ממשק הפעולות
      */
-
     public Actable getEntity() {
         return entity;
     }
-
-
 }

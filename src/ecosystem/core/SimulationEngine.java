@@ -63,7 +63,7 @@ public class SimulationEngine {
      * מבצעת פעימת זמן מרכזית ומסונכרנת אחת בתוך מערכת הסימולציה
      * המתודה מרוקנת את תור הפקודות החסום שבו הצטברו בקשות הישויות ומבצעת אותן בזו אחר זו בצורה בטוחה על גבי המודל מסירה מהעולם ישויות שאינן בחיים ומזהה ישויות חדשות שנוצרו כדי להשיק עבורן תהליכון עצמאי חדש ברקע
      */
-    public void Tick() {
+    public void tick() {
 
         for (AbstractEntity e : environment.getEntities()) {
             if (e instanceof Actable actable)

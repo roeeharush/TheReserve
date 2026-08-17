@@ -8,9 +8,9 @@ import java.util.logging.Logger;
  * היא מחזיקה את המידע הכי בסיסי כמו איפה הישות נמצאת איך היא נראית ואם היא חיה
  */
 public abstract class  AbstractEntity {
-    private Position position;
+    private volatile Position position;
     private char symbol;
-    private boolean alive = true;
+    private volatile boolean alive = true;
     private static final String symbolsValid = "LRDTFXW";
     private static final Logger logger = Logger.getLogger(AbstractEntity.class.getName());
 

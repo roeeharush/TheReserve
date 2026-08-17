@@ -5,6 +5,8 @@ import ecosystem.interfaces.Actable;
 import ecosystem.states.EntityState;
 import ecosystem.states.HungryState;
 
+import java.util.logging.Logger;
+
 
 /**
  * מחלקה אבסטרקטית שמייצגת את כל הישויות החיות בעולם האקולוגי שלנו
@@ -12,11 +14,12 @@ import ecosystem.states.HungryState;
  */
 public abstract class LivingEntity extends AbstractEntity implements Actable {
 
-    private double maxEnergy;
-    private double energy;
-    private int age = 0;
+    private volatile double maxEnergy;
+    private volatile double energy;
+    private volatile int age = 0;
     private static final double DEFAULT_MAX_ENERGY = 1000.0;
-    private EntityState currentState = new HungryState();
+    private volatile EntityState currentState = new HungryState();
+    private static final Logger logger = Logger.getLogger(LivingEntity.class.getName());
 
 
     /**
@@ -27,10 +30,14 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
      * @param energy כמות האנרגיה ההתחלתית שיש לישות
      * @param maxEnergy האנרגיה המקסימלית שהישות יכולה להגיע אליה
      */
-    public LivingEntity(Position position, char symbol, boolean alive,double energy, double maxEnergy) {
+    public LivingEntity(Position position, char symbol, boolean alive, double energy, double maxEnergy) {
         super(position, symbol, alive);
-        setMaxEnergy(maxEnergy);
-        setEnergy(energy);
+
+        if (!setMaxEnergy(maxEnergy))
+            logger.warning("התקבלה אנרגיה מקסימלית לא תקינה: " + maxEnergy + "  נקבעה ברירת מחדל " + DEFAULT_MAX_ENERGY);
+
+        if (!setEnergy(energy))
+            logger.warning("התקבלה אנרגיה התחלתית לא תקינה: " + energy);
     }
 
     /**
