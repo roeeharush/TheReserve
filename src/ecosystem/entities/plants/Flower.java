@@ -3,6 +3,9 @@ import ecosystem.commands.ReproduceCommand;
 import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +27,7 @@ public class Flower extends Plant {
      * @param position המקום שבו הפרח יתחיל את החיים שלו במפה
      */
     public Flower(Position position) {
-        super(position, 'F', true, INITIAL_ENERGY, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
+        this(position, INITIAL_ENERGY);
     }
 
 
@@ -35,19 +38,8 @@ public class Flower extends Plant {
      * @param energy כמות האנרגיה ההתחלתית שאיתה הפרח מתחיל את חייו
      */
 
-    public Flower(Position position , double energy) {
+    public Flower(Position position, double energy) {
         super(position, 'F', true, energy, MAX_ENERGY, GROW_RATE, REPRODUCTION_CHANCE);
-    }
-
-
-    /**
-     * מה קורה כשיצור אחר אוכל את הפרח
-     * המתודה מעדכנת שהפרח מת על ידי קריאה לפעולה של מחלקת האם
-     * @return true אם העדכון של מצב החיות עבד כמו שצריך
-     */
-    @Override
-    public boolean onConsumed() {
-        return super.onConsumed();
     }
 
 
@@ -73,27 +65,46 @@ public class Flower extends Plant {
     @Override
     public List<WorldCommand> collectCommands(Environment env) {
         List<WorldCommand> commands = super.collectCommands(env);
-        if (rand.nextDouble() <= 0.20) {
+        if (rand.nextDouble() <= REPRODUCTION_CHANCE) {
             int childrenToCreate = rand.nextInt(3) + 1;
-            int createdCount = 0;
             Position myPos = this.getPosition();
+            List<Position> candidates = new ArrayList<>();
 
             for (int i = -2; i <= 2; i++) {
                 for (int j = -2; j <= 2; j++) {
                     Position p = new Position(myPos.getRow() + i, myPos.getCol() + j);
-
                     int dist = myPos.distanceTo(p);
-                    if (dist > 0 && dist <= 2 && env.isPositionFree(p)) {
-                        commands.add(new ReproduceCommand(new Flower(p)));
-                        createdCount++;
-
-                        if (createdCount == childrenToCreate)
-                            return commands;
-                    }
+                    if (dist > 0 && dist <= 2 && env.isPositionFree(p))
+                        candidates.add(p);
                 }
+            }
+
+            Collections.shuffle(candidates, rand);
+            int createdCount = 0;
+            for (Position p : candidates) {
+                if (createdCount == childrenToCreate)
+                    break;
+                commands.add(new ReproduceCommand(new Flower(p)));
+                createdCount++;
             }
         }
         return commands;
+    }
+
+
+    /**
+     * בודק אם אובייקט אחר הוא פרח שזהה לפרח הזה
+     * הבדיקה מוודאת שמדובר באותו סוג של יצור עם אותם נתונים
+     * @param o האובייקט שרוצים להשוות אליו
+     * @return true אם הפרחים זהים לחלוטין false אחרת
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Flower))
+            return false;
+        return super.equals(o);
     }
 
 
