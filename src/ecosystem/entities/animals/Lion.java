@@ -8,6 +8,8 @@ import ecosystem.core.Position;
  */
 public class Lion extends Animal {
     private static final double MAX_ENERGY = 500;
+    private static final double DEFAULT_ENERGY = 100;
+
 
     /**
      * בונה אריה חדש במיקום שביקשנו
@@ -15,10 +17,9 @@ public class Lion extends Animal {
      * הוא גם קובע שהאריה הוא טורף שרודף אחרי הישויות שהוא רוצה לאכול
      * @param position המיקום שבו האריה מתחיל את המשחק במפה
      */
-    public Lion(Position position ) {
-        super(position, 'L', true, 100, MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
+    public Lion(Position position) {
+        this(position, DEFAULT_ENERGY);
     }
-
 
     /**
      * בונה אריה חדש במיקום מוגדר וקובע לו רמת אנרגיה התחלתית מותאמת אישית
@@ -26,29 +27,10 @@ public class Lion extends Animal {
      * @param position המיקום שבו האריה החדש ייוולד על גבי המפה
      * @param energy כמות האנרגיה ההתחלתית שאיתה האריה מתחיל את חייו
      */
-    public Lion(Position position ,double energy) {
-        super(position, 'L', true, energy , MAX_ENERGY, new CarnivoreBehavior(),new ChaseMovement());
+    public Lion(Position position, double energy) {
+        super(position, 'L', true, energy, MAX_ENERGY, new CarnivoreBehavior(), new ChaseMovement());
     }
 
-    /**
-     * מחזיר מחרוזת טקסט עם כל הפרטים של האריה להדפסה
-     * @return תיאור של האריה המיקום שלו והאנרגיה שנשארה לו
-     */
-    @Override
-    public String toString(){
-        return super.toString();
-    }
-
-
-    /**
-     * בודק אם אובייקט אחר הוא אריה שזהה בדיוק לאריה הזה
-     * @param o האובייקט שרוצים להשוות אליו
-     * @return true אם מדובר באותה ישות עם אותם נתונים
-     */
-    @Override
-    public boolean equals(Object o){
-        return super.equals(o);
-    }
 
     /**
      * מחזיר את שם הישות לצורך טעינת התמונה המתאימה בממשק הגרפי
@@ -56,6 +38,5 @@ public class Lion extends Animal {
      */
     @Override
     public String getImageName() { return "Lion"; }
-
 }
 
