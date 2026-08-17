@@ -76,12 +76,13 @@ public class Environment  {
      * @param pos המיקום שרוצים לבדוק
      * @return true אם המקום פנוי ואפשר להיכנס אליו
      */
-    public boolean isPositionFree(Position pos) {
+    public synchronized boolean isPositionFree(Position pos) {
         if(pos == null) return false;
         if (pos.getCol() < 0 || pos.getCol() >= this.cols || pos.getRow() < 0 || pos.getRow() >= this.rows)
             return false;
         return map[pos.getRow()][pos.getCol()] == null;
     }
+
 
     /**
      * מנסה להכניס יצור חדש לתוך העולם
@@ -90,14 +91,15 @@ public class Environment  {
      * @return true אם ההוספה הצליחה והמקום היה פנוי
      */
     public synchronized boolean addEntity(AbstractEntity entity) {
-        if (entity == null || !isPositionFree(entity.getPosition()))
+        Position pos = (entity != null) ? entity.getPosition() : null;
+        if (entity == null || !isPositionFree(pos))
             return false;
-
         entities.add(entity);
-        map[entity.getPosition().getRow()][entity.getPosition().getCol()] = entity;
+        map[pos.getRow()][pos.getCol()] = entity;
         notifyObservers();
         return true;
     }
+
 
     /**
      * מוציא יצור מהעולם כשהוא מת או נאכל
@@ -106,10 +108,10 @@ public class Environment  {
      * @return true אם היצור נמצא ונמחק בהצלחה
      */
     public synchronized boolean removeEntity(AbstractEntity entity) {
-        if (entity == null || !entities.contains(entity) || entity.getPosition() == null) {
+        Position pos = (entity != null) ? entity.getPosition() : null;
+        if (entity == null || !entities.contains(entity) || pos == null)
             return false;
-        }
-        map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
+        map[pos.getRow()][pos.getCol()] = null;
         entities.remove(entity);
         notifyObservers();
         return true;
@@ -124,9 +126,10 @@ public class Environment  {
      * @return true אם התנועה הצליחה והמקום החדש היה פנוי
      */
     public synchronized boolean moveEntity(AbstractEntity entity, Position newPos) {
-        if (!isPositionFree(newPos) || entity == null || entity.getPosition() == null)
+        Position oldPos = (entity != null) ? entity.getPosition() : null;
+        if (!isPositionFree(newPos) || entity == null || oldPos == null)
             return false;
-        map[entity.getPosition().getRow()][entity.getPosition().getCol()] = null;
+        map[oldPos.getRow()][oldPos.getCol()] = null;
         entity.setPosition(newPos);
         map[newPos.getRow()][newPos.getCol()] = entity;
         notifyObservers();
@@ -170,6 +173,7 @@ public class Environment  {
         }
     }
 
+
     /**
      * מעדכנת את כל המאזינים הרשומים שמשהו במודל העולם השתנה
      * המתודה עוברת על רשימת הצופים ומפעילה את מתודת עדכון הממשק כדי לסנכרן בין המודל המקבילי לגרפיקה
@@ -183,6 +187,7 @@ public class Environment  {
             observer.onWorldChanged();
         }
     }
+
 
     /**
      * מקדמת את מונה פעימות הזמן הכללי של הסימולציה בצעד אחד קדימה
@@ -232,6 +237,7 @@ public class Environment  {
                 (p.getRow() == maxRow && p.getCol() == maxCol);
     }
 
+
     /**
      * בודק אם עולם אחר הוא בדיוק כמו העולם הזה
      * ההשוואה בודקת את הגודל ואת כל היצורים שנמצאים בתוך המפה
@@ -242,7 +248,6 @@ public class Environment  {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-
         if (o instanceof Environment other) {
             return this.rows == other.rows
                     && this.cols == other.cols
@@ -260,7 +265,6 @@ public class Environment  {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < rows; i++) {
             sb.append("|");
             for (int j = 0; j < cols; j++) {
@@ -272,7 +276,6 @@ public class Environment  {
                 sb.append("|");
             }
             sb.append("\n");
-
         }
         return sb.toString();
     }
