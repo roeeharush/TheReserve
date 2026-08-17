@@ -3,7 +3,6 @@ import ecosystem.commands.AttackCommand;
 import ecosystem.commands.WorldCommand;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.animals.Animal;
-import ecosystem.interfaces.Consumable;
 import ecosystem.interfaces.EdibleByHerbivore;
 import java.util.List;
 
@@ -23,9 +22,9 @@ public class HerbivoreBehavior implements FeedingBehavior{
 
     @Override
     public WorldCommand buildEatCommand(Animal eater, List<AbstractEntity> nearby) {
-        for (AbstractEntity e : nearby){
-            if (e instanceof EdibleByHerbivore)
-                return new AttackCommand(eater, (Consumable) e);
+        for (AbstractEntity e : nearby) {
+            if (e instanceof EdibleByHerbivore target)
+                return new AttackCommand(eater, target);
         }
         return null;
     }
