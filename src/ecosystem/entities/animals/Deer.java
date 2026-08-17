@@ -9,6 +9,7 @@ import ecosystem.core.Position;
  */
 public class Deer extends Animal {
     private static final double MAX_ENERGY = 300;
+    private static final double DEFAULT_ENERGY = 70;
 
 
     /**
@@ -17,32 +18,19 @@ public class Deer extends Animal {
      * הוא גם קובע שהצבי אוכל עשב ובורח מאיומים
      * @param position המיקום שבו הצבי מתחיל את המשחק במפה
      */
-    public Deer( Position position) {
-        super(position, 'D', true, 70, MAX_ENERGY,new HerbivoreBehavior() , new EscapeMovement());
+    public Deer(Position position) {
+        this(position, DEFAULT_ENERGY);
     }
 
-    public Deer( Position position , double energy) {
-        super(position, 'D', true, energy, MAX_ENERGY,new HerbivoreBehavior() , new EscapeMovement());
-
-    }
 
     /**
-     * מחזיר מחרוזת טקסט עם כל הפרטים של הצבי להדפסה
-     * @return תיאור של הצבי המיקום שלו והאנרגיה שנשארה לו
+     * בונה צבי חדש במיקום מוגדר וקובע לו רמת אנרגיה התחלתית מותאמת אישית
+     * בנאי זה משמש בעיקר בעת יצירת צאצאים חדשים במערכת ומגדיר את אסטרטגיות התנועה והתזונה של החיה
+     * @param position המיקום שבו הצבי החדש נמצא על גבי המפה
+     * @param energy כמות האנרגיה ההתחלתית שאיתה הצבי מתחיל את חייו
      */
-    @Override
-    public String toString(){
-        return super.toString();
-    }
-
-    /**
-     * בודק אם אובייקט אחר הוא צבי שזהה בדיוק לצבי הזה
-     * @param o האובייקט שרוצים להשוות אליו
-     * @return true אם מדובר באותה ישות עם אותם נתונים
-     */
-    @Override
-    public boolean equals(Object o){
-        return super.equals(o);
+    public Deer(Position position, double energy) {
+        super(position, 'D', true, energy, MAX_ENERGY, new HerbivoreBehavior(), new EscapeMovement());
     }
 
 
