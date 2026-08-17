@@ -34,11 +34,10 @@ public abstract class LivingEntity extends AbstractEntity implements Actable {
         super(position, symbol, alive);
 
         if (!setMaxEnergy(maxEnergy))
-            logger.warning("התקבלה אנרגיה מקסימלית לא תקינה: " + maxEnergy + "  נקבעה ברירת מחדל " + DEFAULT_MAX_ENERGY);
+            logger.warning("Received invalid max energy: " + maxEnergy + " - defaulting to " + DEFAULT_MAX_ENERGY);
 
         if (!setEnergy(energy))
-            logger.warning("התקבלה אנרגיה התחלתית לא תקינה: " + energy);
-    }
+            logger.warning("Received invalid initial energy: " + energy);    }
 
     /**
      * מעדכן את האנרגיה המקסימלית שהישות יכולה לצבור

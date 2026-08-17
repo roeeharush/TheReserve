@@ -23,12 +23,11 @@ public abstract class  AbstractEntity {
      */
     public AbstractEntity(Position position, char symbol, boolean alive) {
         if (!setPosition(position)) {
-            logger.warning("התקבל מיקום לא תקין (null) - נקבעה ברירת מחדל (0,0)");
+            logger.warning("Received invalid position (null) - defaulting to (0,0)");
             this.position = new Position(0,0);
         }
         if (!setSymbol(symbol)) {
-            logger.warning("התקבל תו לא תקין: '" + symbol + "'  נקבעה ברירת מחדל 'N'");
-            this.symbol = 'N';
+            logger.warning("Received invalid symbol: '" + symbol + "' - defaulting to 'N'");            this.symbol = 'N';
         }
         this.alive = alive;
     }

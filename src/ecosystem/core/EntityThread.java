@@ -50,8 +50,7 @@ public class EntityThread extends Thread{
                 Thread.currentThread().interrupt();
                 break;
             } catch (Exception e) {
-                logger.severe("שגיאה בתהליכון הישות: " + e.getMessage());
-            }
+                logger.severe("Error in entity thread: " + e.getMessage());            }
         }
     }
 

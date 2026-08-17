@@ -20,16 +20,17 @@ public class NetworkManager {
     private final AtomicBoolean running;
     private Thread listenerThread;
 
+
     public NetworkManager(int port, Environment env) {
         this.port = port;
         this.env = env;
         this.running = new AtomicBoolean(true);
     }
 
+
     public void start() {
         try {
             server = new ServerSocket(port);
-
             listenerThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -39,7 +40,7 @@ public class NetworkManager {
                             handleClient(client);
                         } catch (IOException e) {
                             if (running.get()) {
-                                logger.warning("שגיאה בקבלת חיבור: " + e.getMessage());
+                                logger.warning("Error accepting connection: " + e.getMessage());
                             }
                         }
                     }
@@ -48,9 +49,8 @@ public class NetworkManager {
 
             listenerThread.setDaemon(true);
             listenerThread.start();
-
         } catch (IOException e) {
-            logger.severe("נכשל בפתיחת ServerSocket: " + e.getMessage());
+            logger.severe("Failed to open ServerSocket: " + e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class NetworkManager {
             client.close();
 
         } catch (IOException e) {
-            logger.warning("error " + e.getMessage());
+            logger.warning("Error " + e.getMessage());
         }
     }
 
@@ -82,14 +82,10 @@ public class NetworkManager {
                 server.close();
             }
         } catch (IOException e) {
-            logger.warning("שגיאה בסגירת ServerSocket: " + e.getMessage());
-        }
+            logger.warning("Error closing ServerSocket: " + e.getMessage());        }
         if (listenerThread != null) {
             listenerThread.interrupt();
         }
     }
-
-
-
 
 }

@@ -36,11 +36,10 @@ public abstract class Plant extends LivingEntity implements Consumable, Reproduc
         super(position, symbol, alive, energy, maxEnergy);
         setState(new PlantGrowthState());
         if (!setGrowthRate(growthRate))
-            logger.warning("התקבל קצב גדילה לא תקין: " + growthRate + "  נקבעה ברירת מחדל 1.0");
+            logger.warning("Invalid growth rate: " + growthRate + " - defaulting to 1.0");
 
         if (!setReproductionChance(reproductionChance))
-            logger.warning("התקבל סיכוי רבייה לא תקין: " + reproductionChance + "  נקבעה ברירת מחדל 0.1");
-    }
+            logger.warning("Invalid reproduction chance: " + reproductionChance + " - defaulting to 0.1");    }
 
 
     /**
