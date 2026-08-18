@@ -13,7 +13,7 @@ public interface MovementStrategy {
      * הפעולה הבסיסית שכל אסטרטגיית תנועה חייבת לממש
      * @param entity הישות שצריכה לזוז עכשיו
      * @param env העולם שבו הישות נמצאת ובודקת לאן אפשר ללכת
-     * @return true אם התנועה הצליחה והישות באמת זזה למקום חדש
+     * @return פקודת תנועה מוכנה לביצוע בתור הפעולות, או null אם לא ניתן לנוע
      */
     WorldCommand buildMoveCommand(AbstractEntity entity, Environment env);
 }

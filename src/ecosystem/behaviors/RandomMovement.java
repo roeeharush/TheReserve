@@ -5,7 +5,6 @@ import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
-
 import java.util.Random;
 
 
@@ -14,7 +13,7 @@ import java.util.Random;
  * הישות פשוט בוחרת כיוון אחד מארבעה ומנסה ללכת לשם בלי לחשוב יותר מדי
  */
 public class RandomMovement implements MovementStrategy{
-    private Random rd = new Random();
+    private static final Random rd = new Random();
 
 
     /**
@@ -27,7 +26,6 @@ public class RandomMovement implements MovementStrategy{
     @Override
     public WorldCommand buildMoveCommand(AbstractEntity entity, Environment env) {
         Position position = entity.getPosition();
-
         Position option1 = new Position(position.getRow() - 1, position.getCol());
         Position option2 = new Position(position.getRow() + 1, position.getCol());
         Position option3 = new Position(position.getRow(), position.getCol() - 1);
@@ -38,13 +36,8 @@ public class RandomMovement implements MovementStrategy{
         int index = rd.nextInt(options.length);
         Position choice = options[index];
 
-        if (env.isPositionFree(choice)) {
+        if (env.isPositionFree(choice))
             return new MoveCommand(entity, choice);
-        }
         return null;
-
-
-
     }
-
 }

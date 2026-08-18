@@ -15,7 +15,7 @@ public interface FeedingBehavior {
      * הפעולה הבסיסית שכל אסטרטגיית אכילה חייבת לממש
      * @param eater החיה שרוצה לאכול עכשיו
      * @param nearby רשימה של כל היצורים שנמצאים קרוב לחיה בסביבה
-     * @return true אם החיה מצאה משהו לאכול והצליחה לבצע את הפעולה
+     * @return פקודת אכילה מוכנה לביצוע בתור הפעולות, או null אם לא נמצאה מטרה מתאימה
      */
     WorldCommand buildEatCommand(Animal eater, List<AbstractEntity> nearby);
 }

@@ -21,8 +21,7 @@ public class EscapeMovement implements MovementStrategy {
      * הפונקציה סורקת את הסביבה ואם היא מוצאת מטרה היא מחשבת מיקום חדש שנמצא בכיוון ההפוך ממנה ומנסה לעבור אליו רק אם הוא פנוי במפה
      * @param entity הישות שמנסה לברוח עכשיו מהאיום
      * @param env העולם שבו הישות בודקת את הסביבה ומבצעת את התנועה בפועל
-     * @return true אם הישות זיהתה מישהו והצליחה להתרחק למשבצת פנויה false אם לא נמצא מישהו לברוח ממנו או שהדרך הייתה חסומה
-     */
+     * @return פקודת תנועה בכיוון ההפוך מהאיום, או null אם לא נמצא איום או שהדרך חסומה*/
 
     @Override
     public WorldCommand buildMoveCommand(AbstractEntity entity, Environment env) {
