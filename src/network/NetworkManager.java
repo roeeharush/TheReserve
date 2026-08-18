@@ -39,9 +39,10 @@ public class NetworkManager {
                             Socket client = server.accept();
                             handleClient(client);
                         } catch (IOException e) {
-                            if (running.get()) {
+                            if (running.get())
                                 logger.warning("Error accepting connection: " + e.getMessage());
-                            }
+                        } catch (Exception e) {
+                            logger.severe("Unexpected error handling client: " + e.getMessage());
                         }
                     }
                 }

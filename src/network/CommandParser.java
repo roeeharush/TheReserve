@@ -16,7 +16,6 @@ public class CommandParser {
                 return new SpawnEntityCommand(type, row, col, energy ,env);
             }
             default:
-                throw new IllegalArgumentException("פקודה לא מוכרת: " + action);
-        }
+                throw new IllegalArgumentException("Unrecognized command: " + action);        }
     }
 }
