@@ -5,7 +5,6 @@ import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
-import ecosystem.interfaces.EdibleByHerbivore;
 import ecosystem.interfaces.Predator;
 
 import java.util.List;
