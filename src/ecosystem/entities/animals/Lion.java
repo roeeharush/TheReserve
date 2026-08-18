@@ -1,12 +1,13 @@
 package ecosystem.entities.animals;
 import ecosystem.behaviors.*;
 import ecosystem.core.Position;
+import ecosystem.interfaces.Predator;
 
 /**
  * מחלקה שמייצגת אריה בעולם האקולוגי שלנו
  * האריה הוא טורף חזק שנמצא בראש שרשרת המזון ורודף אחרי הטרף שלו
  */
-public class Lion extends Animal {
+public class Lion extends Animal implements Predator {
     private static final double MAX_ENERGY = 500;
     private static final double DEFAULT_ENERGY = 100;
 

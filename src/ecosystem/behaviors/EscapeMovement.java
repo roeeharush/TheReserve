@@ -5,14 +5,14 @@ import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.core.Position;
 import ecosystem.entities.AbstractEntity;
-import ecosystem.interfaces.EdibleByCarnivore;
 import ecosystem.interfaces.EdibleByHerbivore;
+import ecosystem.interfaces.Predator;
 
 import java.util.List;
 
 /**
  * מחלקה שמייצגת אסטרטגיה של תנועת בריחה בעולם שלנו
- * הישות מזהה ישויות מסוימות בסביבה הקרובה שלה ומנסה להתרחק מהן כמה שיותר מהר כדי לשמור על עצמה
+ * הישות מזהה טורפים אמיתיים בסביבה הקרובה שלה ומנסה להתרחק מהם כמה שיותר מהר כדי לשמור על עצמה
  */
 public class EscapeMovement implements MovementStrategy {
 
@@ -26,25 +26,37 @@ public class EscapeMovement implements MovementStrategy {
     @Override
     public WorldCommand buildMoveCommand(AbstractEntity entity, Environment env) {
         List<AbstractEntity> nearbyEntities = env.getNearbyEntities(entity.getPosition());
+        Position myPos = entity.getPosition();
+        AbstractEntity closest = null;
+        int minDistance = Integer.MAX_VALUE;
+
         for (AbstractEntity e : nearbyEntities) {
-            if (e instanceof EdibleByCarnivore) {
-                Position myPos = entity.getPosition();
-                Position targetPos = e.getPosition();
-
-                int myRow = myPos.getRow();
-                int myCol = myPos.getCol();
-
-                if (targetPos.getRow() > myPos.getRow()) myRow--;
-                else if (targetPos.getRow() < myPos.getRow()) myRow++;
-                if (targetPos.getCol() > myPos.getCol()) myCol--;
-                else if (targetPos.getCol() < myPos.getCol()) myCol++;
-
-                Position newPos = new Position(myRow, myCol);
-                if (env.isPositionFree(newPos)) {
-                    return new MoveCommand(entity, newPos);
+            if (e instanceof Predator) {
+                int distance = myPos.distanceTo(e.getPosition());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closest = e;
                 }
             }
         }
+        if (closest == null)
+            return null;
+
+        Position targetPos = closest.getPosition();
+        int myRow = myPos.getRow();
+        int myCol = myPos.getCol();
+        if (targetPos.getRow() > myPos.getRow())
+            myRow--;
+        else if (targetPos.getRow() < myPos.getRow())
+            myRow++;
+        if (targetPos.getCol() > myPos.getCol())
+            myCol--;
+        else if (targetPos.getCol() < myPos.getCol())
+            myCol++;
+
+        Position newPos = new Position(myRow, myCol);
+        if (env.isPositionFree(newPos))
+            return new MoveCommand(entity, newPos);
         return null;
     }
 }
