@@ -1,7 +1,5 @@
 package network;
 import ecosystem.core.Environment;
-
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +10,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 
+/**
+ * מחלקה האחראית על ניהול השרת שמאפשר קליטת ישויות חדשות מרשת חיצונית
+ * המחלקה פותחת ServerSocket ברקע, מאזינה לחיבורים נכנסים, מפענחת את ההודעות המתקבלות ומפעילה אותן על המודל המקומי בצורה בטוחה מבחינת תהליכונים
+ */
 public class NetworkManager {
     private static final Logger logger = Logger.getLogger(NetworkManager.class.getName());
     private ServerSocket server;
@@ -21,6 +23,11 @@ public class NetworkManager {
     private Thread listenerThread;
 
 
+    /**
+     * בונה מנהל רשת חדש עבור פורט ועולם סימולציה מסוימים
+     * @param port הפורט שעליו השרת יאזין לחיבורים נכנסים
+     * @param env סביבת העולם שאליה יתווספו ישויות שיתקבלו מהרשת
+     */
     public NetworkManager(int port, Environment env) {
         this.port = port;
         this.env = env;
@@ -28,6 +35,10 @@ public class NetworkManager {
     }
 
 
+    /**
+     * פותחת את השרת ומתחילה תהליכון האזנה עצמאי ברקע לחיבורי לקוחות נכנסים
+     * כל חיבור מתקבל מטופל בנפרד, וכל שגיאה בלתי צפויה נלכדת ונרשמת כדי שהתהליכון לא ימות בשקט
+     */
     public void start() {
         try {
             server = new ServerSocket(port);
@@ -55,6 +66,11 @@ public class NetworkManager {
         }
     }
 
+
+    /**
+     * מטפלת בחיבור לקוח בודד - קוראת הודעה אחת, מפענחת אותה לפקודה, ומריצה אותה על ה-Event Dispatch Thread כדי לשמור על בטיחות עדכוני הממשק הגרפי
+     * @param client חיבור הלקוח שהתקבל מהשרת
+     */
     private void handleClient(Socket client) {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -76,6 +92,10 @@ public class NetworkManager {
         }
     }
 
+
+    /**
+     * עוצרת את השרת בצורה מסודרת - מכבה את דגל הריצה, סוגרת את השקע, ומעירה את תהליכון ההאזנה אם הוא חסום
+     */
     public void stop() {
         running.set(false);
         try {
