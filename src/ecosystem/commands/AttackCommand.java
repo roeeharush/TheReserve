@@ -1,7 +1,5 @@
 package ecosystem.commands;
-
 import ecosystem.core.Environment;
-import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.animals.Animal;
 import ecosystem.interfaces.Consumable;
 import java.util.logging.Logger;
@@ -40,9 +38,8 @@ public class AttackCommand implements WorldCommand{
         if (!target.isAlive())
             return false;
         boolean ate = animal.eat(target);
-        if (ate) {
-            logger.info("Ate: " + animal.getClass().getSimpleName() + " Ate " + ((AbstractEntity) target).getClass().getSimpleName());
-        }
+        if (ate)
+            logger.info("Ate: " + animal.getClass().getSimpleName() + " Ate " + target.getClass().getSimpleName());
         return ate;
     }
 }

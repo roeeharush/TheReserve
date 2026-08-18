@@ -35,7 +35,7 @@ public class MoveCommand implements WorldCommand{
 
     @Override
     public boolean execute(Environment env) {
-        if( newPosition==null || !entity.isAlive())
+        if (entity == null || newPosition == null || !entity.isAlive())
             return false;
         boolean moved = env.moveEntity(entity, newPosition);
         if (moved) {
