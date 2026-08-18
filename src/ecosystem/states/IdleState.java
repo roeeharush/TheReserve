@@ -23,11 +23,10 @@ public class IdleState implements EntityState {
     public void doAction(LivingEntity e, Environment env) {
         e.setEnergy(Math.max(0, e.getEnergy() - 1));
 
-        if (env.isAtCorner(e.getPosition())) {
+        if (env.isAtCorner(e.getPosition()))
             e.setState(new SleepingState());
-        } else if (e.getEnergy() < e.getMaxEnergy() * HUNGRY_THRESHOLD) {
+        else if (e.getEnergy() < e.getMaxEnergy() * HUNGRY_THRESHOLD)
             e.setState(new HungryState());
-        }
     }
 
     /**

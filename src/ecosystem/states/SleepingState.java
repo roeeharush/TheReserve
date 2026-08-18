@@ -26,9 +26,8 @@ public class SleepingState implements EntityState {
         e.setEnergy(Math.min(e.getMaxEnergy(), e.getEnergy() + 2));
         remainingTicks--;
 
-        if (remainingTicks <= 0) {
+        if (remainingTicks <= 0)
             e.setState(new IdleState());
-        }
     }
 
     /**

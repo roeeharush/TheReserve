@@ -23,12 +23,10 @@ public class HungryState implements EntityState {
     public void doAction(LivingEntity e, Environment env) {
         e.setEnergy(Math.max(0, e.getEnergy() - 5));
 
-        if (env.isAtCorner(e.getPosition())) {
+        if (env.isAtCorner(e.getPosition()))
             e.setState(new SleepingState());
-        }
-        else if (e.getEnergy() > e.getMaxEnergy() * IDLE_THRESHOLD) {
+        else if (e.getEnergy() > e.getMaxEnergy() * IDLE_THRESHOLD)
             e.setState(new IdleState());
-        }
     }
 
     /**
