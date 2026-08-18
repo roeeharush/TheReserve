@@ -24,30 +24,39 @@ public class ChaseMovement implements MovementStrategy{
 
     @Override
     public WorldCommand buildMoveCommand(AbstractEntity entity, Environment env) {
-        List<AbstractEntity>  nearbyEntities = env.getNearbyEntities(entity.getPosition());
-        for (AbstractEntity e : nearbyEntities){
-            if (e instanceof EdibleByCarnivore){
-                Position myPos = entity.getPosition();
-                Position targetPos = e.getPosition();
+        List<AbstractEntity> nearbyEntities = env.getNearbyEntities(entity.getPosition());
+        Position myPos = entity.getPosition();
+        AbstractEntity closest = null;
+        int minDistance = Integer.MAX_VALUE;
 
-                int myRow = myPos.getRow();
-                int myCol = myPos.getCol();
-
-                if (targetPos.getRow() > myPos.getRow())
-                    myRow++;
-                else if (targetPos.getRow() < myPos.getRow())
-                    myRow--;
-                if (targetPos.getCol() > myPos.getCol())
-                    myCol++;
-                else if (targetPos.getCol() < myPos.getCol())
-                    myCol--;
-
-                Position newPos = new Position(myRow, myCol);
-                if (env.isPositionFree(newPos))
-                    return new MoveCommand(entity,newPos);
+        for (AbstractEntity e : nearbyEntities) {
+            if (e instanceof EdibleByCarnivore) {
+                int distance = myPos.distanceTo(e.getPosition());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closest = e;
+                }
             }
         }
-        return null;
 
+        if (closest == null)
+            return null;
+
+        Position targetPos = closest.getPosition();
+        int myRow = myPos.getRow();
+        int myCol = myPos.getCol();
+        if (targetPos.getRow() > myPos.getRow())
+            myRow++;
+        else if (targetPos.getRow() < myPos.getRow())
+            myRow--;
+        if (targetPos.getCol() > myPos.getCol())
+            myCol++;
+        else if (targetPos.getCol() < myPos.getCol())
+            myCol--;
+
+        Position newPos = new Position(myRow, myCol);
+        if (env.isPositionFree(newPos))
+            return new MoveCommand(entity, newPos);
+        return null;
     }
 }
