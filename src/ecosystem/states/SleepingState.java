@@ -37,5 +37,6 @@ public class SleepingState implements EntityState {
      * @return false באופן קבוע כדי למנוע מהיצור לבצע תנועה בתור הנוכחי
      */
 
+    @Override
     public boolean canMove() { return false; }
 }

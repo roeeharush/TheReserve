@@ -9,7 +9,7 @@ import ecosystem.entities.LivingEntity;
  * Pattern: State
  */
 
-public interface EntityState  {
+public interface EntityState {
     void doAction(LivingEntity e, Environment env);
     boolean canMove();
 }

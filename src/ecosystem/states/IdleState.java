@@ -1,5 +1,4 @@
 package ecosystem.states;
-
 import ecosystem.core.Environment;
 import ecosystem.entities.LivingEntity;
 
@@ -11,6 +10,7 @@ import ecosystem.entities.LivingEntity;
  */
 
 public class IdleState implements EntityState {
+    private static final double HUNGRY_THRESHOLD = 0.3;
 
     /**
      * מפעילה את לוגיקת ההתנהגות של היצור בזמן מנוחה ומנהלת את מעברי המצבים שלו במערכת
@@ -25,7 +25,7 @@ public class IdleState implements EntityState {
 
         if (env.isAtCorner(e.getPosition())) {
             e.setState(new SleepingState());
-        } else if (e.getEnergy() < e.getMaxEnergy() * 0.3) {
+        } else if (e.getEnergy() < e.getMaxEnergy() * HUNGRY_THRESHOLD) {
             e.setState(new HungryState());
         }
     }
@@ -36,5 +36,6 @@ public class IdleState implements EntityState {
      * @return true באופן קבוע כדי לאפשר ליצור לנוע בתור הנוכחי
      */
 
+    @Override
     public boolean canMove() { return true; }
 }
