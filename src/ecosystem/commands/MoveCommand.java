@@ -43,4 +43,13 @@ public class MoveCommand implements WorldCommand{
         }
         return moved;
     }
+
+
+    /**
+     * מחזירה את המיקום החדש שאליו הפקודה מתכננת להזיז את הישות
+     * @return המיקום היעד של פקודת התנועה
+     */
+    public Position getNewPosition() {
+        return newPosition;
+    }
 }

@@ -29,14 +29,15 @@ public class EntityFactory {
 
     public static AbstractEntity createEntity(String type, Position pos, double initialEnergy) {
         switch (type) {
-            case "Lion"    -> { return new Lion(pos, initialEnergy); }
-            case "Deer"    -> { return new Deer(pos, initialEnergy); }
-            case "Rabbit"  -> { return new Rabbit(pos, initialEnergy); }
-            case "Flower"  -> { return new Flower(pos, initialEnergy); }
+            case "Lion" -> { return new Lion(pos, initialEnergy); }
+            case "Deer" -> { return new Deer(pos, initialEnergy); }
+            case "Rabbit" -> { return new Rabbit(pos, initialEnergy); }
+            case "Flower" -> { return new Flower(pos, initialEnergy); }
             case "OakTree" -> { return new OakTree(pos, initialEnergy); }
-            case "Water"   -> { return new Water(pos); }
-            case "Rock"    -> { return new Rock(pos); }
+            case "Water" -> { return new Water(pos); }
+            case "Rock" -> { return new Rock(pos); }
             default -> throw new IllegalArgumentException("Unknown entity type: " + type);
         }
     }
 }
+
