@@ -8,7 +8,7 @@ import java.awt.*;
  * המחלקה יורשת מחלון גרפי ומאחדת בתוכה את כל הפאנלים השונים כולל המפה הגרפית לוח הבקרה פאנל הסטטיסטיקה ופאנל המידע הצדדי
  */
 
-public class SimulationView extends JFrame  {
+public class SimulationView extends JFrame {
     private final Environment environment;
     private MapPanel mapPanel;
     private ControlPanel controlPanel;

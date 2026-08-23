@@ -53,7 +53,7 @@ public class SimulationController {
      * המתודה מגדירה את התנהגות כפתורי הטיק וההוספה ובנוסף משלבת בין מנגנון השעון הטורי לבין הפעלת ועצירת התהליכונים המקביליים של הישויות ברקע בעת לחיצה על כפתורי הריצה העצירה והאתחול
      */
 
-    public void connectingButtons(){
+    private void connectingButtons(){
         controlPanel.getTickButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
