@@ -1,10 +1,7 @@
 package ecosystem.decorators;
-
-
 import ecosystem.core.Environment;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.LivingEntity;
-import ecosystem.interfaces.Actable;
 
 /**
  * מחלקה המייצגת אפקט האצה דינמי העוטף ישות חיה במערכת

@@ -1,5 +1,4 @@
 package ecosystem.decorators;
-
 import ecosystem.commands.WorldCommand;
 import ecosystem.core.Environment;
 import ecosystem.entities.AbstractEntity;
@@ -24,8 +23,7 @@ public abstract class EntityDecorator extends AbstractEntity implements Actable 
      */
 
     public EntityDecorator(Actable decoratedEntity) {
-        super(
-                ((AbstractEntity) decoratedEntity).getPosition(),
+        super(((AbstractEntity) decoratedEntity).getPosition(),
                 ((AbstractEntity) decoratedEntity).getSymbol(),
                 ((AbstractEntity) decoratedEntity).isAlive()
         );
@@ -82,13 +80,11 @@ public abstract class EntityDecorator extends AbstractEntity implements Actable 
         List<WorldCommand> rawCommands = decoratedEntity.collectCommands(env);
         List<WorldCommand> fixedCommands = new ArrayList<>();
         for (WorldCommand cmd : rawCommands) {
-            if (cmd instanceof MoveCommand move) {
+            if (cmd instanceof MoveCommand move)
                 fixedCommands.add(new MoveCommand(this, move.getNewPosition()));
-            } else {
+            else
                 fixedCommands.add(cmd);
-            }
         }
-
         return fixedCommands;
     }
 

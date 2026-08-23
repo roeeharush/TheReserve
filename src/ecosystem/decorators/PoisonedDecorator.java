@@ -1,8 +1,6 @@
 package ecosystem.decorators;
-
 import ecosystem.core.Environment;
 import ecosystem.entities.LivingEntity;
-import ecosystem.interfaces.Actable;
 
 /**
  * מחלקה המייצגת אפקט רעל דינמי העוטף ישות חיה במערכת
