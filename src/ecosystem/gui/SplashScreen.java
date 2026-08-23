@@ -40,7 +40,7 @@ public class SplashScreen extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new start(SplashScreen.this);
+                new Start(SplashScreen.this);
                 dispose();
             }
         });

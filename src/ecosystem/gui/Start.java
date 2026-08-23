@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * חלון דיאלוג קופץ המשמש כמסך הפתיחה והגדרת המערכת של הסימולציה
  * החלון מאפשר למשתמש לקבוע את ממדי המפה ויוצר את כל רכיבי הליבה והתצוגה הנדרשים להפעלת המשחק
  */
-public class start extends JDialog {
+public class Start extends JDialog {
     private JTextField rowInput;
     private JTextField colInput;
 
@@ -21,16 +21,14 @@ public class start extends JDialog {
      * הבנאי קובע את פריסת הרכיבים מאתחל את שדות הקלט מגדיר גודל קבוע לחלון ומציג אותו במרכז המסך
      * @param parent חלון האב הגרפי שממנו נפתח דיאלוג הפתיחה
      */
-    public start(JFrame parent){
+    public Start(JFrame parent){
         super(parent,"The Reserve", true);
         setLayout(new BorderLayout());
         initComponents();
-        pack();
         setSize(300, 200);
         setResizable(false);
         setLocationRelativeTo(parent);
         setVisible(true);
-
     }
 
 
@@ -38,7 +36,6 @@ public class start extends JDialog {
      * מאתחלת את רכיבי חלון הפתיחה ומגדירה את פעולת כפתור ההתחלה
      * בעת לחיצה על כפתור הסטארט הפונקציה קוראת את גודל המפה מהשדות סוגרת את חלון הפתיחה ומאתחלת את העולם המנוע והבקר הראשי של הסימולציה
      */
-
     private void initComponents() {
         add(new JLabel("Set size of the map  "), BorderLayout.NORTH);
         add(createFieldsPanel(), BorderLayout.CENTER);
@@ -56,7 +53,7 @@ public class start extends JDialog {
                     SimulationView view = new SimulationView(env);
                     new SimulationController(view, view.getControlPanel(), env, engine);
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(start.this, "Enter numbers only");
+                    JOptionPane.showMessageDialog(Start.this, "Enter numbers only");
                 }
             }
         });
@@ -78,15 +75,15 @@ public class start extends JDialog {
         fieldPanel.add(new JLabel("  Col:"));
         colInput = new JTextField();
         fieldPanel.add(colInput);
-
         return fieldPanel;
     }
+
 
     /**
      * קוראת את הטקסט משדה קלט השורות וממירה אותו למספר שלם
      * @return מספר השורות שהמשתמש הזן עבור המפה
      */
-    public int getRows() {
+    private int getRows() {
         return Integer.parseInt(rowInput.getText());
     }
 
@@ -95,7 +92,7 @@ public class start extends JDialog {
      * קוראת את הטקסט משדה קלט העמודות וממירה אותו למספר שלם
      * @return מספר העמודות שהמשתמש הזן עבור המפה
      */
-    public int getCols() {
+    private int getCols() {
         return Integer.parseInt(colInput.getText());
     }
 }
