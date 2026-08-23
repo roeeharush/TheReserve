@@ -1,5 +1,6 @@
 package ecosystem.gui;
 import ecosystem.core.Environment;
+import ecosystem.decorators.EntityDecorator;
 import ecosystem.entities.AbstractEntity;
 import ecosystem.entities.LivingEntity;
 import ecosystem.entities.animals.Deer;
@@ -15,7 +16,6 @@ import java.awt.*;
  * מחלקה שמייצגת פאנל תצוגה גרפי עבור הסטטיסטיקה של העולם בזמן אמת
  * הפאנל עוקב אחר השינויים בסביבה ומציג את כמויות החיות והצמחים את מספר התורות שעברו ואת סך כל האנרגיה הקיימת במערכת
  */
-
 public class StatsPanel extends JPanel implements WorldObserver {
     private final Environment environment;
     private JLabel lionCount;
@@ -32,7 +32,6 @@ public class StatsPanel extends JPanel implements WorldObserver {
      * הבנאי קובע את פריסת התוויות בטור אחד מעצב מסגרת כותרת מתאימה מגדיר צבע רקע אפור בהיר ומאזן את הפאנל כמאזין לשינויים בעולם
      * @param environment סביבת העולם שממנה נאספים הנתונים הסטטיסטיים של הישויות
      */
-
     public StatsPanel(Environment environment) {
         this.environment = environment;
         setLayout(new GridLayout(0, 1));
@@ -42,11 +41,11 @@ public class StatsPanel extends JPanel implements WorldObserver {
         environment.addObserver(this);
     }
 
+
     /**
      * מייצרת את כל תוויות הטקסט הריקות של פאנל הסטטיסטיקה ומכניסה אותן לתצוגה
      * התוויות המאותחלות מיועדות להצגת מוני האוכלוסייה של האריות הצבאים הארנבים הפרחים והאלונים וכן להצגת מוני התורות וסך האנרגיה
      */
-
     private void initLabels() {
         lionCount = new JLabel();
         add(lionCount);
@@ -64,42 +63,47 @@ public class StatsPanel extends JPanel implements WorldObserver {
         add(totalEnergy);
     }
 
+
     /**
      * מתודת עדכון שמופעלת אוטומטית בכל פעם שחל שינוי בעולם האקולוגי
      * המתודה סורקת את כל הישויות במפה ומבצעת פירוק דינמי של מעטפות דקורטורים כדי להגיע לישויות המקוריות ובכך מבטיחה ספירה מדויקת של מוני האוכלוסיות וחישוב עקבי של סך כל האנרגיה במערכת גם עבור יצורים מואצים או מורעלים
      */
-
     @Override
     public void onWorldChanged() {
-        int lions = 0;
-        int deers = 0;
-        int rabbit = 0;
-        int flower = 0;
-        int oaktree = 0;
-        double energy =0;
+        SwingUtilities.invokeLater(() -> {
+            int lions = 0;
+            int deers = 0;
+            int rabbit = 0;
+            int flower = 0;
+            int oaktree = 0;
+            double energy = 0;
 
-        for(AbstractEntity entity : environment.getEntities()){
-            if(entity instanceof LivingEntity living)
-                 energy += living.getEnergy();
+            for (AbstractEntity entity : environment.getEntities()) {
+                Object effective = entity;
+                if (entity instanceof EntityDecorator decorator)
+                    effective = decorator.getDecoratedEntity();
 
-            if(entity instanceof Lion)
-                lions++;
-            else if(entity instanceof Deer)
-                deers++;
-            else if(entity instanceof Rabbit)
-                rabbit++;
-            else if(entity instanceof Flower)
-                flower++;
-            else if(entity instanceof OakTree)
-                oaktree++;
-        }
+                if (effective instanceof LivingEntity living)
+                    energy += living.getEnergy();
+                if (effective instanceof Lion)
+                    lions++;
+                if (effective instanceof Deer)
+                    deers++;
+                if (effective instanceof Rabbit)
+                    rabbit++;
+                if (effective instanceof Flower)
+                    flower++;
+                if (effective instanceof OakTree)
+                    oaktree++;
+            }
 
-        lionCount.setText("LION:" + lions);
-        deerCount.setText("DEER:" + deers);
-        rabbitCount.setText("RABBIT:" + rabbit);
-        flowerCount.setText("FLOWER:" + flower);
-        oakTreeCount.setText("OAKTREE:" + oaktree);
-        tickCount.setText("⏱:" + environment.getTicks());
-        totalEnergy.setText("⚡:" + energy);
+            lionCount.setText("LION:" + lions);
+            deerCount.setText("DEER:" + deers);
+            rabbitCount.setText("RABBIT:" + rabbit);
+            flowerCount.setText("FLOWER:" + flower);
+            oakTreeCount.setText("OAKTREE:" + oaktree);
+            tickCount.setText("⏱:" + environment.getTicks());
+            totalEnergy.setText("⚡:" + energy);
+        });
     }
 }

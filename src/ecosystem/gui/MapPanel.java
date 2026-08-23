@@ -5,14 +5,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import static ecosystem.gui.ImageLoader.getImage;
+
 
 /**
  * מחלקה שמייצגת את לוח התצוגה הגרפי של המפה בסימולציה
  * הפאנל מציג רשת משבצות של העולם ומעדכן את עצמו באופן אוטומטי בכל פעם שחל שינוי בסביבה האקולוגית
  */
-
 public class MapPanel extends JPanel implements WorldObserver  {
     private final Environment environment;
     private final int rows;
@@ -44,11 +43,11 @@ public class MapPanel extends JPanel implements WorldObserver  {
         environment.addObserver(this);
     }
 
+
     /**
      * מייצרת ומאכלסת את רשת המשבצות הגרפית של המפה ומצמידה מאזיני לחיצה דינמיים
      * המתודה עוברת בלולאה על כל המשבצות במפה מתאימה לכל משבצת את האייקון המעודכן שלה ומצמידה מאזין לחיצה השולף את הישות ישירות מתוך המודל בזמן אמת כדי להבטיח תצוגה עקבית של האפקטים והדקורטורים החדשים שהוחלו
      */
-
     private void buildGrid() {
         for (int i=0 ; i< rows ; i++) {
             for (int j = 0; j < cols; j++) {
@@ -85,11 +84,11 @@ public class MapPanel extends JPanel implements WorldObserver  {
         }
     }
 
+
     /**
      * מתודת עדכון שמופעלת באופן אוטומטי כאשר חל שינוי כלשהו במודל של העולם
      * המתודה מבצעת את רענון המפה והרכיבים הגרפיים בצורה בטוחה על גבי ה-Event Dispatch Thread של Swing כדי למנוע Race Conditions או קריסות תצוגה הנובעות מכך שהסימולציה והישויות רצות ומעדכנות את המידע מתוך תהליכונים עצמאיים ומקבילים ברקע
      */
-
     @Override
     public void onWorldChanged() {
         SwingUtilities.invokeLater(new Runnable() {
