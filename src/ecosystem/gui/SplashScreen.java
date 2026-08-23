@@ -10,24 +10,20 @@ import java.awt.event.ActionListener;
  * החלון מציג תמונת רקע חגיגית וכפתור כניסה ומספק למשתמש את נקודת המפגש הראשונית עם הסימולציה לפני הגדרת המפה
  */
 public class SplashScreen extends JFrame {
-    private ImageIcon splashImage;
-    private JButton startButton;
-
 
     /**
      * בונה ומציג את חלון מסך הפתיחה של הסימולציה
      * הבנאי קובע את כותרת חלון המשחק מונע אפשרות לשינוי הגודל מאתחל את התמונה והכפתורים ומציג את החלון במרכז המסך עם הגדרת סגירה מלאה של האפליקציה
      */
     public SplashScreen(){
-        super("WELCOME TO OUR GAME!");
-        setLayout(  new BorderLayout());
+        super("Welcome to The Reserve!");
+        setLayout(new BorderLayout());
         setResizable(false);
         initComponents();
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
     }
 
     /**
@@ -36,11 +32,11 @@ public class SplashScreen extends JFrame {
      */
 
     private void initComponents() {
-        splashImage = ImageLoader.getImage("start");
+        ImageIcon splashImage = ImageLoader.getImage("start");
         JLabel imageLabel = new JLabel(splashImage);
         add(imageLabel, BorderLayout.CENTER);
 
-        startButton = new JButton("START");
+        JButton startButton = new JButton("START");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
