@@ -2,7 +2,7 @@
 
 A multithreaded, network-enabled ecological simulation built in **Java (Swing)**, modeling predator-prey dynamics, plant growth, dynamic status effects, and real-time visualization on a 2D grid world.
 
-This project began as a series of academic assignments and was subsequently refactored into a portfolio-quality codebase through an extensive, iterative code review process, with a strong emphasis on clean object-oriented design, thread safety, and correct application of classic design patterns.
+This project was built with a strong emphasis on clean object-oriented design, thread safety, and correct application of classic design patterns, refined through an extensive, iterative code review process.
 
 ---
 
@@ -241,4 +241,3 @@ This project was used as a deep-dive learning exercise in:
 ## 👤 Author
 
 **Roee Harush**
-*This README and the accompanying code review process were developed as an extra, self-directed effort beyond the original course requirements, to prepare this project as a professional portfolio piece.*
